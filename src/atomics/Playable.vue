@@ -1,0 +1,66 @@
+<template>
+  <button v-if="track || video" @click.prevent.stop="toggle" class="px-2 rounded hover:text-slate hover:bg-gray-200 hover:bg-opacity-50" :class="isPlaying ? 'bg-gray-200 bg-opacity-50 text-gray-800': 'hover-play'" :title="isPlaying ? 'Pause' : 'Play'">
+    <i :class="[iconClass, isPlaying ? 'fa-pause' : icon]"></i>
+  </button>
+  <i v-else :class="[iconClass, icon]"></i>
+</template>
+
+<script>
+export default {
+  props: {
+    track: [Object, Boolean],
+    video: [Object, Boolean],
+    iconClass: {
+      type: String,
+      default: 'fal'
+    },
+    icon: {
+      type: String,
+      default: 'fa-play'
+    }
+  },
+  computed: {
+    isCurrent () {
+      let src = this.track || this.video
+      return src
+          && this.$store.playing
+          && src.url === this.$store.playing.url
+    },
+    isPlaying () {
+      return this.isCurrent && ! this.$store.playing.paused
+    }
+  },
+  methods: {
+    toggle () {
+      let src = this.track || this.video
+      if (src) {
+        if (! this.isCurrent) {
+          this.$store.playlist = {
+            ...src,
+          }
+        } else {
+          this.$set(this.$store.playing, 'paused', this.isPlaying)
+        }
+      }
+    },
+  }
+}
+</script>
+
+<style lang="scss">
+.hover-play:hover {
+  transition: .2s all;
+  i {
+    &:before {
+     content: "\f04b" !important;
+    }
+    &:after {
+      content: unset;
+    }
+    &.fad:after {
+      content: '\f04b';
+      opacity: 0;
+    }
+  }
+}
+</style>

@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+
+@import './assets/scss/post_content.scss';
+
+@tailwind utilities;
+
+:root {
+  --primary: #FFAE0C;
+  --primary-light: black;
+  --secondary: #4A75D1;
+  --secondary-alt: white;
+  --slate-lighter: #edf1fa;
+  --slate-light: #9ca6be;
+  --slate: #606f94;
+  --slate-dark: #384156;
+  --white: #fff;
+  --black: #212236;
+
+  --plyr-color-main: var(--secondary);
+  --plyr-audio-controls-background: transparent;
+  --plyr-range-track-height: 8px;
+  --plyr-audio-progress-buffered-background: var(--slate-dark);
+  --plyr-video-progress-buffered-background: var(--slate-dark);
+  --plyr-video-progress-buffered-background: var(--slate);
+  --plyr-range-fill-background: var(--secondary);
+  --plyr-audio-control-color: var(--slate);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: 0.4s all ease-in;
+  transform: scale(1);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-100 border-4 border-solid border-secondary w-1/3 rounded-xl;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-300;
+}
+
+
+html, body {
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased!important;
+  -moz-osx-font-smoothing: grayscale!important;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent; /* for removing the highlight */
+  @apply font-sans;
+}
+
+@screen mmd {
+  body::-webkit-scrollbar { width: 0 !important }
+  body { overflow: -moz-scrollbars-none; -ms-overflow-style: none; }
+}
+
+button:focus, a:focus, input:focus {
+  outline: none !important;
+}
+.block-with-text {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.4em;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: break-spaces;
+  height: 6em;
+}
+.lines-2 {
+  height: 3em;
+}
+.lines-3 {
+  height: 4.5em;
+}
+.lines-6 {
+  height: 9em;
+}
+
+.linehover {
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    width: 0px;
+    height: 2px;
+    margin: 2px 0 0;
+    transition-property: opacity, width;
+    transition-duration: .4s;
+    transition-timing-function: ease-in-out;
+    opacity: 0;
+    background-color: var(--primary);
+  }
+  &.to-right {
+    &:before,
+    &:after {
+      left: 0;
+    }
+  }
+  &.to-left {
+    &:before,
+    &:after {
+      right: 0;
+    }
+  }
+  &.out {
+    &:before {
+      left: 50%;
+    }
+    &:after {
+      right: 50%;
+    }
+  }
+  &.in {
+    &:before {
+      left: 0;
+    }
+    &:after {
+      right: 0;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    &:before,
+    &:after {
+      width: 100%;
+      opacity: 1;
+    }
+    &.out,
+    &.in {
+      &:before,
+      &:after {
+        width: 50%;
+      }
+    }
+  }
+}
+
+.preAnd:before {
+  content: '&';
+  margin: 0 1em;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s linear;
+  opacity: 1;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.collapse-enter-active, .collapse-leave-active {
+  transition: all .2s linear;
+  opacity: 1;
+  max-height: 200px;
+}
+
+.collapse-enter, .collapse-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-duration: .4s;
+  transition-property: transform;
+  overflow: hidden;
+}
+
+.slide-left-enter-active, .slide-right-enter-active {
+  transform: translateX(0);
+}
+
+.slide-left-enter,
+.slide-right-leave {
+  transform: translateX(100%);
+}
+
+.slide-left-leave,
+.slide-right-enter {
+  transform: translateX(-100%);
+}
+
+.slide-from-right {
+  opacity: 0;
+  animation: 1s ease-in-out 1s slideInFromRight forwards;
+}
+.slide-from-left {
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: 1s ease-in-out 1.6s slideInFromLeft forwards;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}

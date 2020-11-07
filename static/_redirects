@@ -1,0 +1,44 @@
+/samarbeidsavtale       /vilkar/samarbeidsavtale
+/bestill-hokas-free     /join-equity
+/login                  /kundeportal
+/dk/begynd/prov-gratis  /join-equity
+
+/esp/rapport https://platform.espcreditmanagement.com/ 301!
+
+http://equityfinance.no/* https://equity.no/:splat 301!
+https://equityfinance.no/* https://equity.no/:splat 301!
+https://www.equityfinance.no/* https://equity.no/:splat 301!
+
+http://equitycredit.no/* https://equity.no/:splat 301!
+https://equitycredit.no/* https://equity.no/:splat 301!
+https://www.equitycredit.no/* https://equity.no/:splat 301!
+
+http://equitycollection.no/* https://equity.no/:splat 301!
+https://equitycollection.no/* https://equity.no/:splat 301!
+https://www.equitycollection.no/* https://equity.no/:splat 301!
+
+http://equitycreditmanagement.no/* https://equity.no/:splat 301!
+https://equitycreditmanagement.no/* https://equity.no/:splat 301!
+https://www.equitycreditmanagement.no/* https://equity.no/:splat 301!
+
+http://equitycredit.dk/* https://equity.no/dk/:splat 301!
+https://equitycredit.dk/* https://equity.no/dk/:splat 301!
+https://www.equitycredit.dk/* https://equity.no/dk/:splat 301!
+
+http://equitycreditmanagement.com/* https://equity.no/en/:splat 301!
+https://equitycreditmanagement.com/* https://equity.no/en/:splat 301!
+https://www.equitycreditmanagement.com/* https://equity.no/en/:splat 301!
+
+http://equity.credit/* https://equity.no/en/:splat 301!
+https://equity.credit/* https://equity.no/en/:splat 301!
+https://www.equity.credit/* https://equity.no/en/:splat 301!
+
+
+http://hokas.com/* https://equity.no/en/:splat 301!
+https://hokas.com/* https://equity.no/en/:splat 301!
+https://www.hokas.com/* https://equity.no/en/:splat 301!
+
+
+http://hokas.co.uk/* https://equity.no/en/:splat 301!
+https://hokas.co.uk/* https://equity.no/en/:splat 301!
+https://www.hokas.co.uk/* https://equity.no/en/:splat 301!

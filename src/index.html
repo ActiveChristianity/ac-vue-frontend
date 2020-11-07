@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ${htmlAttrs}>
+  <head>
+    ${head}
+    <style>
+      html {
+        background-color: #FFAE0C;
+        background-image: url('/outline.svg');
+        background-position: center;
+        background-size: auto 50%;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 100vh;
+      }
+      body { background: white; transition: .1s opacity ease-in .1s; opacity: 0; }
+      body.ready { opacity: 1; }
+    </style>
+  </head>
+  <body ${bodyAttrs}>
+    ${app}
+    ${scripts}
+  </body>
+</html>

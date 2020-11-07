@@ -1,0 +1,6 @@
+[submodule "src/dxml"]
+	path = src/dxml
+	url = git@bitbucket.org:day4/dxml-editor.git
+[submodule "api_sdk"]
+	path = api_sdk
+	url = git@bitbucket.org:activechristianitydevteam/ac-api_sdk.git

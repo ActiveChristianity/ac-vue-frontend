@@ -1,0 +1,15 @@
+src/strings.json
+
+*.log
+.cache
+.DS_Store
+src/.temp
+node_modules
+dist
+.env
+.env.*
+
+.idea
+.vscode
+
+.now

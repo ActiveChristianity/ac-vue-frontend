@@ -1,0 +1,88 @@
+.post_content {
+  ol, p, ul {
+    font-weight: 300;
+    font-size: 1rem;
+    font-family: Merriweather,-apple-system,BlinkMacSystemFont,serif;
+    line-height: 1.75rem;
+    letter-spacing: .025em;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  p:empty {
+    padding-top: 1em;
+  }
+
+  a {
+    color: var(--secondary);
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Source Sans Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  h2 {
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 1.5;
+    font-weight: 600;
+    margin-top: 2rem;
+  }
+
+  @screen md {
+    div, ol, p, ul {
+      font-size: 1.125rem;
+      line-height: 2rem;
+    }
+  }
+}
+
+.post_content, .ProseMirror {
+  >blockquote {
+    margin: 2.4em auto;
+    >p {
+      @apply text-4xl block font-sans text-center;
+
+      @screen md {
+        @apply text-6xl;
+      }
+    }
+  }
+  >p {
+    a {
+      @apply border-b-2 border-primary;
+      &:hover {
+        @apply text-primary;
+      }
+    }
+  }
+  >figure, >.figure {
+    img {
+      width: 100%;
+    }
+  }
+
+  >ol {
+    list-style: decimal;
+    li {
+      @apply pl-6 my-4;
+    }
+  }
+
+  >ul {
+    list-style: none;
+    li {
+      @apply pl-6 my-4;
+      &::before {
+        content: "▪️";
+        float: left;
+        width: 1em;
+        margin-top: 0.2em;
+        margin-left: -1.5em;
+      }
+    }
+  }
+}
