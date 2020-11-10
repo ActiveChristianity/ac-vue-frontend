@@ -3,7 +3,8 @@
     <div class="flex items-center justify-between border-b mx-2">
       <h3 class="text-lg"><slot /></h3>
       <g-link v-if="to" :to="to"
-        class="text-blue-600 text-sm align-middle py-1 px-2 rounded hover:bg-gray-200">{{ $t[text] }} <i class="ml-2 fad fa-chevron-right"></i>
+        class="text-blue-600 text-sm align-middle py-1 px-2 rounded hover:bg-gray-200">{{ $t[text] }}
+        <icon class="ml-2" fa name="fad-chevron-right" />
       </g-link>
     </div>
   </div>

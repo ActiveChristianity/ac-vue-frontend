@@ -95,6 +95,7 @@ function saveFile(folder, name, extension, data) {
 
 const lang_locale = {
   "en": "en_US",
+  "en_ke": "en_US",
   "es": "es_ES",
   "fr": "fr_FR",
   "fi": "fi",

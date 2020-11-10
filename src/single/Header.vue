@@ -1,36 +1,39 @@
 <template>
-  <header class="bg-white">
-    <div id="topbar" class="items-center justify-between border-b border-gray-200 hidden px-4 md:flex">
+  <header class="bg-white" :class="$store.showSearch ? 'pb-12' : ''">
+    <div id="topbar" class="items-center justify-between border-b border-gray-200 hidden px-4 h-10 md:flex">
       <div id="topbar-left" class="text-gray-500 text-sm font-light tracking-wide">
-        <a class="p-2 inline-block hover:text-gray-900" href="bcc.no">Brunstad Christian Chruch <icon class="ml-1" name="fal-external-link-alt"/></a>
+        <a class="p-2 inline-block hover:text-gray-900" href="https://bcc.africa">BCC South Africa <icon name="fal-external-link-alt" fa class="ml-1 " /></a>
       </div>
       <div id="topbar-right" class="flex text-gray-500 text-sm px-2">
         <!--button aria-label="login" class="font-light tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Login</button>
         <button aria-label="register" class="font-light tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Register</button-->
-        <button aria-label="contact" class="font-light tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Contact</button>
-        <span class="my-2 border-l border-gray-200"></span>
-        <select aria-label="Select Language" class="cursor-pointer my-1 py-1 px-2 font-light tracking-wide hover:bg-gray-200">
-          <option>English</option>
-        </select>
+        <g-link to="/contact-us" class="font-light tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Contact</g-link>
       </div>
     </div>
 
-    <div id="headbar" class="flex items-center justify-between border-b border-gray-200 px-4">
+    <div id="headbar" class="bg-white flex items-center justify-between border-b border-gray-200 pl-1 pr-4 md:px-4 h-12"
+      :class="$store.showSearch ? 'fixed top-0 inset-x-0 md:mt-10 z-50' : ''"
+    >
       <g-link to="/" id="headbar-left" class="p-3 h-12 text-4xl">
-        <Icon name="logo" class="md:block h-full object-fit text-primary" />
+        <icon name="logo" class="h-full object-fit text-primary md:block" :class="{hidden: $store.showSearch}" />
+        <icon name="icon" class="h-full object-fit text-primary" :class="$store.showSearch ? 'block md:hidden' : 'hidden'" />
       </g-link>
-      <div id="headbar-center" class="justify-center text-gray-800 text-md font-light tracking-wide hidden md:flex">
-        <g-link to="/topics" class="headbar-center-link">Topics</g-link>
-        <a to="/search" class="headbar-center-link">Explore</a>
-      </div>
-      <template name="fade">
-        <search v-if="openSearch" @close="openSearch = false" />
-      </template>
-      <div id="headbar-right" class="flex text-gray-800 text-md">
-        <button aria-label="search" @click="openSearch = ! openSearch" class="rounded m-1 py-1 px-2 hover:bg-gray-200"><i class="fal fa-search"></i></button>
-        <button aria-label="menu" class="rounded m-1 py-1 px-2 hover:bg-gray-200"><i class="fal fa-bars"></i></button>
+
+      <search v-if="$store.showSearch !== null" :show="$store.showSearch" @close="$store.showSearch = false" />
+
+      <div id="headbar-right" class="hidden md:flex text-gray-800 text-md">
+        <button aria-label="search" @click="$store.showSearch = ! $store.showSearch" class="rounded m-1 py-1 px-2 hover:bg-gray-200">
+          <icon name="fal-search" fa />
+        </button>
+        <button aria-label="bookmarks" @click="$store.showBookmarks = ! $store.showBookmarks" class="rounded m-1 py-1 px-2 hover:bg-gray-200 hover:text-secondary">
+          <icon :name="`${Object.keys($store.bookmarks).length ? 'fad' : 'fal'}-bookmark`" fa />
+        </button>
+        <span class="border-l border-gray-200"></span>
+        <g-link to="/topics" title="topics" class="text-gray-800 text-md font-light tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">Topics</g-link>
       </div>
     </div>
+
+    <bookmarks v-if="$store.showBookmarks !== null" :show="$store.showBookmarks" @close="$store.showBookmarks = false" />
   </header>
 </template>
 
@@ -47,12 +50,12 @@ query FooterInfo {
 export default {
   name: "Header",
   components: {
-    search: () => import('./Search')
+    search: () => import('./Search'),
+    bookmarks: () => import('./Bookmarks'),
   },
   data() {
     return {
-      menuOpen: false,
-      openSearch: false,
+      menuOpen: null,
     }
   },
   methods: {

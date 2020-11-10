@@ -1,8 +1,9 @@
 <template>
-  <main class="relative">
-    <div :html="page.content"></div>
-    <g-link v-if="$store.loggedIn" class="fixed bottom-0 left-0 z-50 m-4 py-1 px-2 text-white bg-blue-800 font-medium text-sm rounded shadow"
-            :to="`/editor?type=page&id=${page.id}&lang=${$store.locale}`">Open Editor</g-link>
+  <main class="content-lg my-12">
+    <h1 class="fade-in text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight">{{ page.title }}</h1>
+    <template v-for="({ type, data }) in content">
+      <div v-if="type === 'text'" v-html="data.content" class="post_content py-8"></div>
+    </template>
   </main>
 </template>
 
@@ -11,9 +12,12 @@ query Page ($id: ID!) {
   ql {
     page(id: $id) {
       id
-      path
       title
-      content
+      flexibleContent
+      seo {
+        title
+        desc
+      }
     }
   }
 }
@@ -23,11 +27,11 @@ query Page ($id: ID!) {
 export default {
   metaInfo() {
     if (!this.$page) return null
-    const { title, excerpt } = this.$page.ql.page
+    const { title, seo } = this.$page.ql.page
     return {
-      title,
+      title: seo.title || title,
       meta: [
-        { key: 'description', name: 'description', content: excerpt }
+        { key: 'description', name: 'description', content: (seo.desc || title) }
       ]
     }
   },
@@ -37,8 +41,11 @@ export default {
     }, 50)
   },
   computed: {
-    page() {
+    page () {
       return this.$page.ql.page
+    },
+    content () {
+      return this.page.flexibleContent ? JSON.parse(this.page.flexibleContent) : null
     }
   }
 }

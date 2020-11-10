@@ -55,50 +55,50 @@ const plugins = [
 
 if (process.env.NODE_ENV === 'production') {
   plugins.push(
-      {
-        use: 'gridsome-plugin-robots-txt',
-        options: {
-          policy: [{
-            userAgent: "*",
-            allow: "/",
-            disallow: "/editor"
-          }]
-        }
-      },
-      {
-        use: "gridsome-plugin-manifest",
-        options: {
-          background_color: "#000000",
-          icon_path: 'src/favicon.png',
-          name: "ActiveChristianity",
-          short_name: "AC",
-          theme_color: "#FFAE0C",
-          lang: "en",
-        },
-      },
-      {
-        use: '@gridsome/plugin-sitemap',
-        options: {
-          cacheTime: 600000,
-          exclude: ['/editor'],
-        }
-      },
-      {
-        use: "gridsome-plugin-service-worker",
-        options: {
-          staleWhileRevalidate: {
-            cacheName: "nf-v2",
-            fileTypes: [
-              "document",
-              "audio",
-              "font",
-              "image",
-              "script",
-              "style",
-            ],
-          },
-        },
+    {
+      use: 'gridsome-plugin-robots-txt',
+      options: {
+        policy: [{
+          userAgent: "*",
+          allow: "/",
+          disallow: "/editor"
+        }]
       }
+    },
+    {
+      use: "gridsome-plugin-manifest",
+      options: {
+        background_color: "#000000",
+        icon_path: 'src/favicon.png',
+        name: "ActiveChristianity",
+        short_name: "AC",
+        theme_color: "#FFAE0C",
+        lang: "en",
+      },
+    },
+    {
+      use: '@gridsome/plugin-sitemap',
+      options: {
+        cacheTime: 600000,
+        exclude: ['/editor'],
+      }
+    },
+    {
+      use: "gridsome-plugin-service-worker",
+      options: {
+        staleWhileRevalidate: {
+          cacheName: "nf-v2",
+          fileTypes: [
+            "document",
+            "audio",
+            "font",
+            "image",
+            "script",
+            "style",
+          ],
+        },
+      },
+    }
   )
 }
 

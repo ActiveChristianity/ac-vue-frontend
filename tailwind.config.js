@@ -17,10 +17,10 @@ module.exports = {
     extend: {
       screens: {
         // => @media (max-width: Xpx) { ... }
-        'msm': {'max': '640px'},
-        'mmd': {'max': '960px'},
-        'mlg': {'max': '1280px'},
-        'mxl': {'max': '1440'},
+        'msm': {'max': '639px'},
+        'mmd': {'max': '767px'},
+        'mlg': {'max': '1023px'},
+        'mxl': {'max': '1279px'},
       },
       colors: {
         'primary': 'var(--primary)',
@@ -62,13 +62,13 @@ module.exports = {
   },
   variants: {},
   plugins: [
-    plugin(function ({ addUtilities, addComponents }) {
-      const newUtilities = {
-        '.wide': {
-          '@apply relative w-full pb-16/9 bg-center bg-cover': {},
-        },
+    plugin(function({ addUtilities }) {
+      const contentUtilities = {
         '.content': {
           '@apply w-11/12 max-w-screen-xl mx-auto': {},
+          '.content': {
+            '@apply w-full': {},
+          }
         },
         '.content-lg': {
           '@apply w-full max-w-screen-lg mx-auto px-8': {},
@@ -76,6 +76,18 @@ module.exports = {
         '.content-md': {
           '@apply w-full max-w-screen-md mx-auto px-8': {},
         },
+      }
+
+      addUtilities(contentUtilities, {
+        variants: ['responsive'],
+      })
+    }),
+    plugin(function ({ addUtilities, addComponents }) {
+      const newUtilities = {
+        '.wide': {
+          '@apply relative w-full pb-16/9 bg-center bg-cover': {},
+        },
+
         '.center': {
           '@apply flex items-center justify-center': {},
         },
@@ -105,9 +117,47 @@ module.exports = {
             '@apply text-black underline': {},
           },
         },
+
+        '.column-layout': {
+          'column-count': 1,
+          'column-gap': '1rem',
+          '@screen sm': {
+            'column-count': 2,
+            'column-gap': '1rem',
+          },
+          '@screen md': {
+            'column-count': 3,
+            'column-gap': '2rem',
+          },
+          '@screen lg': {
+            'column-count': 3,
+            'column-gap': '3rem',
+          },
+          '@screen xl': {
+            'column-count': 4,
+            'column-gap': '4rem',
+          }
+        }
       }
 
       addComponents(comps)
+    }),
+    plugin(function({ addUtilities }) {
+      const breakUtilities = {
+        '.avoid-before': {
+          'break-before': 'avoid'
+        },
+        '.avoid-inside': {
+          'break-inside': 'avoid'
+        },
+        '.avoid-after': {
+          'break-after': 'avoid'
+        },
+      }
+
+      addUtilities(breakUtilities, {
+        variants: ['responsive'],
+      })
     }),
   ],
   corePlugins: {

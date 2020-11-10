@@ -1,5 +1,5 @@
 export default function(Vue) {
-  const store = Vue.observable({
+  Vue.prototype.$store = Vue.observable({
     locale: process.env.GRIDSOME_LOCALE,
     page: null,
     loggedIn: false,
@@ -9,6 +9,7 @@ export default function(Vue) {
     fadeIn: false,
     showTopBar: true,
     bookmarks: {},
+    showBookmarks: null,
+    showSearch: null,
   })
-  Vue.prototype.$store = store
 }

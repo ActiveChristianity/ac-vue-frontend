@@ -16,7 +16,7 @@ function gqlFetch(query) {
     }),
     headers: {
       'Content-Type': 'application/json',
-      'User-Agent': 'Gridsome/0.7 (Netlify)',
+      'User-Agent': 'Gridsome/0.7 (Building)',
       'x-lang': process.env.GRIDSOME_LOCALE
     }
   }).then(res => res.json()).then(({data}) => data);
@@ -33,8 +33,7 @@ module.exports = function (api) {
     new Array(
       'title','slogan','contact_email','contact_tel','social',
       'header_links','top_text','top_link',
-      'cookie','cookie_page_id',
-      'terms_id'
+      'cookie','cookie_page_id','privacy_page_id',
     ).forEach(k => addMetadata(k, ''))
 
     if (settings) {
@@ -43,6 +42,20 @@ module.exports = function (api) {
         addMetadata(s.key, s.value)
       })
     } else console.log('No setttings!!!')
+
+
+    const { cookiePage, privacyPage } = await gqlFetch(`query {
+  cookiePage: page(id: ${metadata.cookie_page_id}) { path } 
+  privacyPage: page(id: ${metadata.privacy_page_id}) { path }
+}`)
+
+    if (cookiePage) {
+      addMetadata('cookie_page_path', cookiePage.path)
+    }
+    if (privacyPage) {
+      addMetadata('privacy_page_path', privacyPage.path)
+    }
+
   })
 
   api.createManagedPages(async ({ graphql, createPage }) => {
@@ -70,25 +83,22 @@ module.exports = function (api) {
     })
 
     const { data: {
-      ql: { allTopics }
+      ql: { topics }
     }} = await graphql(`{
       ql {
-        allTopics {
+        topics(hasPosts: true) {
           id
           slug
-          noOfPosts
         }
       }
     }`)
 
-    allTopics.forEach(topic => {
-      if (topic.noOfPosts > 0) {
-        createPage({
-          path: `/${strings.slug_topic}/${topic.slug}`,
-          component: './src/templates/Topic.vue',
-          context: {id: topic.id}
-        })
-      }
+    topics.forEach(topic => {
+      createPage({
+        path: `/${strings.slug_topic}/${topic.slug}`,
+        component: './src/templates/Topic.vue',
+        context: {id: topic.id}
+      })
     })
 
     const { data: {
@@ -103,11 +113,11 @@ module.exports = function (api) {
     }`)
 
     allPages.forEach(page => {
-      if (page.path !== '/') {
+      if (page.path && page.path !== '/') {
         createPage({
           path: page.path,
           component: './src/templates/Page.vue',
-          context: { id: page.id }
+          context: page
         })
       }
     })
@@ -153,7 +163,7 @@ module.exports = function (api) {
       form.fields = form.fields ? JSON.parse(form.fields) : [];
       form.terms = form.terms ? JSON.parse(form.terms) : [];
       createPage({
-        path: `/_/${form.slug}`,
+        path: `/${form.slug}`,
         component: './src/templates/Form.vue',
         context: form
       })

@@ -13,3 +13,8 @@ dist
 .vscode
 
 .now
+.vercel
+
+static/assets
+static/manifest.json
+static/service-worker.js

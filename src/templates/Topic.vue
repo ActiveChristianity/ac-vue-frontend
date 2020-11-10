@@ -1,10 +1,10 @@
 <template>
-  <main class="content">
-    <div class="fade-in pt-12 md:pt-24">
+  <main class="content py-12 md:py-16">
+    <div class="fade-in">
       <h1 class="text-3xl text-blue-900 md:text-4xl font-medium leading-tight mb-8">{{ topic.name }}</h1>
 
       <div id="archive-banner" class="my-4 md:flex md:items-stretch md:mb-16">
-        <article-cover v-if="first" :article="first" class="flex-1 md:mr-4" />
+        <article-cover v-if="first" :article="first" class="flex-1 md:mr-4" style="min-height: 400px"/>
 
         <sidebar-list v-if="popular && popular.length" class="md:w-1/3 hidden md:flex flex-col"
           title="Popular" :posts="popular" />
@@ -27,25 +27,6 @@
 </template>
 
 <page-query>
-fragment PostItem on ql_Post {
-  id
-  title
-  type
-  excerpt
-  slug
-  readtime
-  track {
-    title
-    url
-  }
-  topics(group_id: 4) {
-    name
-    slug
-  }
-  image { src alt dataUri size { width height } focal }
-  authors { name }
-  views
-}
 query Topic ($id: ID!) {
   ql {
     topic(id: $id) {
@@ -53,11 +34,32 @@ query Topic ($id: ID!) {
       name
       popular: somePosts(first: 5, orderBy: {column: VIEWS, order: DESC}) {
         data {
-          ...PostItem
+          id
+          title
+          type
+          slug
+          readtime
+          views
         }
       }
       posts {
-        ...PostItem
+        id
+        title
+        type
+        excerpt
+        slug
+        readtime
+        track {
+          title
+          url
+        }
+        topics(group_id: 4) {
+          name
+          slug
+        }
+        image { src alt dataUri size { width height } focal }
+        authors { name }
+        views
       }
     }
   }

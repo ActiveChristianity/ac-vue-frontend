@@ -3,10 +3,13 @@
     <heading>{{ title }}</heading>
     <div class="md:content w-full overflow-x-scroll md:overflow-hidden flex items-stretch md:flex-wrap scroll-snap-x p-4">
       <template v-for="article in coverArticles">
-        <article-cover-card :prefix="$typePrefix(article.type)" :key="article.id" :article="article" />
+        <article-cover-card :prefix="$typePrefix(article.type)" :key="article.id"
+                            :article="article"
+                            class="w-11/12 md:w-1/2 lg:w-1/4"
+        />
       </template>
       <template v-for="article in cardArticles">
-        <article-card :key="article.id" :article="article" />
+        <article-card :key="article.id" :article="article" class="w-11/12 md:w-1/2 lg:w-1/4" />
       </template>
       <div class="flex-none w-4 md:hidden"></div>
     </div>

@@ -2,15 +2,11 @@
   ol, p, ul {
     font-weight: 300;
     font-size: 1rem;
-    font-family: Merriweather,-apple-system,BlinkMacSystemFont,serif;
-    line-height: 1.75rem;
-    letter-spacing: .025em;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    @apply font-serif leading-7 tracking-wide my-4;
   }
 
   p:empty {
-    padding-top: 1em;
+    @apply my-0;
   }
 
   a {
@@ -20,17 +16,25 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: Source Sans Pro,-apple-system,BlinkMacSystemFont,sans-serif;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    @apply py-4 mt-4 font-semibold leading-normal;
   }
 
   h2 {
-    font-weight: 500;
     font-size: 2rem;
-    line-height: 1.5;
-    font-weight: 600;
-    margin-top: 2rem;
   }
+  h3 {
+    font-size: 1.8rem;
+  }
+  h4 {
+    font-size: 1.6rem;
+  }
+  h5 {
+    font-size: 1.4rem;
+  }
+  h6 {
+    font-size: 1.2rem;
+  }
+
 
   @screen md {
     div, ol, p, ul {
@@ -38,6 +42,26 @@
       line-height: 2rem;
     }
   }
+
+  table {
+    margin: 1rem 0;
+
+    tr:nth-child(odd) {
+      background: #ECEFF1;
+    }
+    tr:nth-child(even) {
+      background: #F5F5F5;
+    }
+    td {
+      padding: 4px;
+      border-right: 1px solid white;
+
+      p {
+        @apply font-sans leading-5 my-0;
+      }
+    }
+  }
+
 }
 
 .post_content, .ProseMirror {

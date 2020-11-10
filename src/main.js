@@ -1,27 +1,23 @@
 // This is the main.js file. Import global CSS and scripts here.
 // The Client API can be used here. Learn more: gridsome.org/docs/client-api
 
-import Icon from '~/atomics/Icon.vue'
-import ALink from '~/atomics/ALink.vue'
-import Link from '~/atomics/Link.vue'
-import Bookmark from '~/atomics/Bookmark.vue'
-import Playable from "~/atomics/Playable.vue";
-import FocalImage from '~/atomics/FocalImage.vue'
-import Scroll from '~/helpers/ScrollDirective'
-import ScreenStore from '~/helpers/ScreenStore'
-import Store from '~/helpers/Store'
-import Api from '~/helpers/Api'
+import Icon from 'atomics/Icon.vue'
+import ALink from 'atomics/ALink.vue'
+import Link from 'atomics/Link.vue'
+import Bookmark from 'atomics/Bookmark.vue'
+import Playable from 'atomics/Playable.vue'
+import FocalImage from 'atomics/FocalImage.js'
+import Scroll from 'helpers/ScrollDirective'
+import ScreenStore from 'helpers/ScreenStore'
+import Store from 'helpers/Store'
+import Api from 'helpers/Api'
 //import Vue2TouchEvents from 'vue2-touch-events'
-import Markdown2Html from '~/helpers/Markdown2Html'
+import Markdown2Html from 'helpers/Markdown2Html'
 // import VueGtm from 'vue-gtm'
 
 import 'typeface-inter'
 import 'typeface-merriweather'
 import './main.scss'
-/*import './assets/fa/scss/fontawesome.scss'
-import './assets/fa/scss/light.scss'
-import './assets/fa/scss/brands.scss'
-import './assets/fa/scss/duotone.scss'*/
 
 if (process.isClient) {
   window.animHScroll = {
@@ -76,12 +72,12 @@ export default function (Vue, { router, head, isClient }) {
   Vue.prototype.$typeIcon = (type, excludeArticle, hasTrack) => {
     if (! type) return ''
     switch (String(type).toLowerCase()) {
-      case 'video': return `fa-video`
-      case 'podcast': return `fa-podcast`
-      case 'audio': return `fa-music`
-      case 'playlist': return `fa-list-music`
+      case 'video': return `video`
+      case 'podcast': return `podcast`
+      case 'audio': return `music`
+      case 'playlist': return `list-music`
       case 'article': return hasTrack ?
-          'fa-waveform' : (excludeArticle ? '' : 'fa-file-alt')
+          'waveform' : (excludeArticle ? '' : 'file-alt')
       default: return ''
     }
   }

@@ -123,7 +123,7 @@ export default {
     bookmarks: {
       deep: true,
       handler (bm) {
-        localStorage.setItem('ac-bookmarks', JSON.stringify(bm));
+        localStorage.setItem('ac-bookmarks-'+process.env.GRIDSOME_LOCALE, JSON.stringify(bm));
       }
     }
   },
@@ -164,7 +164,7 @@ export default {
   },
   mounted() {
     if (typeof window !== 'undefined') {
-      this.$store.bookmarks = JSON.parse(localStorage.getItem('ac-bookmarks') || "{}");
+      this.$store.bookmarks = JSON.parse(localStorage.getItem('ac-bookmarks-'+process.env.GRIDSOME_LOCALE) || "{}");
       if (typeof this.$store.bookmarks !== 'object') {
         this.$nextTick(() => {
           this.$store.bookmarks = {}

@@ -1,11 +1,11 @@
 <template>
-  <article-grid :articles="$static.ql.posts.data" title="Latest" to="/latest" />
+  <article-grid :articles="$static.ql.posts.data" title="Latest"/>
 </template>
 
 <static-query>
 query LatestPosts {
   ql {
-    posts(first: 6, featured: false) {
+    posts(first: 9, featured: false) {
       data {
         id
         title

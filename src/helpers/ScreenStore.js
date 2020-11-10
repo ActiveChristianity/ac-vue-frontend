@@ -12,9 +12,9 @@ export default (Vue) => {
 
   function onResize() {
     let w = window.innerWidth
-    if (window.innerWidth < 641) w = 640
-    else if (window.innerWidth < 961) w = 960
-    else if (window.innerWidth < 1281) w = 1280
+    if (window.innerWidth < 640) w = 640 - 1
+    else if (window.innerWidth < 768) w = 768 - 1
+    else if (window.innerWidth < 1024) w = 1024 -1
     if (w !== screen.current) Vue.set(screen, 'current', w)
   }
 

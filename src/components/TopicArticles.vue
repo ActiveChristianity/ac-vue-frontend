@@ -3,7 +3,11 @@
     <slot></slot>
     <Icon v-if="!posts" :class="gridClass" name="icon" class="loading-icon w-40 h-40 mx-auto block my-20"></Icon>
     <div :class="gridClass" v-else-if="posts.length">
-      <article-card v-for="post in posts" :key="post.id" :article="post" />
+      <article-card v-for="post in posts"
+                    :key="post.id"
+                    :article="post"
+                    class="w-11/12 md:w-1/2 lg:w-1/4"
+      />
     </div>
     <h4 v-else :class="gridClass" class="py-d12 px-d4 text-primary">{{ $t.no_results }}</h4>
   </div>

@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/service-worker.js",
+      "headers": { "Cache-Control": "no-cache" },
+      "continue": true
+    },
+    {
+      "src": "/assets/js/service-worker.js",
+      "headers": { "Cache-Control": "no-cache" },
+      "continue": true
+    },
+    {
+      "src": "/manifest.json",
+      "headers": { "Cache-Control": "no-cache" },
+      "continue": true
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "status": 200,
+      "dest": "index.html"
+    }
+  ]
+}

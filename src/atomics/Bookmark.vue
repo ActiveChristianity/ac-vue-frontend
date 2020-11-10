@@ -1,5 +1,7 @@
 <template>
-  <button v-if="id" aria-label="bookmark" @click.stop.prevent="toggle"><i :class="iconStyle" class="fa-bookmark"></i></button>
+  <button v-if="id" aria-label="bookmark" @click.stop.prevent="toggle">
+    <icon :name="`${iconStyle}-bookmark`" fa />
+  </button>
 </template>
 
 <script>
@@ -37,7 +39,6 @@ export default {
           ts: new Date().toISOString(),
           slug: this.slug,
         })
-
       }
     }
   }

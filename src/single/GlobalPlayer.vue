@@ -3,10 +3,9 @@
     <div class="w-full flex flex-col bg-gray-300">
       <div class="content-md md:py-4 relative">
         <vue-plyr ref="plyr">
-          <audio src="https://www.myinstants.com/media/sounds/windows-xp-startup.mp3"></audio>
         </vue-plyr>
         <p v-if="$store.playing" class="-mt-1 text-center pb-1">{{ $store.playing.title }}</p>
-        <button class="absolute inset-y-0 right-0 h-full px-1" @click="close"><icon name="fad-times"/></button>
+        <button class="absolute inset-y-0 right-0 h-full px-1" @click="close"><icon name="fad-times" fa/></button>
       </div>
     </div>
   </div>

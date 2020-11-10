@@ -1,8 +1,11 @@
 <template>
-  <button v-if="track || video" @click.prevent.stop="toggle" class="px-2 rounded hover:text-slate hover:bg-gray-200 hover:bg-opacity-50" :class="isPlaying ? 'bg-gray-200 bg-opacity-50 text-gray-800': 'hover-play'" :title="isPlaying ? 'Pause' : 'Play'">
-    <i :class="[iconClass, isPlaying ? 'fa-pause' : icon]"></i>
+  <button v-if="track || video" @click.prevent.stop="toggle" class="px-2 rounded hover:text-slate hover:bg-gray-200 hover:bg-opacity-50"
+          :class="isPlaying ? 'bg-gray-200 bg-opacity-50 text-gray-800': 'hover-play'"
+          :title="isPlaying ? 'Pause' : 'Play'"
+  >
+    <icon :class="iconClass" :prefix="iconStyle" :name="isPlaying ? 'pause' : icon" fa />
   </button>
-  <i v-else :class="[iconClass, icon]"></i>
+  <icon v-else-if="icon" :class="iconClass" :prefix="iconStyle" :name="icon" fa></icon>
 </template>
 
 <script>
@@ -10,13 +13,14 @@ export default {
   props: {
     track: [Object, Boolean],
     video: [Object, Boolean],
-    iconClass: {
+    iconClass: String,
+    iconStyle: {
       type: String,
       default: 'fal'
     },
     icon: {
       type: String,
-      default: 'fa-play'
+      default: 'play'
     }
   },
   computed: {

@@ -9,7 +9,9 @@
 
       <div class="my-4 w-full overflow-x-scroll flex items-stretch md:flex-wrap scroll-snap-x p-4">
         <template v-for="track in tracks">
-          <article-cover-card :key="track.id" :article="track" />
+          <article-cover-card :key="track.id" :article="track"
+            class="w-11/12 md:w-1/2 lg:w-1/4"
+          />
         </template>
       </div>
     </div>

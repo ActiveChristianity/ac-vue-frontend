@@ -1,40 +1,45 @@
 <template>
-  <div class="relative flex-1 max-w-sm" v-if="! loading">
-    <input class="w-full px-3 py-1 rounded shadow-md" type="text"
-           v-model="searchTerm"
-           @keydown.enter="enter"
-           @keydown.down="down"
-           @keydown.up="up"
-           @keydown.esc="close"
-           ref="input"
-           placeholder="Search"
-    />
-    <ul class="absolute max-h-screen overflow-y-auto bg-white rounded shadow z-50 border-t-2 border-secondary" v-if="searchResults && searchResults.length" style="width:100%">
-      <li v-for="(result, i) in searchResults"
-          @click="close"
-          class="block"
-          :class="{'bg-gray-200 text-secondary': active === i}"
-          @mouseover="active = i"
-      >
-        <g-link
-            :key="result.id"
-            :to="result.node.slug"
-            class="p-2 w-full flex items-center">
-          <div class="rounded-full bg-gray-100 center w-8 h-8 mr-2">
-            <i class="fal" :class="$typeIcon(result.node.type, false, !! result.node.track)"/>
-          </div>
-          <span>{{ result.title }}</span>
-        </g-link>
-      </li>
-    </ul>
-  </div>
-  <div v-else class="flex-1 max-w-sm bg-gray-200 text-gray-600 py-1 text-center rounded">Loading...</div>
+  <transition name="fade">
+    <div v-if="show" class="relative flex-1 max-w-sm">
+      <input class="w-full px-3 py-1 rounded bg-gray-800 text-secondary-alt" type="text"
+             v-model="searchTerm"
+             :disabled="loading"
+             @keydown.enter="enter"
+             @keydown.down="down"
+             @keydown.up="up"
+             @keydown.esc="close"
+             ref="input"
+             :placeholder="loading ? 'Loading…' : 'Search'"
+      />
+      <ul class="absolute max-h-screen overflow-y-auto bg-white rounded shadow z-50 border-t-2 border-secondary" v-if="searchResults && searchResults.length" style="width:100%">
+        <li v-for="(result, i) in searchResults"
+            @click="close"
+            class="block"
+            :class="{'bg-gray-200 text-secondary': active === i}"
+            @mouseover="active = i"
+        >
+          <g-link
+              :key="result.id"
+              :to="result.node.slug"
+              class="p-2 w-full flex items-center">
+            <div class="rounded-full bg-gray-100 center w-8 h-8 mr-2">
+              <icon prefix="fal" :name="$typeIcon(result.node.type, false, !! result.node.track)" fa />
+            </div>
+            <span>{{ result.title }}</span>
+          </g-link>
+        </li>
+      </ul>
+    </div>
+  </transition>
 </template>
 
 <script>
 import FlexSearch from 'flexsearch'
 
 export default {
+  props: {
+    show: Boolean
+  },
   data: () => ({
     loading: true,
     searchTerm: '',
@@ -53,12 +58,19 @@ export default {
     }
   },
   watch: {
-    $route (to, from) {
+    $route () {
       this.searchTerm = ''
     },
     searchTerm (n, o) {
       this.active = 0
     },
+    show (v) {
+      if (v) {
+        this.$nextTick(() => {
+          this.$refs.input.focus()
+        })
+      }
+    }
   },
   methods: {
     enter() {

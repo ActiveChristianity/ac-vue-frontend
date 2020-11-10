@@ -10,7 +10,10 @@
               <b class="mx-1">—</b>
               <span v-if="post.readtime">{{ Math.ceil(post.readtime / 60) }} min read</span>
           </p>
-          <template v-if="authorsAs">
+          <p v-if="post.meta.as_ac">
+            By ActiveChristianity
+          </p>
+          <template v-else-if="authorsAs">
             <p v-for="(x, k) in authorsAs" :key="x.key">
               <strong>{{ asStr[k] || 'By' }} </strong>
               <template v-for="(a, i) in x">
@@ -27,7 +30,12 @@
       </div>
       <div class="post_content py-8 content-md" v-html="post.content"></div>
       <div class="flex flex-wrap content-md">
-        <g-link v-for="topic in post.topics" :key="topic.id" :to="`${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
+        <template v-for="topic in post.topics">
+          <g-link :key="topic.id" v-if="! topic.group.is_abstract" :to="`${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
+        </template>
+      </div>
+      <div class="py-8 content-md">
+        <p class="text-sm text-gray-600" v-html="post.meta.credits"></p>
       </div>
     </article>
 
@@ -73,6 +81,9 @@ query Post ($id: ID!) {
         id
         name
         slug
+        group {
+          is_abstract
+        }
       }
       seo {
         title
@@ -81,6 +92,7 @@ query Post ($id: ID!) {
       meta {
         url
         no_dict
+        as_ac
         ebook_id
         credits
       }
@@ -157,8 +169,7 @@ export default {
     },
     authorsAs() {
       if (! this.post.authors) return null
-      const set = this.post.authors.groupBy('pivot.as')
-      return set
+      return this.post.authors.groupBy('pivot.as')
     }
   },
   mounted() {

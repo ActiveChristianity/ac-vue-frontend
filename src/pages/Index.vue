@@ -1,10 +1,9 @@
 <template>
   <main class="relative">
-    <article-banner :article="featuredPost" />
+    <article-banner v-if="featuredPost" :article="featuredPost" />
 
     <latest-grid />
-    <article-list title="Featured" :coverArticles="coverArticles" :cardArticles="cardArticles" />
-
+    <br />
     <featured-topics />
   </main>
 </template>
@@ -44,26 +43,14 @@ fragment PostItem on ql_Post {
 }
 
 query Frontpage {
+  metadata {
+    title
+    about
+    url
+  }
   ql {
-    page(id: 1) {
-      id
-      slug
-      title
-      content
-    }
-    podcast: post(type: Podcast, featured: true) {
+    post(featured: true) {
       ...PostItem
-    }
-    playlists(featured: true) {
-      id
-      title
-      slug
-      image { ...Image }
-    }
-    featured: posts(first: 4, featured: true) {
-      data {
-        ...PostItem
-      }
     }
   }
 }
@@ -77,11 +64,11 @@ import FeaturedTopics from "../single/FeaturedTopics"
 
 export default {
   metaInfo() {
-    const { title, excerpt } = this.$page.ql.page
+    const { title, about } = this.$page.metadata
     return {
       title,
       meta: [
-        { key: 'description', name: 'description', content: excerpt }
+        { key: 'description', name: 'description', content: about }
       ]
     }
   },
@@ -98,12 +85,9 @@ export default {
   },
   computed: {
     featuredPost () {
-      return this.$page.ql.featured.data[0]
+      return this.$page.ql.post
     },
-    page () {
-      return this.$page.ql.page
-    },
-    coverArticles () {
+    /*coverArticles () {
       const { podcast, playlists } = this.$page.ql
       const playlist = playlists[Math.floor(Math.random() * playlists.length)]
       playlist.type = 'playlist'
@@ -121,7 +105,7 @@ export default {
 
       const articles = featured.data.filter(a => a.id !== podcast.id)
       return articles.slice(1, 3)
-    }
+    }*/
   }
 }
 </script>

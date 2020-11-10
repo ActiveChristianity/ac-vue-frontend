@@ -1,12 +1,13 @@
 <template>
-  <div v-if="show" class="fixed z-50 bottom-0 inset-x-0 px-4 p-2 flex items-center justify-between bg-black text-white">
+  <div v-if="show" class="fixed z-50 top-0 md:top-auto md:bottom-0 inset-x-0 px-4 p-2 flex items-center justify-between bg-black text-white">
     <div class="pr-4">
-      <p class="font-sans text-base">{{ $static.m.cookie }}</p>
-      <g-link to="/cookies" class="text-sm font-bold">{{ $t.more_cookies }}</g-link>
+      <p class="font-sans text-base inline-block">{{ $static.m.cookie }}
+        <g-link :to="$static.m.cookie_page_path" class="inline-block text-sm font-bold">{{ $t.consent_general_link }}</g-link>
+      </p>
     </div>
-    <div class="flex items-center">
-      <button @click="decline" class="bg-gray-400 text-black m-1 px-3 py-2 text-sm uppercase">{{ $t.decline || 'Decline' }}</button>
-      <button @click="accept" class="bg-white text-black m-1 px-6 py-2 text-base uppercase">{{ $t.accept || 'Accept' }}</button>
+    <div class="center flex-col md:flex-row text-sm">
+      <button @click="decline" class="bg-white text-black m-1 px-2 py-1 uppercase">{{ $t.decline || 'Decline' }}</button>
+      <button @click="accept" class="bg-secondary text-secondary-alt m-1 px-4 py-1 uppercase">{{ $t.accept || 'Accept' }}</button>
     </div>
   </div>
 </template>
@@ -15,6 +16,7 @@
 query CookieInfo {
   m: metadata {
     cookie
+    cookie_page_path
   }
 }
 </static-query>

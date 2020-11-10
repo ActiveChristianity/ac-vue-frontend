@@ -21,7 +21,7 @@
 <static-query>
 query FeaturedTopics {
   ql {
-    topics(featured: true) {
+    topics(featured: true, hasPosts: true) {
       id
       name
       slug

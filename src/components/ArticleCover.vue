@@ -8,7 +8,7 @@
         <p class="text-lg md:text-xl lg:text-2xl my-4 text-gray-100">{{ article.excerpt }}</p>
       </div>
       <div class="flex justify-between">
-        <playable :track="article.track" iconClass="text-4xl lg:text-5xl fal" :icon="$typeIcon(article.type, true, !! article.track)"></playable>
+        <playable :track="article.track" iconClass="text-4xl lg:text-5xl" :icon="$typeIcon(article.type, true, !! article.track)"></playable>
       </div>
     </div>
   </g-link>

@@ -1,27 +1,48 @@
 <template>
-  <footer class="relative border-t border-gray-200 mt-8 py-8">
-    <div class="md:content md:flex items-center flex-wrap">
-      <g-link to="/" class="w-full md:w-1/2 p-6 flex items-center">
-        <Icon name="icon" class="text-primary w-32 h-full object-center object-contain"></Icon>
-        <p class="text-sm mx-4 text-gray-600">{{ $static.m.copyright }}</p>
-      </g-link>
-      <div class="w-full md:w-1/2 pb-6 flex flex-wrap items-center">
-        <div class="flex w-1/2 my-8 px-6 items-center">
-          <template v-for="ln in socialLinks">
-            <a :href="ln.url" :key="ln.key" :title="ln.key" target="_blank" class="social-link" :class="ln.icon"></a>
-          </template>
-        </div>
-        <div class="flex w-1/2 px-6 items-center">
-          <div class="drop-select">
-            <p v-if="language" class="w-full text-base px-2 py-1 border border-gray-200 rounded flex items-center justify-between"><span>{{ language.lang }}</span> <i class="text-sm fad fa-chevron-down"></i></p>
-            <div class="drop overflow-y-scroll">
-              <a v-for="l in langs" :key="l.locale" :href="l.url" rel="noopener" :title="l.title" :class="{'opacity-50': $store.locale == l.locale}" class="px-2 text-6xl">{{ l.lang }}</a>
-            </div>
-          </div>
-        </div>
+  <footer class="relative border-t border-gray-200 mt-8 py-4">
+    <div class="md:content center flex-col">
+      <div class="w-full p-4 center">
+        <template v-for="ln in socialLinks">
+          <a :href="ln.url" :key="ln.key" :title="ln.key" target="_blank" class="social-link">
+            <icon fa :name="ln.icon" />
+          </a>
+        </template>
+      </div>
+      <div class="md:flex items-center justify-between">
+        <g-link to="/" class="w-full md:w-1/2 p-6 flex items-center">
+          <Icon name="icon" class="text-primary w-32 h-full object-center object-contain"></Icon>
+          <p class="text-sm mx-4 text-gray-600">{{ $static.m.copyright }}</p>
+        </g-link>
+        <p class="text-sm mx-4 text-gray-600 md:w-1/2 md:text-right">{{ $static.m.attribution }}</p>
       </div>
     </div>
-    <g-link to="/editor" class="absolute bottom-0 left-0 py-2 px-4 bg-gray-100 opacity-0 hover:opacity-25">Editor</g-link>
+
+    <div class="md:hidden w-full flex justify-around mt-4 pb-3 border border-t-2 border-t-gray-600 fixed z-30 bg-white bottom-0 inset-x-0">
+      <g-link to="/contact-us" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
+        <icon fa name="fal-info-circle" />
+        <span class="block mt-2 text-sm">Contact Us</span>
+      </g-link>
+      <button aria-label="bookmarks" @click="$store.showBookmarks = ! $store.showBookmarks"
+              class="flex flex-col items-center justify-center text-gray-800"
+              :class="{'font-bold': $store.showBookmarks}"
+      >
+        <icon :prefix="Object.keys($store.bookmarks).length ? 'fad' : 'fal'" name="bookmark" fa />
+        <span class="block mt-2 text-sm">Bookmarks</span>
+      </button>
+      <button aria-label="search" @click="$store.showSearch = ! $store.showSearch"
+              class="w-16 h-16 flex flex-col items-center justify-center text-gray-800"
+              :class="{'font-bold': $store.showSearch}"
+      >
+        <span class="rounded-full w-12 h-12 block shadow center -mt-8 mb-0 bg-gray-200">
+          <icon name="fal-search" fa />
+        </span>
+        <span class="block mt-2 text-sm">Search</span>
+      </button>
+      <g-link to="/topics" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
+        <icon fa name="fal-file-alt" />
+        <span class="block mt-2 text-sm">Topics</span>
+      </g-link>
+    </div>
   </footer>
 </template>
 
@@ -30,6 +51,7 @@ query FooterInfo {
   m: metadata {
     title
     copyright
+    attribution
 
     social_youtube
     social_facebook
@@ -65,7 +87,7 @@ export default {
           links.push({
             key,
             url: m[match[0]],
-            icon: `fab fa-${key.toLowerCase()}`,
+            icon: key.toLowerCase(),
           })
         }
       })

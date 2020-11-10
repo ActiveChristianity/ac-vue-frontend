@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-none w-11/12 md:w-1/2 lg:w-1/4 p-2">
+  <div class="flex-none p-2">
     <g-link :to="`${prefix}${article.slug}`" class="relative overflow-hidden flex flex-col h-full cursor-pointer rounded-2xl border border-gray-200 transition-shadow duration-300 hover:shadow-outline">
       <f-image v-if="article.image" class="absolute w-full h-full object-cover object-center rounded-2xl" :src="article.image.dataUri"></f-image>
       <div v-else class="absolute inset-0 w-full h-full object-cover object-center rounded-2xl bg-gradient-to-br from-gray-800 to-blue-600"></div>
@@ -10,7 +10,7 @@
           <div v-else class="absolute inset-0 w-full h-full object-cover object-center rounded-2xl bg-gradient-to-br from-gray-600 to-gray-400"></div>
           <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black rounded-2xl opacity-50"></div>
           <div class="absolute inset-0 flex items-center justify-center text-white text-4xl">
-            <playable :track="article.track" iconClass="fad" :icon="$typeIcon(article.type, true, !! article.track)"></playable>
+            <playable :track="article.track" iconStyle="fad" :icon="$typeIcon(article.type, true, !! article.track)"></playable>
           </div>
         </div>
       </div>
