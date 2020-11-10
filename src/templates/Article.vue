@@ -41,8 +41,8 @@
 
     <TopicArticles v-if="topic" :topicSlug="topic.slug"
       :exclude="post.slug"
-      limit
-      class=""
+      :limit="4"
+      @empty="topicIndex = topicIndex + 1"
       gridClass="md:content w-full overflow-x-scroll flex items-stretch md:flex-wrap scroll-snap-x p-4">
       <heading :to="`/${$t.slug_topic}/${topic.slug}`">{{topic.name}}</heading>
     </TopicArticles>
@@ -143,7 +143,8 @@ export default {
         sp: 'Speaker',
         vo: 'Sung by',
         wr: 'Written by',
-      }
+      },
+      topicIndex: 0
     }
   },
   computed: {
@@ -151,8 +152,8 @@ export default {
       return this.preview || this.$page.ql.post
     },
     topic() {
-      if (!this.post.topics || !this.post.topics.length) return null
-      return this.post.topics[0]
+      if (!this.post.topics || !this.post.topics.length > this.topicIndex) return null
+      return this.post.topics[this.topicIndex]
     },
     postVideo() {
       if (! this.post

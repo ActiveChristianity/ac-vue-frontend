@@ -80,9 +80,6 @@ export default {
     page () {
       return this.$store.page
     },
-    player () {
-
-    },
     bookmarks () {
       return this.$store.bookmarks
     }
@@ -104,6 +101,7 @@ export default {
           process.isClient && window.scrollTo(0, 0);
           delay = setTimeout(() => {
             loadElements()
+            window.refTagger && window.refTagger.tag && window.refTagger.tag();
             this.onScroll()
           }, 250)
         }, 250)

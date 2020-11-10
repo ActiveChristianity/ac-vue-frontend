@@ -17,9 +17,9 @@
       <div class="relative flex-1 flex flex-col px-4 py-2 lg:py-4">
         <p class="text-gray-100 text-sm text-center uppercase">{{ $typeString(article.type, !! article.track) }}</p>
         <h2 class="flex-1 text-white text-xl text-center leading-tight tracking-wide font-medium my-2">{{ article.title }}</h2>
-        <div class="text-gray-100 text-sm md:text-md border-t border-gray-400 py-2">{{ article.authors && article.authors.map(a => a.name).join(', ') }}</div>
+        <div class="text-gray-100 text-sm md:text-base border-t border-gray-400 py-2">{{ authors }}</div>
         <div class="flex items-center justify-between text-gray-100 text-sm pb-1">
-          <span v-if="article.readtime" aria-label="time2read"><i class="text-md mr-1 fal fa-file-alt"></i> {{ Math.ceil(article.readtime / 60) }} mins</span>
+          <span v-if="article.readtime" aria-label="time2read"><i class="mr-1 fal fa-file-alt"></i> {{ Math.ceil(article.readtime / 60) }} mins</span>
           <bookmark class="rounded w-8 h-8 hover:bg-gray-800 hover:text-blue-400 ml-auto" :id="article.id" :slug="article.slug" />
         </div>
       </div>
@@ -39,5 +39,10 @@ export default {
       required: true,
     }
   },
+  computed: {
+    authors () {
+      return this.$authorString(this.article)
+    }
+  }
 }
 </script>

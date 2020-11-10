@@ -3,7 +3,7 @@
     <div class="flex justify-between items-start border-b pb-2">
       <h5 class="flex items-center">
         <Icon name="clock" />
-        <span class="mx-3 text-d4slate-dark leading-normal text-lg">{{ title }}</span>
+        <span class="mx-3 text-d4slate-dark leading-normal text-lg">{{ title }}</span>
       </h5>
       <button class="flex items-center border border-gray-600 px-2 rounded-full">
         <p class="leading-loose text-xs">Done For Today</p>

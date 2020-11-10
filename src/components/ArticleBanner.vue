@@ -12,7 +12,7 @@
         <p class="text-gray-800 text-lg lg:text-xl my-4">{{ article.excerpt }}</p>
         <div class="flex items-center">
           <bookmark class="text-blue-500 rounded w-8 h-8 hover:bg-gray-200" :id="article.id" :slug="article.slug" />
-          <div class="p-2 text-gray-600 text-sm md:text-md">{{ Math.ceil(article.readtime / 60) }} mins - {{ article.authors.map(a => a.name).join(', ') }}</div>
+          <div class="p-2 text-gray-600 text-sm">{{ Math.ceil(article.readtime / 60) }} mins - {{ authors }}</div>
         </div>
       </div>
     </div>
@@ -20,11 +20,15 @@
 </template>
 
 <script>
-// AC
 export default {
   name: 'ArticleBanner',
   props: {
     article: Object,
   },
+  computed: {
+    authors () {
+      return this.$authorString(this.article)
+    }
+  }
 }
 </script>

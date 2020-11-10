@@ -9,10 +9,6 @@
                     class="w-11/12 md:w-1/2 lg:w-1/4"
       />
     </div>
-    <h4 v-else :class="gridClass" class="py-d12 px-d4 text-primary">{{ $t.no_results }}</h4>
-  </div>
-  <div v-else class="py-8 text-center">
-    <g-link :to="`/${$t.slug_blog}`" class="inline-block font-detail py-d2 px-d4 border-2 border-gray-600 hover:text-primary hover:border-primary">{{ $t.read_more }}</g-link>
   </div>
 </template>
 
@@ -20,7 +16,10 @@
 import ArticleCard from './ArticleCard.vue'
 export default {
   props: {
-    limit: Boolean,
+    limit: {
+      type: Number,
+      default: 0
+    },
     topicSlug: String,
     gridClass: String,
     exclude: String
@@ -30,21 +29,33 @@ export default {
       posts: null
     }
   },
-  mounted() {
-    this.$nextTick(async () => {
+  methods: {
+    async load () {
       try {
         const { data } = await this.$fetch(`/${this.$t.slug_topic}/${this.topicSlug}`)
         if (data) {
           const posts = data.ql.topic.posts.filter(P => P.slug !== this.exclude)
           posts.sort((a,b) => a.date > b.data ? -1 : 1)
-          this.posts = this.limit ? posts.slice(0,2) : posts
+          this.posts = this.limit ? posts.slice(0,this.limit) : posts
         } else this.posts = []
       } catch (error) {
         console.log(error)
         this.posts = []
+      } finally {
+        if (! this.posts.length) {
+          this.$emit('empty')
+        }
+        this.$store.fadeIn = true
       }
-      this.$store.fadeIn = true
-    })
+    }
+  },
+  watch: {
+    topicSlug: {
+      immediate: true,
+      handler () {
+        this.load()
+      }
+    }
   },
   components: { ArticleCard }
 }

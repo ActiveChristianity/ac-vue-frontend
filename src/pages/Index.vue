@@ -38,6 +38,9 @@ fragment PostItem on ql_Post {
   image {
     ...Image
   }
+  meta {
+    as_ac
+  }
   authors { name }
   views
 }

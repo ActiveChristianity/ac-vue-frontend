@@ -43,6 +43,9 @@ query Playlist ($id: ID!) {
           type,
           slug,
           readtime,
+          meta {
+            as_ac
+          }
           authors {
             name
           }

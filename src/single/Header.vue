@@ -2,7 +2,7 @@
   <header class="bg-white" :class="$store.showSearch ? 'pb-12' : ''">
     <div id="topbar" class="items-center justify-between border-b border-gray-200 hidden px-4 h-10 md:flex">
       <div id="topbar-left" class="text-gray-500 text-sm font-light tracking-wide">
-        <a class="p-2 inline-block hover:text-gray-900" href="https://bcc.africa">BCC South Africa <icon name="fal-external-link-alt" fa class="ml-1 " /></a>
+        <a class="p-2 inline-block hover:text-gray-900" href="https://bcc.africa">Brunstad Christian Church in Africa <icon name="fal-external-link-alt" fa class="ml-1 " /></a>
       </div>
       <div id="topbar-right" class="flex text-gray-500 text-sm px-2">
         <!--button aria-label="login" class="font-light tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Login</button>
@@ -21,7 +21,7 @@
 
       <search v-if="$store.showSearch !== null" :show="$store.showSearch" @close="$store.showSearch = false" />
 
-      <div id="headbar-right" class="hidden md:flex text-gray-800 text-md">
+      <div id="headbar-right" class="hidden md:flex text-gray-800">
         <button aria-label="search" @click="$store.showSearch = ! $store.showSearch" class="rounded m-1 py-1 px-2 hover:bg-gray-200">
           <icon name="fal-search" fa />
         </button>
@@ -29,7 +29,7 @@
           <icon :name="`${Object.keys($store.bookmarks).length ? 'fad' : 'fal'}-bookmark`" fa />
         </button>
         <span class="border-l border-gray-200"></span>
-        <g-link to="/topics" title="topics" class="text-gray-800 text-md font-light tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">Topics</g-link>
+        <g-link to="/topics" title="topics" class="text-gray-800 font-light tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">Topics</g-link>
       </div>
     </div>
 

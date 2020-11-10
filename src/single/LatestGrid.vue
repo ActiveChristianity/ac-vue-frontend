@@ -22,6 +22,9 @@ query LatestPosts {
           slug
         }
         image { src alt dataUri size { width height } focal }
+        meta {
+          as_ac
+        }
         authors { name }
         views
       }

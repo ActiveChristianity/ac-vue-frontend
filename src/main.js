@@ -1,45 +1,23 @@
 // This is the main.js file. Import global CSS and scripts here.
 // The Client API can be used here. Learn more: gridsome.org/docs/client-api
 
-import Icon from 'atomics/Icon.vue'
-import ALink from 'atomics/ALink.vue'
-import Link from 'atomics/Link.vue'
-import Bookmark from 'atomics/Bookmark.vue'
-import Playable from 'atomics/Playable.vue'
-import FocalImage from 'atomics/FocalImage.js'
-import Scroll from 'helpers/ScrollDirective'
-import ScreenStore from 'helpers/ScreenStore'
-import Store from 'helpers/Store'
-import Api from 'helpers/Api'
-//import Vue2TouchEvents from 'vue2-touch-events'
-import Markdown2Html from 'helpers/Markdown2Html'
+import Icon from './atomics/Icon.vue'
+import ALink from './atomics/ALink.vue'
+import Link from './atomics/Link.vue'
+import Bookmark from './atomics/Bookmark.vue'
+import Playable from './atomics/Playable.vue'
+import FocalImage from './atomics/FocalImage.js'
+import Scroll from './helpers/ScrollDirective'
+import ScreenStore from './helpers/ScreenStore'
+import Store from './helpers/Store'
+import Api from './helpers/Api'
+// import Vue2TouchEvents from 'vue2-touch-events'
+import Markdown2Html from './helpers/Markdown2Html'
 // import VueGtm from 'vue-gtm'
 
 import 'typeface-inter'
 import 'typeface-merriweather'
 import './main.scss'
-
-if (process.isClient) {
-  window.animHScroll = {
-    scrolling: false,
-    dir: 1,
-    lastLeft: 0,
-    step() {
-      if (animHScroll.scrolling) {
-        const left = animHScroll.scrolling.scrollLeft + animHScroll.dir
-        animHScroll.scrolling.scrollTo({
-          top: 0,
-          left,
-          behavior: 'smooth'
-        });
-        if (left !== animHScroll.lastLeft) {
-          setTimeout(animHScroll.step, Math.abs(animHScroll.dir))
-          animHScroll.lastLeft = left
-        } else animHScroll.scrolling = false
-      }
-    }
-  }
-}
 
 if (! Array.prototype.groupBy) {
   Array.prototype.groupBy = function(key) {
@@ -80,6 +58,18 @@ export default function (Vue, { router, head, isClient }) {
           'waveform' : (excludeArticle ? '' : 'file-alt')
       default: return ''
     }
+  }
+
+  Vue.prototype.$authorString = (article) => {
+    if (article) {
+      if (article.meta && article.meta.as_ac) {
+        return 'ActiveChristianity'
+      }
+      if (article.authors) {
+        return article.authors.map(a => a.name).join(', ')
+      }
+    }
+    return ''
   }
 
   Vue.prototype.$typeString = (type, hasTrack) => {
