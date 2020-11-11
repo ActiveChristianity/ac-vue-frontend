@@ -1,20 +1,25 @@
 {
   "version": 2,
+  "regions": ["cdg1"],
   "routes": [
     {
       "src": "/service-worker.js",
-      "headers": { "Cache-Control": "no-cache" },
+      "headers": { "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate" },
       "continue": true
     },
     {
       "src": "/assets/js/service-worker.js",
-      "headers": { "Cache-Control": "no-cache" },
+      "headers": { "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate" },
       "continue": true
     },
     {
       "src": "/manifest.json",
       "headers": { "Cache-Control": "no-cache" },
       "continue": true
+    },
+    {
+      "src": "/topic",
+      "dest": "/topics"
     },
     {
       "src": "/(.*)",

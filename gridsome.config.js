@@ -68,31 +68,37 @@ if (process.env.NODE_ENV === 'production') {
     {
       use: "gridsome-plugin-manifest",
       options: {
-        background_color: "#000000",
+        background_color: "#FFFFFF",
         icon_path: 'src/favicon.png',
         name: "ActiveChristianity",
         short_name: "AC",
         theme_color: "#FFAE0C",
         lang: "en",
+        display: "fullscreen",
+        start_url: "/",
       },
     },
     {
       use: '@gridsome/plugin-sitemap',
       options: {
         cacheTime: 600000,
-        exclude: ['/editor'],
       }
     },
     {
       use: "gridsome-plugin-service-worker",
       options: {
+        cacheFirst: {
+          cacheName: 'cf-v2',
+          fileTypes: [
+              "image",
+              "font"
+          ]
+        },
         staleWhileRevalidate: {
-          cacheName: "nf-v2",
+          cacheName: "swr-v2",
           fileTypes: [
             "document",
             "audio",
-            "font",
-            "image",
             "script",
             "style",
           ],

@@ -101,7 +101,7 @@ export default {
           process.isClient && window.scrollTo(0, 0);
           delay = setTimeout(() => {
             loadElements()
-            window.refTagger && window.refTagger.tag && window.refTagger.tag();
+            process.isClient && window.refTagger && window.refTagger.tag && window.refTagger.tag();
             this.onScroll()
           }, 250)
         }, 250)
