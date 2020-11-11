@@ -1,8 +1,8 @@
 const types = {
-    image: `{ src srcset dataUri sizes size { width height } colors }`,
+    image: `{ src srcset dataUri sizes size { width height } colors focal }`,
     user: `id name`,
-    author: `{ id name slug }`,
-    topic: `{ id name slug }`,
+    author: `{ id name slug pivot {as } }`,
+    topic: `{ id name slug group_id }`,
     topicGroup: `{ id name slug icon }`,
     post: '',
     page: '',
@@ -272,7 +272,7 @@ mutation ($input: UpdatePageInput!) {
 const forms = {
     mutations: {
         submit: `
-mutation ($formId: Int!, $fields: [Field!]!) {
+mutation ($formId: ID!, $fields: [FormField!]!) {
   submit(formId: $formId, fields: $fields) {
     success
     msg
