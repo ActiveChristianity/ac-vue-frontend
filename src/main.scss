@@ -20,8 +20,6 @@
   --plyr-color-main: var(--secondary);
   --plyr-audio-controls-background: transparent;
   --plyr-range-track-height: 8px;
-  --plyr-audio-progress-buffered-background: var(--slate-dark);
-  --plyr-video-progress-buffered-background: var(--slate-dark);
   --plyr-video-progress-buffered-background: var(--slate);
   --plyr-range-fill-background: var(--secondary);
   --plyr-audio-control-color: var(--slate);
@@ -88,8 +86,8 @@ button:focus, a:focus, input:focus {
   height: 9em;
 }
 .rtTooltip {
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
-
+  opacity: 0.98;
+  @apply shadow-md;
 
   .rtTooltipBody {
     @apply font-sans font-light text-white text-base;
