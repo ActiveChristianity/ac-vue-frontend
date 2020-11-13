@@ -57,7 +57,7 @@ query Topic ($id: ID!) {
           name
           slug
         }
-        image { src alt dataUri size { width height } focal }
+        image { src alt srcset dataUri sizes size { width height } focal }
         authors { name }
         views
       }

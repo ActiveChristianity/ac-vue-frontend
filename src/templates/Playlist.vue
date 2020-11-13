@@ -36,7 +36,7 @@ query Playlist ($id: ID!) {
         duration
         url
         image {
-        ...fImage
+          ...fImage
         }
         post {
           id

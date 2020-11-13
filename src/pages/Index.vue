@@ -9,41 +9,6 @@
 </template>
 
 <page-query>
-fragment Image on ql_Image {
-  src
-  alt
-  dataUri
-  size {
-    width
-    height
-  }
-  focal
-}
-
-fragment PostItem on ql_Post {
-	id
-  title
-  type
-  excerpt
-  slug
-  readtime
-  topics(group_id: 4) {
-    name
-    slug
-  }
-  track {
-    title
-    url
-  }
-  image {
-    ...Image
-  }
-  meta {
-    as_ac
-  }
-  authors { name }
-  views
-}
 
 query Frontpage {
   metadata {
@@ -53,7 +18,18 @@ query Frontpage {
   }
   ql {
     post(featured: true) {
-      ...PostItem
+      id
+      title
+      type
+      excerpt
+      slug
+      readtime
+      topics(group_id: 4) { name slug }
+      track { title url }
+      image { src alt srcset dataUri sizes size { width height } focal }
+      meta { as_ac }
+      authors { name }
+      views
     }
   }
 }
