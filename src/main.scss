@@ -80,15 +80,19 @@ button:focus, a:focus, input:focus {
   height: 3em;
 }
 .rtTooltip {
-  opacity: 0.98;
-  @apply shadow-md;
+  opacity: 0.99;
+  @apply shadow rounded-2xl;
+
+  .rtContainer {
+    @apply rounded-2xl;
+  }
 
   .rtTooltipBody {
-    @apply font-sans font-light text-white text-base;
+    @apply font-sans font-light text-base;
   }
 
   .rtTooltipHeader {
-    @apply font-sans text-gray-200 text-sm;
+    @apply font-sans text-sm;
   }
 
   .rtTooltipFooter {

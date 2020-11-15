@@ -20,10 +20,11 @@
         >
           <g-link
               :key="result.id"
-              :to="result.node.slug"
+              :to="nodePath(result.node)"
               class="p-2 w-full flex items-center">
             <div class="rounded-full bg-gray-100 center w-8 h-8 mr-2">
-              <icon prefix="fal" :name="$typeIcon(result.node.type, false, !! result.node.track)" fa />
+              <icon v-if="result.node.type" prefix="fal" :name="$typeIcon(result.node.type, false, !! result.node.track)" fa />
+              <p v-else class="uppercase font-semibold font-serif">{{ result.node.title.charAt(0) }}</p>
             </div>
             <span>{{ result.title }}</span>
           </g-link>
@@ -75,7 +76,7 @@ export default {
   methods: {
     enter() {
       if (this.current) {
-        this.$router.push(this.current.node.slug)
+        this.$router.push(this.nodePath(this.current.node))
       }
       this.close()
     },
@@ -95,6 +96,12 @@ export default {
       this.searchTerm = ''
       this.$emit('close')
     },
+    nodePath(node) {
+      if (node.type) {
+        return `/${node.slug}`
+      }
+      return `/${this.$t.slug_glossary}/${node.slug}`
+    }
   },
   async mounted () {
     this.$search = new FlexSearch(this.$flexsearch.flexsearch)

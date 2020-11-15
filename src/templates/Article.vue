@@ -16,8 +16,8 @@
           <template v-else-if="authorsAs">
             <p v-for="(x, k) in authorsAs" :key="x.key">
               <strong>{{ asStr[k] || 'By' }} </strong>
-              <template v-for="(a, i) in x">
-                <g-link :key="a.slug" :to="`/${$t.slug_author}/${a.slug}`" :class="{'preAnd': i > 0}">{{ a.name }}</g-link>
+              <template v-for="(a, j) in x">
+                <g-link :key="a.slug" :to="`/${$t.slug_author}/${a.slug}`" :class="{'preAnd': j > 0}">{{ a.name }}</g-link>
               </template>
             </p>
           </template>
@@ -28,7 +28,7 @@
         <playable :track="post.track" :video="postVideo" class="text-2xl mr-2"></playable>
         <p class="text-slate" v-if="post.track">{{ Math.round(post.track.duration / 60) }} mins</p>
       </div>
-      <div class="post_content py-8 content-md" v-html="post.content"></div>
+      <div class="post_content py-8 content-md" v-html="content"></div>
       <div class="flex flex-wrap content-md">
         <template v-for="topic in post.topics">
           <g-link :key="topic.id" v-if="! topic.group.is_abstract" :to="`${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
@@ -44,7 +44,9 @@
       :limit="4"
       @empty="topicIndex = topicIndex + 1"
       gridClass="md:content w-full overflow-x-scroll flex items-stretch md:flex-wrap scroll-snap-x p-4">
-      <heading :to="`/${$t.slug_topic}/${topic.slug}`">{{topic.name}}</heading>
+      <template v-slot:default="slotProps">
+        <heading :to="slotProps.showMore ? `/${$t.slug_topic}/${topic.slug}` : null">{{topic.name}}</heading>
+      </template>
     </TopicArticles>
   </main>
 </template>
@@ -144,18 +146,31 @@ export default {
         vo: 'Sung by',
         wr: 'Written by',
       },
-      topicIndex: 0
+      topicIndex: 0,
+      glossary: null
     }
   },
   computed: {
-    post() {
+    post () {
       return this.preview || this.$page.ql.post
     },
-    topic() {
+    topic () {
       if (!this.post.topics || !this.post.topics.length > this.topicIndex) return null
       return this.post.topics[this.topicIndex]
     },
-    postVideo() {
+    content () {
+      const { content, meta: { no_dict } } = this.post
+      if (no_dict || ! this.glossary) {
+        return content
+      }
+      let html = content
+      this.glossary.forEach(def => {
+        const regx = new RegExp(`(${def.word})`, 'gi')
+        html = html.replace(regx, `<a href="/${this.$t.slug_glossary}/${def.slug}">$1</a>`)
+      })
+      return html
+    },
+    postVideo () {
       if (! this.post
           || ! this.post.meta
           || ! this.post.meta.url
@@ -168,14 +183,17 @@ export default {
         isVideo: true,
       }
     },
-    authorsAs() {
+    authorsAs () {
       if (! this.post.authors) return null
       return this.post.authors.groupBy('pivot.as')
     }
   },
-  mounted() {
+  mounted () {
     setTimeout(() => {
       this.$store.fadeIn = true
+      this.$fetch('/' + this.$t.slug_glossary).then(({ data }) => {
+        this.glossary = data.ql.glossary
+      })
     }, 100)
   }
 }

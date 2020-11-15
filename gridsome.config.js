@@ -39,6 +39,11 @@ const plugins = [
           indexName: 'Post',
           query: `{ ql { allPosts { title slug type track { id } } } }`,
           path: 'ql.allPosts'
+        },
+        {
+          indexName: 'Glossary',
+          query: `{ ql { glossary { title: word slug } } }`,
+          path: 'ql.glossary'
         }
       ],
       flexsearch: {

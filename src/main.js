@@ -13,7 +13,7 @@ import Store from './helpers/Store'
 import Api from './helpers/Api'
 // import Vue2TouchEvents from 'vue2-touch-events'
 import Markdown2Html from './helpers/Markdown2Html'
-// import VueGtm from 'vue-gtm'
+import VueGtm from 'vue-gtm'
 
 import 'typeface-inter'
 import 'typeface-merriweather'
@@ -46,6 +46,16 @@ export default function (Vue, { router, head, isClient }) {
   Vue.prototype.$m2h = Markdown2Html
   Vue.prototype.$j2o = (json) => JSON.parse(json)
   Vue.prototype.$storage_url = `${process.env.GRIDSOME_BACKEND_URL}/storage`
+
+  router.options.scrollBehavior = function(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return {selector: to.hash};
+    }
+    return {x: 0, y: 0}
+  }
 
   Vue.prototype.$typeIcon = (type, excludeArticle, hasTrack) => {
     if (! type) return ''
@@ -101,12 +111,12 @@ export default function (Vue, { router, head, isClient }) {
 
   head.htmlAttrs = { lang: process.env.GRIDSOME_LOCALE }
 
-  /*if (isClient && process.env.GRIDSOME_GTM) {
+  if (isClient && process.env.GRIDSOME_GTM) {
     Vue.use(VueGtm, {
       vueRouter: router,
       id: process.env.GRIDSOME_GTM,
       enabled: false,
       debug: false
     })
-  }*/
+  }
 }

@@ -30,11 +30,9 @@ module.exports = function (api) {
     const { settings } = await gqlFetch("query { settings { key value } }")
 
     // Fallback
-    new Array(
-      'title','slogan','contact_email','contact_tel','social',
+    ['title','slogan','contact_email','contact_tel','social',
       'header_links','top_text','top_link',
-      'cookie','cookie_page_id','privacy_page_id',
-    ).forEach(k => addMetadata(k, ''))
+      'cookie','cookie_page_id','privacy_page_id'].forEach(k => addMetadata(k, ''))
 
     if (settings) {
       settings.forEach(s => {
@@ -42,7 +40,6 @@ module.exports = function (api) {
         addMetadata(s.key, s.value)
       })
     } else console.log('No setttings!!!')
-
 
     const { cookiePage, privacyPage } = await gqlFetch(`query {
   cookiePage: page(id: ${metadata.cookie_page_id}) { path } 
@@ -141,6 +138,26 @@ module.exports = function (api) {
           context: { id: pl.id }
         })
       }
+    })
+
+    const { data: {
+      ql: { glossary }
+    }} = await graphql(`{
+      ql {
+        glossary {
+          word
+          slug
+          content
+        }
+      }
+    }`)
+
+    glossary.forEach(def => {
+      createPage({
+        path: `/${strings.slug_glossary}/${def.slug}`,
+        component: './src/templates/Definition.vue',
+        context: def
+      })
     })
 
     const { data: {

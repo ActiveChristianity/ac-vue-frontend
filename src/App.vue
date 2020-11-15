@@ -98,7 +98,6 @@ export default {
       handler() {
         setTimeout(() => {
           this.path = this.$route.path
-          process.isClient && window.scrollTo(0, 0);
           delay = setTimeout(() => {
             loadElements()
             process.isClient && window.refTagger && window.refTagger.tag && window.refTagger.tag();

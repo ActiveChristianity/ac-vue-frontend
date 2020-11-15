@@ -52,7 +52,6 @@ export default {
             dropShadow: false,
             roundCorners: true,
             socialSharing: ["twitter","facebook"],
-            tooltipStyle: "dark"
           }
         };
         const scriptTag = window.document.createElement("script")
