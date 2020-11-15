@@ -45,7 +45,7 @@ export default function (Vue, { router, head, isClient }) {
   Vue.prototype.$t = require(`./strings/${process.env.GRIDSOME_LOCALE}.json`)
   Vue.prototype.$m2h = Markdown2Html
   Vue.prototype.$j2o = (json) => JSON.parse(json)
-  Vue.prototype.$storage_url = `${process.env.GRIDSOME_BACKEND_URL}/storage`
+  Vue.prototype.$storage_url = process.env.GRIDSOME_STORAGE_URL
 
   router.options.scrollBehavior = function(to, from, savedPosition) {
     if (savedPosition) {

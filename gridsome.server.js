@@ -30,9 +30,11 @@ module.exports = function (api) {
     const { settings } = await gqlFetch("query { settings { key value } }")
 
     // Fallback
-    ['title','slogan','contact_email','contact_tel','social',
+    new Array(
+      'title','slogan','contact_email','contact_tel','social',
       'header_links','top_text','top_link',
-      'cookie','cookie_page_id','privacy_page_id'].forEach(k => addMetadata(k, ''))
+      'cookie','cookie_page_id','privacy_page_id',
+    ).forEach(k => addMetadata(k, ''))
 
     if (settings) {
       settings.forEach(s => {
