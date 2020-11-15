@@ -15,6 +15,12 @@
       </transition>
     </div>
 
+    <transition name="fade">
+      <div v-if="$store.message" class="fixed bg-primary text-white inset-0 z-50 center flex-col p-8">
+        <p class="font-medium">{{ $store.message.text }}</p>
+      </div>
+    </transition>
+
     <Cookie />
     <Footer />
 
@@ -157,9 +163,12 @@ export default {
           if (t < 50) t = 50
         }
       })
+    },
+    reload () {
+      window.location.reload();
     }
   },
-  mounted() {
+  mounted () {
     if (typeof window !== 'undefined') {
       this.$store.bookmarks = JSON.parse(localStorage.getItem('ac-bookmarks-'+process.env.GRIDSOME_LOCALE) || "{}");
       if (typeof this.$store.bookmarks !== 'object') {

@@ -7,6 +7,7 @@
     "explore": "gridsome explore"
   },
   "dependencies": {
+    "@allanchain/gridsome-plugin-pwa": "^0.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@gridsome/plugin-sitemap": "^0.2.3",
@@ -16,9 +17,11 @@
     "googleapis": "^57.0.0",
     "gridsome": "^0.7.22",
     "gridsome-plugin-flexsearch": "^1.0.5",
+    "gridsome-plugin-pwa": "0.0.18",
     "gridsome-plugin-robots-txt": "^1.0.2",
     "gridsome-plugin-transfer-file": "^0.1.0",
     "plyr": "^3.6.3",
+    "register-service-worker": "^1.7.1",
     "tailwindcss": "^1.9.6",
     "tiptap": "^1.30.0",
     "tiptap-extensions": "^1.33.2",

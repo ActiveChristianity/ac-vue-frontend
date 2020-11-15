@@ -46,6 +46,18 @@ export default function (Vue, { router, head, isClient }) {
   Vue.prototype.$m2h = Markdown2Html
   Vue.prototype.$j2o = (json) => JSON.parse(json)
   Vue.prototype.$storage_url = process.env.GRIDSOME_STORAGE_URL
+  Vue.prototype.$setMessage = (text, opts) => {
+    Vue.prototype.$store.message = {
+      text, opts
+    }
+    setTimeout(() => {
+      Vue.prototype.$store.message = null
+    }, 2000)
+  }
+
+  if (isClient && process.env.NODE_ENV === 'production') {
+    require('./registerServiceWorker')
+  }
 
   router.options.scrollBehavior = function(to, from, savedPosition) {
     if (savedPosition) {

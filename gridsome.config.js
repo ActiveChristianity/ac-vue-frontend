@@ -58,6 +58,32 @@ const plugins = [
   }
 ]
 
+/*
+
+    {
+      use: "gridsome-plugin-service-worker",
+      options: {
+        cacheFirst: {
+          cacheName: 'cf-v2',
+          fileTypes: [
+            "image",
+            "font"
+          ]
+        },
+        precachedRoutes: [],
+        staleWhileRevalidate: {
+          cacheName: "swr-v2",
+          fileTypes: [
+            "document",
+            "audio",
+            "script",
+            "style",
+          ],
+        },
+      },
+    },
+ */
+
 if (process.env.NODE_ENV === 'production') {
   plugins.push(
     {
@@ -68,6 +94,12 @@ if (process.env.NODE_ENV === 'production') {
           allow: "/",
           disallow: "/editor"
         }]
+      }
+    },
+    {
+      use: '@gridsome/plugin-sitemap',
+      options: {
+        cacheTime: 600000,
       }
     },
     {
@@ -84,35 +116,29 @@ if (process.env.NODE_ENV === 'production') {
       },
     },
     {
-      use: '@gridsome/plugin-sitemap',
+      use: '@allanchain/gridsome-plugin-pwa',
       options: {
-        cacheTime: 600000,
-      }
-    },
-    {
-      use: "gridsome-plugin-service-worker",
-      options: {
-        precachedRoutes: ["/"],
-        cacheOnly: {
-          cacheName: "co-v" + Date.now(),
-          routes: ["/"],
+        manifestOptions: {
+          short_name: 'AC',
+          name: 'ActiveChristianity',
+          description: 'Spreading the gospel in Africa',
+          display: 'fullscreen',
+          start_url: '/',
+          categories: ['education'],
+          lang: 'en-KE',
+          dir: 'auto'
         },
-        cacheFirst: {
-          cacheName: 'cf-v2',
-          fileTypes: [
-              "image",
-              "font"
-          ]
-        },
-        staleWhileRevalidate: {
-          cacheName: "swr-v2",
-          fileTypes: [
-            "document",
-            "audio",
-            "script",
-            "style",
-          ],
-        },
+        appleMobileWebAppStatusBarStyle: 'default',
+        manifestPath: 'manifest.json',
+        icon: 'src/favicon.png',
+        themeColor: '#FFAE0C',
+        backgroundColor: '#ffffff',
+        msTileColor: '#FFAE0C',
+        workboxOptions: {
+          cacheId: 'pwa-v1',
+          globPatterns: ['assets/@(js|css|fonts)/*', 'index.html', '*.(jpg|png|jpeg)', 'assets/data/*/index.json'],
+          skipWaiting: true
+        }
       },
     }
   )

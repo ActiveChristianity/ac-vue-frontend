@@ -78,12 +78,14 @@ export default {
       deep: true,
       async handler (v) {
           this.loading = true
-          const res = await Promise.all(Object.values(v).map(({slug}) =>
-              this.$fetch(`/${slug}`).catch(() => {
-                console.warn('Could not load bookmark', slug)
-              })
-          ))
-          this.posts = res.filter(r => !!r).map(r => r.data.ql.post)
+          if (process.isClient) {
+            const res = await Promise.all(Object.values(v).map(({slug}) =>
+                this.$fetch(`/${slug}`).catch(() => {
+                  console.warn('Could not load bookmark', slug)
+                })
+            ))
+            this.posts = res.filter(r => !!r).map(r => r.data.ql.post)
+          }
           this.loading = false
       }
     }

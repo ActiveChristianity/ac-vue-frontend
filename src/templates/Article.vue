@@ -191,9 +191,11 @@ export default {
   mounted () {
     setTimeout(() => {
       this.$store.fadeIn = true
-      this.$fetch('/' + this.$t.slug_glossary).then(({ data }) => {
-        this.glossary = data.ql.glossary
-      })
+      if (process.isClient) {
+        this.$fetch('/' + this.$t.slug_glossary).then(({data}) => {
+          this.glossary = data.ql.glossary
+        })
+      }
     }, 100)
   }
 }

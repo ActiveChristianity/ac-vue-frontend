@@ -11,5 +11,6 @@ export default function(Vue) {
     bookmarks: {},
     showBookmarks: null,
     showSearch: null,
+    message: null,
   })
 }
