@@ -92,6 +92,11 @@ if (process.env.NODE_ENV === 'production') {
     {
       use: "gridsome-plugin-service-worker",
       options: {
+        precachedRoutes: ["/"],
+        cacheOnly: {
+          cacheName: "co-v" + Date.now(),
+          routes: ["/"],
+        },
         cacheFirst: {
           cacheName: 'cf-v2',
           fileTypes: [
