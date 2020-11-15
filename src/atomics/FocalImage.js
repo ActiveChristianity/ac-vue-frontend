@@ -6,19 +6,11 @@ export default {
     src: { type: [Object, String], required: true },
     width: { type: String, default: '' },
     height: { type: String, default: '' },
-    quality: { type: String, default: '' },
-    fit: { type: String, default: '' },
-    position: { type: String, default: '' },
-    background: { type: String, default: '' },
-    blur: { type: String, default: '' },
-    immediate: { type: true, default: undefined },
-    imageWidths: { type: String, default: undefined }
   },
 
   render: (h, { data, props }) => {
     const classNames = [data.class, 'g-image']
     const noscriptClassNames = [data.staticClass, classNames.slice()]
-    const isImmediate = props.immediate || props.immediate !== undefined
     const directives = data.directives || []
     const attrs = data.attrs || {}
     const hook = data.hook || {}
@@ -33,16 +25,20 @@ export default {
       case 'object': {
         const { src, srcset, size, dataUri, focal, alt } = props.src
 
-        const isLazy = !isImmediate && dataUri
         const sizes = attrs.sizes || props.src.sizes
 
-        attrs.src = isLazy ? dataUri : src
+        const isLazy = !! dataUri
+        attrs.src = src
+        if (isLazy) {
+          attrs.src = dataUri
+          attrs['data-src'] = src
+          directives.push({ name: 'g-image' })
+        }
         attrs.width = size.width
         attrs.alt = alt
 
         classNames.push(focal ? `object-${focal}` : 'object-center')
 
-        if (isLazy) attrs['data-src'] = src
         if (srcset && srcset.length) {
           attrs[`${isLazy ? 'data-' : ''}srcset`] = Array.isArray(srcset) ? srcset.join(', ') : srcset
         } else {
@@ -50,10 +46,6 @@ export default {
         }
 
         attrs[`${isLazy ? 'data-' : ''}sizes`] = sizes ? sizes : '600vw'
-
-        if (isLazy) {
-          directives.push({ name: 'g-image' })
-        }
 
         break
       }

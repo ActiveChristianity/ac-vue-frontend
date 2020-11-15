@@ -32,26 +32,24 @@ export default {
   },
   methods: {
     async load () {
-      if (process.isClient) {
-        try {
-          const {data} = await this.$fetch(`/${this.$t.slug_topic}/${this.topicSlug}`)
-          if (data) {
-            const posts = data.ql.topic.posts.filter(P => P.slug !== this.exclude)
-            if (this.posts) {
-              posts.sort((a, b) => a.date > b.data ? -1 : 1)
-              this.showMore = this.posts.length > this.limit;
-              this.posts = this.limit ? posts.slice(0, this.limit) : posts
-            }
-          } else this.posts = []
-        } catch (error) {
-          console.warn(error)
-          this.posts = []
-        } finally {
-          if (!(this.posts && this.posts.length)) {
-            this.$emit('empty')
+      try {
+        const {data} = await this.$fetch(`/${this.$t.slug_topic}/${this.topicSlug}`)
+        if (data) {
+          const posts = data.ql.topic.posts.filter(P => P.slug !== this.exclude)
+          if (posts) {
+            posts.sort((a, b) => a.date > b.data ? -1 : 1)
+            this.showMore = posts.length > this.limit;
+            this.posts = this.limit ? posts.slice(0, this.limit) : posts
           }
-          this.$store.fadeIn = true
+        } else this.posts = []
+      } catch (error) {
+        console.warn(error)
+        this.posts = []
+      } finally {
+        if (! this.posts.length) {
+          this.$emit('empty')
         }
+        this.$store.fadeIn = true
       }
     }
   },
