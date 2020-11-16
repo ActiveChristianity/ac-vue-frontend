@@ -170,7 +170,7 @@ export default {
       }
       let html = content
       this.glossary.forEach(def => {
-        const regx = new RegExp(` (${def.word})`, 'gi')
+        const regx = new RegExp(` (${def.word})`, 'i')
         html = html.replace(regx, ` <a href="/${this.$t.slug_glossary}/${def.slug}">$1</a>`)
       })
       return html
