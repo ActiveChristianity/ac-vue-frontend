@@ -4,23 +4,28 @@
       <div class="fade-in content-lg md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
         <p class="text-xl my-2">{{ post.sub }}</p>
-        <div class="text-center font-detail tracking-wide text-sm text-gray-600 my-6">
-          <p class="inline-block border-t border-gray-200 pt-6 px-24">
-              <span>{{ (new Date(post.published)).toLocaleDateString() }}</span>
-              <b class="mx-1">—</b>
-              <span v-if="post.readtime">{{ Math.ceil(post.readtime / 60) }} min read</span>
-          </p>
-          <p v-if="post.meta.as_ac">
-            By ActiveChristianity
-          </p>
-          <template v-else-if="authorsAs">
-            <p v-for="(x, k) in authorsAs" :key="x.key">
-              <strong>{{ asStr[k] || 'By' }} </strong>
-              <template v-for="(a, j) in x">
-                <g-link :key="a.slug" :to="`/${$t.slug_author}/${a.slug}`" :class="{'preAnd': j > 0}">{{ a.name }}</g-link>
+        <div class="center">
+          <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 px-24">
+            <bookmark class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600 -ml-10 mr-2" type="post" :id="post.id" :slug="post.slug"></bookmark>
+            <div class="text-center font-detail tracking-wide text-sm text-gray-600">
+              <p class="inline-block">
+                  <span>{{ (new Date(post.published)).toLocaleDateString() }}</span>
+                  <b class="mx-1">—</b>
+                  <span v-if="post.readtime">{{ Math.ceil(post.readtime / 60) }} min read</span>
+              </p>
+              <p v-if="post.meta.as_ac">
+                By ActiveChristianity
+              </p>
+              <template v-else-if="authorsAs">
+                <p v-for="(x, k) in authorsAs" :key="x.key">
+                  <strong>{{ asStr[k] || 'By' }} </strong>
+                  <template v-for="(a, j) in x">
+                    <g-link :key="a.slug" :to="`/${$t.slug_author}/${a.slug}`" :class="{'preAnd': j > 0}">{{ a.name }}</g-link>
+                  </template>
+                </p>
               </template>
-            </p>
-          </template>
+            </div>
+          </div>
         </div>
       </div>
       <g-image class="w-full max-w-screen-md mx-auto md:rounded-2xl" :src="post.image" />
@@ -165,8 +170,8 @@ export default {
       }
       let html = content
       this.glossary.forEach(def => {
-        const regx = new RegExp(`(${def.word})`, 'gi')
-        html = html.replace(regx, `<a href="/${this.$t.slug_glossary}/${def.slug}">$1</a>`)
+        const regx = new RegExp(` (${def.word})`, 'gi')
+        html = html.replace(regx, ` <a href="/${this.$t.slug_glossary}/${def.slug}">$1</a>`)
       })
       return html
     },

@@ -100,6 +100,29 @@ module.exports = function (api) {
       })
     })
 
+
+
+    const { data: {
+      ql: { authors }
+    }} = await graphql(`{
+      ql {
+        authors(hasPosts: true, first: 1000) {
+          data {
+            id
+            slug
+          }
+        }
+      }
+    }`)
+
+    authors.data.forEach(author => {
+      createPage({
+        path: `/${strings.slug_author}/${author.slug}`,
+        component: './src/templates/Author.vue',
+        context: {id: author.id}
+      })
+    })
+
     const { data: {
       ql: { allPages }
     }} = await graphql(`{
