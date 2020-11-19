@@ -4,9 +4,9 @@
       <h1 class="text-3xl text-blue-900 md:text-4xl font-medium leading-tight mb-8">{{ topic.name }}</h1>
 
       <div id="archive-banner" class="my-4 md:flex md:items-stretch md:mb-16">
-        <article-cover v-if="first" :article="first" class="flex-1 md:mr-4" style="min-height: 400px"/>
+        <article-cover v-if="first" :article="first" class="flex-1 md:mr-4" />
 
-        <sidebar-list v-if="popular && popular.length" class="md:w-1/3 hidden md:flex flex-col"
+        <sidebar-list v-if="popular && popular.length" class="my-4 md:my-0 md:w-1/3 flex flex-col" style="min-height: 440px"
           title="Popular" :posts="popular" />
       </div>
     </div>

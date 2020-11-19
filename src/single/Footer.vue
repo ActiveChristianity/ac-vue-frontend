@@ -17,6 +17,14 @@
       </div>
     </div>
 
+    <transition name="slide">
+      <div v-if="showMenu" @click="showMenu = false" class="md:hidden flex flex-col items-stretch rounded-tl mb-16 p-2 pb-8 bg-white fixed z-30 bottom-0 right-0 border-2 border-gray-200">
+        <g-link to="/" title="Home" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200"><icon fa name="fal-house" /></g-link>
+        <g-link to="/topics" :title="$t.topics" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
+        <g-link to="/glossary" :title="$t.glossary" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
+      </div>
+    </transition>
+
     <div class="md:hidden w-full flex justify-around mt-4 pb-3 border border-t-2 border-t-gray-600 fixed z-30 bg-white bottom-0 inset-x-0">
       <g-link to="/contact-us" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
         <icon fa name="fal-info-circle" />
@@ -36,12 +44,14 @@
         <span class="rounded-full w-12 h-12 block shadow center -mt-8 mb-0 bg-gray-200">
           <icon name="fal-search" fa />
         </span>
-        <span class="block mt-2 text-sm">Search</span>
+        <span class="block mt-2 text-sm">{{ $t.search }}</span>
       </button>
-      <g-link to="/topics" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
-        <icon fa name="fal-file-alt" />
-        <span class="block mt-2 text-sm">Topics</span>
-      </g-link>
+      <button aria-label="open-menu" @click="showMenu = ! showMenu"
+              class="w-16 h-16 flex flex-col items-center justify-center text-gray-800"
+              :class="{'text-secondary': showMenu}"
+      >
+        <icon fa name="fal-bars" />
+      </button>
     </div>
   </footer>
 </template>
@@ -72,6 +82,11 @@ query FooterInfo {
 
 <script>
 export default {
+  data () {
+    return {
+      showMenu: false
+    }
+  },
   computed: {
     langs () {
       return this.$static.ql.sites

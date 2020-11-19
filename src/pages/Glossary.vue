@@ -5,7 +5,7 @@
     <div class="column-layout">
       <template v-for="group in groups">
         <div :key="group.key" class="pb-2 mb-2 border-b border-gray-300">
-          <h3 class="avoid-after font-medium text-gray-800 text-xl p-2 uppercase">{{ group.key }}</h3>
+          <h3 class="avoid-after font-medium text-secondary text-xl p-2 uppercase">{{ group.key }}</h3>
           <template v-for="def in group.defs">
             <g-link :key="def.slug" :to="`/${$t.slug_glossary}/${def.slug}`" class="block p-2 rounded hover:bg-gray-200">
               {{ def.word }}

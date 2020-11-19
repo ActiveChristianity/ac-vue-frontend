@@ -24,7 +24,7 @@
     <div class="column-layout">
       <template v-for="group in groups">
         <div :key="group.id" class="pb-2 mb-2 border-b border-gray-200">
-          <h3 class="avoid-after font-medium text-gray-800 text-xl py-2 uppercase">{{ group.name }}</h3>
+          <h3 class="avoid-after font-medium text-secondary text-xl p-2 uppercase">{{ group.name }}</h3>
           <template v-for="topic in group.topics">
             <div :key="topic.id" class="my-1">
               <g-link :to="`${$t.slug_topic}/${topic.slug}`" class="p-2 rounded hover:bg-gray-200">

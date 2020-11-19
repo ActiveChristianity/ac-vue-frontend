@@ -1,8 +1,9 @@
 <template>
-  <div class="fixed pb-14 sm:pb-0 bottom-0 right-0 left-0 mp--bottom">
-    <div class="w-full flex flex-col bg-gray-300">
+  <div class="fixed mb-20 md:mb-0 bottom-0 inset-x-0">
+    <div class="w-full flex flex-col bg-gray-300 pb-4">
       <div class="content-md md:py-4 relative">
         <vue-plyr ref="plyr">
+          <audio src="/ping.mp3"></audio>
         </vue-plyr>
         <p v-if="$store.playing" class="-mt-1 text-center pb-1">{{ $store.playing.title }}</p>
         <button class="absolute inset-y-0 right-0 h-full px-1" @click="close"><icon name="fad-times" fa/></button>

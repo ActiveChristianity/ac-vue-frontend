@@ -1,5 +1,5 @@
 <template>
-  <button v-if="track || video" @click.prevent.stop="toggle" class="px-2 rounded hover:text-slate hover:bg-gray-200 hover:bg-opacity-50"
+  <button v-if="track || video" @click.prevent.stop="toggle" class="center py-1 px-2 rounded hover:text-slate hover:bg-gray-200 hover:bg-opacity-50"
           :class="isPlaying ? 'bg-gray-200 bg-opacity-50 text-gray-800': 'hover-play'"
           :title="isPlaying ? 'Pause' : 'Play'"
   >
