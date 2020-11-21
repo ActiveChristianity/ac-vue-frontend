@@ -3,10 +3,12 @@
     <slot :showMore="showMore"></slot>
     <icon v-if="!posts" :class="gridClass" name="icon" class="loading-icon w-40 h-40 mx-auto block my-20"></icon>
     <div :class="gridClass" v-else-if="posts.length">
-      <article-card v-for="post in posts"
+      <article-card v-for="(post, i) in posts"
                     :key="post.id"
                     :article="post"
-                    class="w-11/12 md:w-1/2 lg:w-1/4"
+                    :large="posts.length === 3 && i === 2"
+                    class="w-4/5 md:w-1/2"
+                    :class="posts.length === 3 && i === 2 ? 'lg:w-1/2' : 'lg:w-1/4'"
       />
     </div>
   </div>
