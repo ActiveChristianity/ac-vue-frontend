@@ -4,7 +4,7 @@
 
     <g-link v-if="$static.m.top_text && $store.showTopBar" @click="$store.showTopBar = false" :to="$static.m.top_link" class="relative z-10 w-full py-4 text-center bg-gray-900 text-white">
       <p class="xsmall" v-html="$m2h($static.m.top_text)"></p>
-      <button class="absolute inset-y-0 right-0 font-bold h-full w-12 bg-white text-black fal fa-arrow-right"></button>
+      <button class="absolute inset-y-0 right-0 font-bold h-full w-12 bg-white text-black"><icon fa name="chevron-right" prefix="fad"/></button>
     </g-link>
 
     <Header />
