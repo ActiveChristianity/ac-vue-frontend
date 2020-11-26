@@ -1,29 +1,27 @@
 <template>
-  <main class="content py-12 md:py-16">
-    <div class="fade-in center flex-wrap">
+  <main>
+    <div class="content pt-12 md:pt-16 center flex-wrap">
       <div class="center flex-col w-full md:w-1/2 p-8">
         <g-image v-if="author.image" :src="author.image"
-                 class="rounded-full shadow"></g-image>
-        <h1 class="text-3xl text-blue-900 md:text-4xl font-medium leading-tight my-4 order-2">{{ author.name }}</h1>
+                 class="fade-in rounded-full shadow"></g-image>
+        <h1 class="fade-in text-3xl text-blue-900 md:text-4xl font-medium leading-tight my-4 order-2">{{ author.name }}</h1>
       </div>
-      <div v-if="author.excerpt" class="w-full md:w-1/2 p-8 text-xl"
+      <div v-if="author.excerpt" class="fade-in w-full md:w-1/2 p-8 text-xl"
         :class="author.name.charCodeAt(0) % 2 ? 'order-3' : 'order-1'">
         <div v-html="author.excerpt"></div>
       </div>
     </div>
-    <div class="mt-6 md:mt-12">
-      <article-grid :articles="filtered">
-        <div v-if="types" class="flex items-center justify-center mb-8 font-medium">
-          <button v-if="filter" class="py-1 px-3 bg-gray-100 text-gray-800 hover:text-slate-dark rounded mx-2"
-                  @click="filter = ''"><icon fa name="fa-times" prefix="fal" /></button>
-          <template v-for="(posts, type) in types">
-            <button class="py-1 px-3 rounded mx-2 uppercase"
-                    :class="filter === type ? 'bg-secondary text-white' : 'bg-gray-200 text-gray-800 hover:text-secondary'"
-                    @click="filter = type">{{ type }}</button>
-          </template>
-        </div>
-      </article-grid>
-    </div>
+    <article-grid :articles="filtered">
+      <div v-if="types" class="flex items-center justify-center mb-8 font-medium">
+        <button v-if="filter" class="py-1 px-3 bg-gray-100 text-gray-800 hover:text-slate-dark rounded mx-2"
+                @click="filter = ''"><icon fa name="fa-times" prefix="fal" /></button>
+        <template v-for="(posts, type) in types">
+          <button class="py-1 px-3 rounded mx-2 uppercase"
+                  :class="filter === type ? 'bg-secondary text-white' : 'bg-gray-200 text-gray-800 hover:text-secondary'"
+                  @click="filter = type">{{ type }}</button>
+        </template>
+      </div>
+    </article-grid>
   </main>
 </template>
 

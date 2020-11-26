@@ -1,6 +1,6 @@
 <template>
   <button v-if="id" aria-label="bookmark" @click.stop.prevent="toggle">
-    <icon :name="`${iconStyle}-bookmark`" fa />
+    <icon :prefix="iconStyle" name="bookmark" fa />
   </button>
 </template>
 

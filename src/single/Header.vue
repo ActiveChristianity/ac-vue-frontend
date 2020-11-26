@@ -14,14 +14,18 @@
     <div id="headbar" class="fixed top-0 z-30 w-full bg-white md:relative bg-white flex items-center justify-between border-b border-gray-200 pl-1 pr-4 md:px-4 h-12"
       :class="$store.showSearch ? 'fixed top-0 inset-x-0 md:mt-10 z-50' : ''"
     >
+      <button v-if="$route.path !== '/'" @click="$router.back()" class="p-3 h-12 md:hidden">
+        <icon name="fad-chevron-left" fa />
+      </button>
+
       <g-link to="/" id="headbar-left" class="p-3 h-12 text-4xl">
-        <icon name="logo" class="h-full object-fit text-primary md:block" :class="{hidden: $store.showSearch}" />
-        <icon name="icon" class="h-full object-fit text-primary" :class="$store.showSearch ? 'block md:hidden' : 'hidden'" />
+        <icon name="logo" class="h-full object-fit md:block" :class="{hidden: $store.showSearch}" />
+        <icon name="icon" class="h-full object-fit" :class="$store.showSearch ? 'block md:hidden' : 'hidden'" />
       </g-link>
 
-      <div v-if="! $store.showSearch" class="hidden md:flex flex-1 justify-center">
-        <g-link to="/topics" :title="$t.topics" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
-        <g-link to="/glossary" :title="$t.glossary" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
+      <div v-if="! $store.showSearch" class="flex flex-1 justify-center">
+        <g-link to="/topics" :title="$t.topics" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
+        <g-link to="/glossary" :title="$t.glossary" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
       </div>
 
       <search v-if="$store.showSearch !== null" :show="$store.showSearch" @close="$store.showSearch = false" />

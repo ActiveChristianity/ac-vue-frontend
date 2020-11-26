@@ -1,28 +1,26 @@
 <template>
-  <main class="content py-12 md:py-16">
-    <div class="fade-in">
-      <h1 class="text-3xl text-blue-900 md:text-4xl font-medium leading-tight mb-8">{{ topic.name }}</h1>
+  <main>
+    <div class="content py-12 md:pt-16">
+      <h1 class="fade-in text-3xl text-blue-900 md:text-4xl font-medium leading-tight mb-8">{{ topic.name }}</h1>
 
-      <div id="archive-banner" class="my-4 md:flex md:items-stretch md:mb-16">
+      <div id="archive-banner" class="fade-in my-4 md:flex md:items-stretch md:mb-16">
         <article-cover v-if="first" :article="first" class="flex-1 md:mr-4" />
 
-        <sidebar-list v-if="popular && popular.length" class="my-4 md:my-0 md:w-1/3 flex flex-col" style="min-height: 440px"
+        <sidebar-list v-if="popular && popular.length" class="fade-in my-4 md:my-0 md:w-1/3 flex flex-col" style="min-height: 440px"
           title="Popular" :posts="popular" />
       </div>
     </div>
-    <div class="mt-6 md:mt-12">
-      <article-grid :articles="filtered">
-        <div v-if="types" class="flex items-center justify-center mb-8 font-medium">
-          <button v-if="filter" class="py-1 px-3 bg-gray-100 text-gray-800 hover:text-slate-dark rounded mx-2"
-              @click="filter = ''"><icon fa prefix="fal" name="fa-times" /></button>
-          <template v-for="(posts, type) in types">
-            <button class="py-1 px-3 rounded mx-2 uppercase"
-                    :class="filter === type ? 'bg-secondary text-white' : 'bg-gray-200 text-gray-800 hover:text-secondary'"
-                @click="filter = type">{{ type }}</button>
-          </template>
-        </div>
-      </article-grid>
-    </div>
+    <article-grid :articles="filtered">
+      <div v-if="types" class="flex items-center justify-center mb-8 font-medium">
+        <button v-if="filter" class="py-1 px-3 bg-gray-100 text-gray-800 hover:text-slate-dark rounded mx-2"
+            @click="filter = ''"><icon fa prefix="fal" name="fa-times" /></button>
+        <template v-for="(posts, type) in types">
+          <button class="py-1 px-3 rounded mx-2 uppercase"
+                  :class="filter === type ? 'bg-secondary text-white' : 'bg-gray-200 text-gray-800 hover:text-secondary'"
+              @click="filter = type">{{ type }}</button>
+        </template>
+      </div>
+    </article-grid>
   </main>
 </template>
 

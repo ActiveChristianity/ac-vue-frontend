@@ -10,8 +10,8 @@ module.exports = {
   },
   theme: {
     fontFamily: {
-      sans: ['Source Sans Pro', 'San Francisco', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
-      serif: ['Merriweather', 'San Francisco','-apple-system','BlinkMacSystemFont','serif'],
+      sans: ['Source Sans Pro', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
+      serif: ['Merriweather', '-apple-system','BlinkMacSystemFont','serif'],
       mono: ['monospace', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
     },
     extend: {

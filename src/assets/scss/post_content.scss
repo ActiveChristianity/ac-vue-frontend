@@ -1,4 +1,9 @@
 .post_content {
+  a.rtBibleRef {
+    break-inside: avoid;
+    display: inline-block;
+  }
+
   ol, p, ul {
     font-weight: 300;
     font-size: 1rem;

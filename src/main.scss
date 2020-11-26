@@ -57,6 +57,7 @@ html, body {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent; /* for removing the highlight */
   @apply font-sans;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 @screen mmd {
