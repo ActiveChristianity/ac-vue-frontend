@@ -25,7 +25,7 @@
       </div>
     </transition>
 
-    <div class="md:hidden w-full flex justify-around mt-4 pb-3 border border-t-2 border-t-gray-600 fixed z-30 bg-white bottom-0 inset-x-0">
+    <div class="md:hidden w-full flex justify-around mt-4 border border-t-2 border-t-gray-600 fixed z-30 bg-white bottom-0 inset-x-0">
       <g-link to="/contact-us" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
         <icon fa name="fal-info-circle" />
         <span class="block mt-2 text-sm">Contact Us</span>

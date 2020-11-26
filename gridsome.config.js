@@ -111,7 +111,7 @@ if (process.env.NODE_ENV === 'production') {
         short_name: "AC",
         theme_color: "#FFAE0C",
         lang: "en",
-        display: "fullscreen",
+        display: "standalone",
         start_url: "/",
       },
     },
