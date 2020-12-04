@@ -59,7 +59,9 @@ export default {
     topicSlug: {
       immediate: true,
       handler () {
-        this.load()
+        if (process.isClient) {
+          this.load()
+        }
       }
     }
   },
