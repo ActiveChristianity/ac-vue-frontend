@@ -62,7 +62,7 @@ export default {
       return this.page.flexibleContent ? JSON.parse(this.page.flexibleContent) : null
     },
     withSections () {
-      if (this.page.meta?.layout.indexOf('with-sections') > -1) {
+      if (this.page.meta?.layout?.indexOf('with-sections') > -1) {
         const sections = {}
         this.content.forEach(({ type, data }) => {
           if (type === 'section') {
