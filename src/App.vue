@@ -7,7 +7,7 @@
       <button class="absolute inset-y-0 right-0 font-bold h-full w-12 bg-white text-black"><icon fa name="chevron-right" prefix="fad"/></button>
     </g-link>
 
-    <Header />
+    <Header :top="fixedHeader" :scrollY="scrollY" />
 
     <div class="flex-1 flex-grow relative">
       <transition name="fade">
@@ -15,14 +15,14 @@
       </transition>
     </div>
 
+    <Cookie />
+    <Footer />
+
     <transition name="fade">
       <div v-if="$store.message" class="fixed bg-primary text-white inset-0 z-50 center flex-col p-8">
         <p class="font-medium">{{ $store.message.text }}</p>
       </div>
     </transition>
-
-    <Cookie />
-    <Footer />
 
     <transition name="fade">
       <global-player v-if="$store.playlist"></global-player>
@@ -138,7 +138,7 @@ export default {
       if (!process.isClient || !this.ready) return
       /* Header Top Fixed */
       this.fixedHeader -= window.scrollY - this.scrollY
-      this.scrollY = window.scrollY > 0 ? window.scrollY : 0
+      this.scrollY = window.scrollY
       if (this.fixedHeader > 0) this.fixedHeader = 0
       else if (this.fixedHeader < -90) this.fixedHeader = -90
 

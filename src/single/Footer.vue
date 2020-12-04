@@ -18,10 +18,11 @@
     </div>
 
     <transition name="slide">
-      <div v-if="showMenu" @click="showMenu = false" class="md:hidden flex flex-col items-stretch rounded-tl mb-16 p-2 pb-8 bg-white fixed z-30 bottom-0 right-0 border-2 border-gray-200">
-        <g-link to="/" title="Home" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200"><icon fa name="fal-house" /></g-link>
-        <g-link to="/topics" :title="$t.topics" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
-        <g-link to="/glossary" :title="$t.glossary" class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
+      <div v-if="showMenu" @click="showMenu = false" class="md:hidden flex flex-col items-stretch rounded-tl mb-16 p-2 pt-4 pb-8 bg-white fixed z-30 bottom-0 right-0 border-2 border-gray-200">
+        <g-link to="/" title="Home" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200"><icon fa name="fal-house" /></g-link>
+        <g-link to="/topics" :title="$t.topics" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ $t.topics }}</g-link>
+        <g-link :to="`/${$t.slug_glossary}`" :title="$t.glossary" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ $t.glossary }}</g-link>
+        <g-link :to="`/${$t.slug_about}`" title="About Us" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">About Us</g-link>
       </div>
     </transition>
 
