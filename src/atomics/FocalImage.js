@@ -62,6 +62,8 @@ export default {
       }
     }
 
+    attrs.alt = attrs.alt || ''
+
     res.push(h('img', {
       ...data,
       class: classNames,
@@ -82,9 +84,8 @@ export default {
         domProps: {
           innerHTML: `` +
             `<img src="${props.src.src}" class="${noscriptClassNames.join(' ')}"` +
-            (attrs.width ? ` width="${attrs.width}"`: '') +
-            (attrs.alt ? ` alt="${attrs.alt}"` : '') +
-            `>`
+              (attrs.width ? ` width="${attrs.width}"`: '') +
+              (` alt="${attrs.alt}">`)
         }
       }))
     }
