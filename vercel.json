@@ -4,17 +4,16 @@
   "routes": [
     {
       "src": "/service-worker.js",
-      "headers": { "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate" },
+      "headers": { "Cache-Control": "max-age=0, must-revalidate" },
       "continue": true
     },
     {
       "src": "/assets/js/service-worker.js",
-      "headers": { "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate" },
+      "headers": { "Cache-Control": "max-age=0, must-revalidate" },
       "continue": true
     },
     {
       "src": "/manifest.json",
-      "headers": { "Cache-Control": "no-cache" },
       "continue": true
     },
     {
@@ -23,14 +22,17 @@
     },
     {
       "src": "/(.*)",
+      "headers": { "Cache-Control": "max-age=604800, must-revalidate" },
       "dest": "/$1"
     },
     {
-      "handle": "filesystem"
+      "handle": "filesystem",
+      "headers": { "Cache-Control": "max-age=604800, must-revalidate" }
     },
     {
       "src": "/.*",
       "status": 200,
+      "headers": { "Cache-Control": "max-age=604800, must-revalidate" },
       "dest": "index.html"
     }
   ]
