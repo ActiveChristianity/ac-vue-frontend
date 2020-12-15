@@ -15,8 +15,6 @@ import Api from './helpers/Api'
 import Markdown2Html from './helpers/Markdown2Html'
 import VueGtm from 'vue-gtm'
 
-import 'typeface-inter'
-import 'typeface-merriweather'
 import './main.scss'
 
 if (! Array.prototype.groupBy) {

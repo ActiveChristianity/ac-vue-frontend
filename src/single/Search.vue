@@ -24,9 +24,9 @@
                 :key="result.id"
                 :to="nodePath(result.node)"
                 class="p-2 w-full flex items-center">
-              <div class="rounded-full bg-gray-100 center w-8 h-8 mr-2">
+              <div class="rounded-full bg-gray-100 center w-8 h-8 flex-shrink-0 mr-2">
                 <icon v-if="result.node.type" prefix="fal" :name="$typeIcon(result.node.type, false, !! result.node.track)" fa />
-                <p v-else class="uppercase font-semibold font-serif">{{ result.node.title.charAt(0) }}</p>
+                <p v-else class="uppercase font-serif">{{ result.node.title.charAt(0) }}</p>
               </div>
               <span>{{ result.title }}</span>
             </g-link>
