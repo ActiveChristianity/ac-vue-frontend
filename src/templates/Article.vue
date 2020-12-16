@@ -42,13 +42,13 @@
       <div class="py-8 content-md">
         <p class="text-sm text-gray-600" v-html="post.meta.credits"></p>
       </div>
+      <share v-if="showShare" />
     </article>
 
     <TopicArticles v-if="topic" :topicSlug="topic.slug"
       :exclude="post.slug"
       :limit="4"
-      @empty="topicIndex = topicIndex + 1"
-      gridClass="md:content w-full overflow-x-scroll flex items-stretch md:flex-wrap scroll-snap-x p-4">
+      @empty="topicIndex = topicIndex + 1">
       <template v-slot:default="slotProps">
         <heading :to="slotProps.showMore ? `/${$t.slug_topic}/${topic.slug}` : null">{{topic.name}}</heading>
       </template>
@@ -135,6 +135,7 @@ export default {
   },
   components: {
     Heading,
+    Share: () => import('~/components/Share.vue'),
     TopicArticles: () => import('~/components/TopicArticles.vue'),
   },
   data () {
@@ -152,7 +153,8 @@ export default {
         wr: 'Written by',
       },
       topicIndex: 0,
-      glossary: null
+      glossary: null,
+      showShare: !! process.isClient
     }
   },
   computed: {
@@ -160,8 +162,9 @@ export default {
       return this.preview || this.$page.ql.post
     },
     topic () {
-      if (!this.post.topics || !this.post.topics.length > this.topicIndex) return null
-      return this.post.topics[this.topicIndex]
+      if (process.isClient && this.post.topics?.length > this.topicIndex) {
+        return this.post.topics[this.topicIndex]
+      }
     },
     content () {
       const { content, meta: { no_dict } } = this.post

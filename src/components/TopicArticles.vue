@@ -1,21 +1,16 @@
 <template>
-  <div v-if="!posts || posts.length">
-    <slot :showMore="showMore"></slot>
-    <icon v-if="!posts" :class="gridClass" name="icon" class="loading-icon w-40 h-40 mx-auto block my-20"></icon>
-    <div :class="gridClass" v-else-if="posts.length">
-      <article-card v-for="(post, i) in posts"
-                    :key="post.id"
-                    :article="post"
-                    :large="posts.length === 3 && i === 2"
-                    class="w-4/5 md:w-1/2"
-                    :class="posts.length === 3 && i === 2 ? 'lg:w-1/2' : 'lg:w-1/4'"
-      />
-    </div>
+  <div v-if="posts && posts.length">
+    <article-grid :articles="posts" title="">
+      <slot :showMore="showMore"></slot>
+    </article-grid>
+  </div>
+  <div v-else-if="!posts" class="center">
+    <icon name="icon" class="loading-icon w-40 h-40 mx-auto block my-20"></icon>
   </div>
 </template>
 
 <script>
-import ArticleCard from './ArticleCard.vue'
+import ArticleGrid from './ArticleGrid.vue'
 export default {
   props: {
     limit: {
@@ -23,7 +18,6 @@ export default {
       default: 0
     },
     topicSlug: String,
-    gridClass: String,
     exclude: String
   },
   data() {
@@ -65,7 +59,7 @@ export default {
       }
     }
   },
-  components: { ArticleCard }
+  components: { ArticleGrid }
 }
 </script>
 

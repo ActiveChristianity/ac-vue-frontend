@@ -8,8 +8,8 @@
                       :article="article"
                       :large="large[i % 9]"
                       ratio="pb-16/9 md:pb-56"
-                      class="fade-in transition-all duration-300 w-3/4 md:w-1/2"
-                      :class="large[i % 9] ? 'lg:w-1/2' : 'lg:w-1/4'"
+                      class="fade-in transition-all duration-300 md:w-1/2"
+                      :class="[baseWidth, large[i % 9] ? 'lg:w-1/2' : 'lg:w-1/4']"
         />
       </template>
       <div key="end" class="flex-none w-4 md:hidden"></div>
@@ -31,11 +31,15 @@ export default {
   },
   components: { ArticleCard, Heading, FootLink },
   computed: {
-    large() {
-      if (this.articles && this.articles.length < 5) {
-        return [
-            false, false, false, false
-        ]
+    baseWidth () {
+      return this.articles?.length === 1 ? 'w-full' : 'w-3/4'
+    },
+    large () {
+      if (this.articles.length <= 2) {
+        return [ true, true ]
+      }
+      if (this.articles.length <= 4) {
+        return [ false, false, false, false ]
       }
 
       return [
