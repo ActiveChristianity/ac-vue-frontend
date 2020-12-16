@@ -1,5 +1,5 @@
 <template>
-  <div id="Bookmarks" class="fixed w-64 inset-y-0 right-0 transition-all duration-300" :class="show ? 'mr-0' : ' -mr-64'">
+  <div id="Bookmarks" class="fixed z-30 w-64 inset-y-0 right-0 transition-all duration-300" :class="show ? 'mr-0' : ' -mr-64'">
     <div @click="close" class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
       <header class="px-4 py-2 md:py-4 flex justify-between items-center shadow">
         <h2 class="text-lg leading-7 font-medium text-gray-900">

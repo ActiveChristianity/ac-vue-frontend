@@ -146,7 +146,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const config = {
   siteName: 'ActiveChristianity',
-  siteUrl: 'https://activechristianity.org',
+  siteUrl: process.env.GRIDSOME_SITE_URL,
   siteDescription: '',
 
   chainWebpack: config => {

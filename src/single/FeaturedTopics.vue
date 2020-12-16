@@ -25,6 +25,7 @@ query FeaturedTopics {
       id
       name
       slug
+      noOfPosts
       image {
         src alt dataUri size { width height } focal
       }
@@ -39,7 +40,7 @@ export default  {
   components: { Heading },
   computed: {
     topics () {
-      return this.$static.ql.topics
+      return this.$static.ql.topics.filter(({noOfPosts}) => noOfPosts > 2)
     }
   }
 }

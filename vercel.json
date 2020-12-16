@@ -22,19 +22,12 @@
       "dest": "/topics"
     },
     {
-      "src": "/assets/fonts/(.*)",
-      "headers": {
-        "Cache-Control": "max-age=31500000, must-revalidate"
-      }
-    },
-    {
       "src": "/(.*)",
       "headers": { "Cache-Control": "max-age=604800, must-revalidate" },
       "dest": "/$1"
     },
     {
-      "handle": "filesystem",
-      "headers": { "Cache-Control": "max-age=604800, must-revalidate" }
+      "handle": "filesystem"
     },
     {
       "src": "/.*",

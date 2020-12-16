@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-100 pt-2 md:pt-0 md:bg-transparent">
-    <heading v-if="title" :to="to">{{ title }}</heading>
+    <heading v-if="title" class="fade-in" :to="to">{{ title }}</heading>
     <slot></slot>
     <transition-group name="transform" tag="div" class="pl-4 md:pl-0 md:content w-full overflow-x-scroll md:overflow-hidden flex items-stretch md:flex-wrap scroll-snap-x py-4">
       <template v-for="(article, i) in articles">
@@ -8,7 +8,7 @@
                       :article="article"
                       :large="large[i % 9]"
                       ratio="pb-16/9 md:pb-56"
-                      class="transition-all duration-300 w-3/4 md:w-1/2"
+                      class="fade-in transition-all duration-300 w-3/4 md:w-1/2"
                       :class="large[i % 9] ? 'lg:w-1/2' : 'lg:w-1/4'"
         />
       </template>
@@ -34,7 +34,7 @@ export default {
     large() {
       if (this.articles && this.articles.length < 5) {
         return [
-            true, true, true, true
+            false, false, false, false
         ]
       }
 
@@ -50,6 +50,11 @@ export default {
         false,
       ];
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.$store.fadeIn = true
+    }, 100)
   }
 }
 </script>

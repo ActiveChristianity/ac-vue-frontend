@@ -32,6 +32,7 @@ module.exports = function (api) {
     // Fallback
     new Array(
       'title','slogan','contact_email','contact_tel','social',
+      'featured_posts',
       'header_links','top_text','top_link',
       'cookie','cookie_page_id','privacy_page_id',
     ).forEach(k => addMetadata(k, ''))
