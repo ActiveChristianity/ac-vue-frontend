@@ -1,5 +1,5 @@
 <template>
-  <footer class="relative border-t border-gray-200 mt-8 py-4">
+  <footer class="relative border-t border-gray-200 py-4">
     <div class="md:content center flex-col">
       <div class="w-full p-4 center">
         <template v-for="ln in socialLinks">

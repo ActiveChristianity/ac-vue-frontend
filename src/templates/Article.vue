@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <article class="md:content post my-12">
+  <main class="bg-gradient-to-t md:p-2" :style="`--gradient-color-stops: ${post.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')}`">
+    <article class="md:content post my-12 bg-white md:rounded-2xl">
       <div class="fade-in content-lg md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
         <p class="text-xl my-2">{{ post.sub }}</p>
@@ -28,7 +28,12 @@
           </div>
         </div>
       </div>
-      <g-image class="w-full max-w-screen-md mx-auto md:rounded-2xl" :src="post.image" />
+      <div class="py-4 md:rounded-2xl">
+        <div class="post_content py-2 content-md">
+          <p>{{ post.excerpt }}</p>
+        </div>
+        <g-image class="w-full max-w-screen-md mx-auto md:rounded-2xl" :src="post.image" />
+      </div>
       <div v-if="post.track || postVideo" class="flex items-center justify-center my-2">
         <playable :track="post.track" :video="postVideo" class="text-2xl mr-2"></playable>
         <p class="text-slate" v-if="post.track">{{ Math.round(post.track.duration / 60) }} mins</p>
@@ -81,7 +86,7 @@ query Post ($id: ID!) {
         }
       }
       image {
-        src alt srcset dataUri sizes size { width height }
+        src alt srcset dataUri sizes size { width height } colors
       }
       content
       topics {
@@ -159,7 +164,7 @@ export default {
   },
   computed: {
     post () {
-      return this.preview || this.$page.ql.post
+      return this.preview || this.$page.ql?.post
     },
     topic () {
       if (process.isClient && this.post.topics?.length > this.topicIndex) {

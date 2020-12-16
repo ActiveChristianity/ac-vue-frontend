@@ -30,7 +30,7 @@ export default {
     async load () {
       try {
         const {data} = await this.$fetch(`/${this.$t.slug_topic}/${this.topicSlug}`)
-        if (data) {
+        if (data && data.ql) {
           const posts = data.ql.topic.posts.filter(P => P.slug !== this.exclude)
           if (posts) {
             posts.sort((a, b) => a.date > b.data ? -1 : 1)

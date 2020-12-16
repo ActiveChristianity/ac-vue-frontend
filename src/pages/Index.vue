@@ -1,5 +1,5 @@
 <template>
-  <main class="relative">
+  <main class="relative pb-8">
     <article-banner :article="featured.banner" />
     <article-grid :articles="featured.list" title="Featured Articles"/>
     <br />
