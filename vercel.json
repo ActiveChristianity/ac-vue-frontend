@@ -23,7 +23,6 @@
     },
     {
       "src": "/(.*)",
-      "headers": { "Cache-Control": "max-age=604800, must-revalidate" },
       "dest": "/$1"
     },
     {
@@ -32,7 +31,6 @@
     {
       "src": "/.*",
       "status": 200,
-      "headers": { "Cache-Control": "max-age=604800, must-revalidate" },
       "dest": "index.html"
     }
   ]
