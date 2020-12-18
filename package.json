@@ -27,7 +27,6 @@
     "tiptap-extensions": "^1.33.2",
     "vue-gtm": "^3.1.0-vue2",
     "vue-plyr": "^6.0.4",
-    "vue-share-buttons": "^1.1.0",
     "vue-svg-loader": "^0.15.0",
     "vue2-touch-events": "^2.3.2"
   },
