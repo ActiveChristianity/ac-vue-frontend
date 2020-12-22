@@ -62,10 +62,9 @@ query FeaturedPosts {
 import ArticleCard from '~/components/ArticleCard'
 import ArticleCoverCard from '~/components/ArticleCoverCard'
 import Heading from '~/components/Heading'
-import FootLink from '~/components/FootLink'
 
 export default {
-  components: { ArticleCard, ArticleCoverCard, Heading, FootLink },
+  components: { ArticleCard, ArticleCoverCard, Heading },
   computed: {
     coverArticles () {
       const { podcast, playlists } = this.$static.ql

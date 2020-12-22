@@ -1,6 +1,6 @@
 <template>
   <main class="bg-gradient-to-t md:p-2" :style="`--gradient-color-stops: ${post.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')}`">
-    <article class="md:content post my-12 bg-white md:rounded-2xl">
+    <article class="md:content post my-12 bg-white text-black md:rounded-2xl">
       <div class="fade-in content-lg md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
         <p class="text-xl my-2">{{ post.sub }}</p>

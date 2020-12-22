@@ -14,14 +14,18 @@
       </template>
       <div key="end" class="flex-none w-4 md:hidden"></div>
     </transition-group>
-    <foot-link v-if="to" :to="to">View more</foot-link>
+    <div v-if="to" class="center py-8">
+      <g-link :to="to" class="text-blue-600 text-sm align-middle py-1 px-2 rounded hover:bg-gray-200">
+        View more
+        <icon class="ml-2" fa name="fad-chevron-right" />
+      </g-link>
+    </div>
   </div>
 </template>
 
 <script>
 import ArticleCard from './ArticleCard'
 import Heading from './Heading'
-import FootLink from './FootLink'
 
 export default {
   props: {
@@ -29,7 +33,7 @@ export default {
     title: String,
     to: String,
   },
-  components: { ArticleCard, Heading, FootLink },
+  components: { ArticleCard, Heading },
   computed: {
     baseWidth () {
       return this.articles?.length === 1 ? 'w-full' : 'w-3/4'
