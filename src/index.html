@@ -16,13 +16,14 @@
       body.ready { opacity: 1; }
     </style>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.activechristianity.org">
+    <link async href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   </head>
   <body ${bodyAttrs}>
     ${app}
     ${scripts}
     <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9d15963482ed4ad4ad66a09e8112c4ee"}'></script>
+    <script defer async src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9d15963482ed4ad4ad66a09e8112c4ee"}'></script>
     <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
