@@ -12,9 +12,7 @@ if (process.env.NODE_ENV === 'production') {
             console.log('Content has been cached for offline use.')
         },
         updatefound() {
-            if (Vue.prototype.$setMessage) {
-                Vue.prototype.$setMessage('Updating content...')
-            }
+            console.log('Updating content')
         },
         updated() {
             if (Vue.prototype.$setMessage) {
@@ -26,9 +24,6 @@ if (process.env.NODE_ENV === 'production') {
         },
         offline() {
             console.log('No internet connection found. App is running in offline mode.')
-            if (Vue.prototype.$setMessage) {
-                Vue.prototype.$setMessage('No internet connection')
-            }
         },
         error(error) {
             console.error('Error during service worker registration:', error)
