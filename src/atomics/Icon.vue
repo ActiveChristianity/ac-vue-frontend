@@ -1,5 +1,7 @@
 <template>
-  <component v-bind:is="icon" class="d4-icon" :class="{fa}"></component>
+  <svg class="d4-icon" :class="{fa}">
+    <use :xlink:href="`#${icon}`" />
+  </svg>
 </template>
 
 <script>
@@ -15,8 +17,7 @@ export default {
   },
   computed: {
     icon() {
-      const name = this.prefix ? `${this.prefix}-${this.name}` : this.name
-      return () => import(/* webpackChunkName: "icons" */ `~/assets/icons/${name}.svg`)
+      return this.prefix ? `${this.prefix}-${this.name}` : this.name
     }
   }
 }
