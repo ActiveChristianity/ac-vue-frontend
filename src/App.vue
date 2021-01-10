@@ -171,20 +171,21 @@ export default {
   mounted () {
     if (typeof window !== 'undefined') {
       this.$store.bookmarks = JSON.parse(localStorage.getItem('ac-bookmarks-'+process.env.GRIDSOME_LOCALE) || "{}");
-      if (typeof this.$store.bookmarks !== 'object') {
-        this.$nextTick(() => {
-          this.$store.bookmarks = {}
-        })
-      }
-      setTimeout(() => {
+      this.$nextTick(() => {
+        if (typeof this.$store.bookmarks !== 'object') {
+            this.$store.bookmarks = {}
+        }
         loadElements()
         this.ready = true
         window.document.body.classList.add('ready')
         this.onScroll()
-      }, 100)
-      setTimeout(() => {
-        this.$store.showTopBar = false
-      }, 10000)
+
+        if (this.$store.showTopBar) {
+          setTimeout(() => {
+            this.$store.showTopBar = false
+          }, 10000)
+        }
+      })
     }
   }
 }
