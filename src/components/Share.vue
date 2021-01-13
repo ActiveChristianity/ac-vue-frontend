@@ -10,15 +10,16 @@
 </template>
 
 <script>
-export const getEncodedUrl = () => encodeURIComponent(document.location.href);
-export const getEncodedTitle = () => encodeURIComponent(document.title);
-export const createWindow = (width = 500, height = 500) => {
+const getEncodedUrl = () => encodeURIComponent(document.location.href);
+const getEncodedTitle = () => encodeURIComponent(document.title);
+const createWindow = (width = 500, height = 500) => {
   const left = screen.width / 2 - width / 2;
   const top = screen.height / 2 - height / 2;
   return `width=${width},height=${height},left=${left},top=${top}`;
 };
 
 export default {
+  name: 'Share',
   data () {
     const width = 500
     const height = 500

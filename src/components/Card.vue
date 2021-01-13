@@ -14,7 +14,7 @@
         </span>
       </div>
       <span class="relative w-full h-56 sm:order-first hidden sm:block sm:w-full pl-1 sm:pl-0 flex justify-end" style="min-width: 84px" v-if="card.image">
-        <f-image v-if="card.image" class="pointer-events-none w-full h-full rounded block rounded-t-xl object-cover sm:rounded-b-none" :src="card.image" width="84" height="112"></f-image>
+        <f-image v-if="card.image" class="pointer-events-none w-full h-full rounded block rounded-t-xl object-cover sm:rounded-b-none" :src="card.image"></f-image>
       </span>
     </div>
     <span class="flex justify-between items-center mt-4 sm:px-4 sm:pb-4">

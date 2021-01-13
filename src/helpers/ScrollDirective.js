@@ -31,7 +31,7 @@ export default function (Vue) {
         binding.value(evt, el)
       }
     }
-    window.addEventListener('scroll', vNode.__onScroll)
+    window.addEventListener('scroll', vNode.__onScroll, { capture: false, passive: true })
   }
   Vue.directive('scroll', {
     inserted: upsert,

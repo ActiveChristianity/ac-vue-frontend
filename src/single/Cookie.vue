@@ -45,7 +45,7 @@ export default {
       this.show = false
     },
     accepted () {
-      if (! window.document.getElementById('reftagger-script')) {
+      if (! window.document.getElementById('ref-tagger-script')) {
         window.refTagger = {
           settings: {
             bibleVersion: "NKJV",
@@ -57,15 +57,14 @@ export default {
         const scriptTag = window.document.createElement("script")
         scriptTag.async = true
         scriptTag.src = "https://api.reftagger.com/v2/RefTagger.js"
-        scriptTag.id = "reftagger-script"
+        scriptTag.id = "ref-tagger-script"
         scriptTag.onload = () => {
           setTimeout(() => {
             window.refTagger.tag && window.refTagger.tag();
-          }, 500)
+          }, 100)
         }
         window.document.head.appendChild(scriptTag)
       }
-      this.$gtm.enable(true)
     },
     rejected () {
       this.$gtm.enable(false)
@@ -77,7 +76,10 @@ export default {
       try {
         if (window.localStorage.getItem('cookie') == 'accepted') {
           show = false
-          this.accepted()
+
+          this.$nextTick(() => {
+            this.accepted()
+          })
         }
       } catch (e) {}
       this.show = show

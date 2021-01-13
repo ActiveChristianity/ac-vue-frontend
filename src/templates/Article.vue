@@ -4,6 +4,7 @@
       <div class="fade-in content-lg md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
         <p class="text-xl my-2">{{ post.sub }}</p>
+
         <div class="center">
           <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 w-full px-12 md:w-auto md:px-24">
             <bookmark class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600 -ml-10 mr-2" type="post" :id="post.id" :slug="post.slug"></bookmark>
@@ -13,6 +14,7 @@
                   <b class="mx-1">—</b>
                   <span v-if="post.readtime">{{ Math.ceil(post.readtime / 60) }} min read</span>
               </p>
+
               <p v-if="post.meta.as_ac">
                 By ActiveChristianity
               </p>
@@ -28,36 +30,41 @@
           </div>
         </div>
       </div>
+
       <div class="py-4 md:rounded-2xl">
         <div class="post_content py-2 content-md">
           <p>{{ post.excerpt }}</p>
         </div>
         <g-image class="w-full max-w-screen-md mx-auto md:rounded-2xl" :src="post.image" />
       </div>
+
       <div v-if="post.track || postVideo" class="flex items-center justify-center my-2">
         <playable :track="post.track" :video="postVideo" class="text-2xl mr-2"></playable>
         <p class="text-slate" v-if="post.track">{{ Math.round(post.track.duration / 60) }} mins</p>
       </div>
+
       <div class="post_content py-8 content-md" v-html="content"></div>
-      <div class="flex flex-wrap content-md">
+
+      <div class="flex flex-wrap content-md pb-8">
         <template v-for="topic in post.topics">
           <g-link :key="topic.id" v-if="! topic.group.is_abstract" :to="`${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
         </template>
       </div>
-      <div class="py-8 content-md">
-        <p class="text-sm text-gray-600" v-html="post.meta.credits"></p>
+
+      <div class="content-md">
+        <p class="text-sm text-gray-600" v-html="credits"></p>
       </div>
-      <share v-if="showShare" />
+
+      <Share />
     </article>
 
-    <TopicArticles v-if="topic" :topicSlug="topic.slug"
+    <TopicArticles v-if="topic"
+      :title="topic.name"
+      :topicSlug="topic.slug"
       :exclude="post.slug"
       :limit="4"
-      @empty="topicIndex = topicIndex + 1">
-      <template v-slot:default="slotProps">
-        <heading :to="slotProps.showMore ? `/${$t.slug_topic}/${topic.slug}` : null">{{topic.name}}</heading>
-      </template>
-    </TopicArticles>
+      @empty="topicIndex = topicIndex + 1"
+    />
   </main>
 </template>
 
@@ -114,7 +121,7 @@ query Post ($id: ID!) {
 </page-query>
 
 <script>
-import Heading from '~/components/Heading'
+import LazyLoad from '~/helpers/LazyLoad';
 
 export default {
   metaInfo() {
@@ -139,9 +146,8 @@ export default {
     }
   },
   components: {
-    Heading,
-    Share: () => import('~/components/Share.vue'),
-    TopicArticles: () => import('~/components/TopicArticles.vue'),
+    Share: LazyLoad(() => import('~/components/Share.vue'), 3000),
+    TopicArticles: LazyLoad(() => import('~/components/TopicArticles.vue'), 3000)
   },
   data () {
     return {
@@ -159,7 +165,7 @@ export default {
       },
       topicIndex: 0,
       glossary: null,
-      showShare: !! process.isClient
+      showShare: false
     }
   },
   computed: {
@@ -182,6 +188,9 @@ export default {
         html = html.replace(regx, `$1<a href="/${this.$t.slug_glossary}/${def.slug}">$2</a>$3`)
       })
       return html
+    },
+    credits () {
+      return this.post?.meta?.credits || '</p>'
     },
     postVideo () {
       if (! this.post
@@ -210,6 +219,6 @@ export default {
         })
       }
     }, 100)
-  }
+  },
 }
 </script>

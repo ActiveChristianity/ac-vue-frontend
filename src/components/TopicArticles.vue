@@ -1,18 +1,14 @@
 <template>
-  <div v-if="posts && posts.length">
-    <article-grid :articles="posts" title="">
-      <slot :showMore="showMore"></slot>
-    </article-grid>
-  </div>
-  <div v-else-if="!posts" class="center">
+  <article-grid v-if="posts && posts.length" :articles="posts" :title="title" :to="hasMore ? url : null"></article-grid>
+  <div v-else class="center">
     <icon name="icon" class="loading-icon w-40 h-40 mx-auto block my-20"></icon>
   </div>
 </template>
 
 <script>
-import ArticleGrid from './ArticleGrid.vue'
 export default {
   props: {
+    title: String,
     limit: {
       type: Number,
       default: 0
@@ -23,26 +19,28 @@ export default {
   data() {
     return {
       posts: null,
-      showMore: true,
+      hasMore: true,
     }
   },
   methods: {
     async load () {
       try {
-        const {data} = await this.$fetch(`/${this.$t.slug_topic}/${this.topicSlug}`)
+        this.url = `/${this.$t.slug_topic}/${this.topicSlug}`
+        const {data} = await this.$fetch(this.url)
         if (data && data.ql) {
           const posts = data.ql.topic.posts.filter(P => P.slug !== this.exclude)
           if (posts) {
             posts.sort((a, b) => a.date > b.data ? -1 : 1)
-            this.showMore = posts.length > this.limit;
+            this.hasMore = posts.length > this.limit;
             this.posts = this.limit ? posts.slice(0, this.limit) : posts
           }
-        } else this.posts = []
+        }
       } catch (error) {
         console.warn(error)
         this.posts = []
       } finally {
-        if (! this.posts.length) {
+        if (! this.posts?.length) {
+          this.posts = null
           this.$emit('empty')
         }
         this.$store.fadeIn = true
@@ -54,12 +52,16 @@ export default {
       immediate: true,
       handler () {
         if (process.isClient) {
-          this.load()
+          this.$nextTick(() => {
+            this.load()
+          })
         }
       }
     }
   },
-  components: { ArticleGrid }
+  components: {
+    ArticleGrid: () => import('~/components/ArticleGrid')
+  }
 }
 </script>
 

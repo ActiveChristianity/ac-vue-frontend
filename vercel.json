@@ -30,8 +30,8 @@
     },
     {
       "src": "/.*",
-      "status": 200,
-      "dest": "index.html"
+      "status": 404,
+      "dest": "404.html"
     }
   ]
 }

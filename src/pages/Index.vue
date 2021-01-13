@@ -42,7 +42,6 @@ query Frontpage {
 <script>
 import ArticleBanner from '~/components/ArticleBanner'
 import LatestGrid from '~/single/LatestGrid'
-import ArticleGrid from '~/components/ArticleGrid'
 import FeaturedTopics from "../single/FeaturedTopics"
 
 export default {
@@ -59,7 +58,7 @@ export default {
     FeaturedTopics,
     ArticleBanner,
     LatestGrid,
-    ArticleGrid,
+    ArticleGrid: () => import('~/components/ArticleGrid'),
   },
   mounted() {
     setTimeout(() => {

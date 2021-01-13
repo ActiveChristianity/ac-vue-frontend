@@ -68,11 +68,6 @@ export default {
           name: 'description',
           content: this.$static.m.siteDescription
         },
-        {
-          key: 'lang',
-          name: 'lang',
-          content: this.$store.locale
-        }
       ],
     }
   },

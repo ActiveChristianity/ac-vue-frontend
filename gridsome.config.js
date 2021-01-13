@@ -110,7 +110,7 @@ if (process.env.NODE_ENV === 'production') {
         name: "ActiveChristianity",
         short_name: "AC",
         theme_color: "#FFAE0C",
-        lang: "en",
+        lang: process.env.GRIDSOME_LOCALE.split('_')[0],
         display: "standalone",
         start_url: "/",
       },
@@ -125,7 +125,7 @@ if (process.env.NODE_ENV === 'production') {
           display: 'fullscreen',
           start_url: '/',
           categories: ['education'],
-          lang: 'en-KE',
+          lang: process.env.GRIDSOME_LOCALE.split('_')[0],
           dir: 'auto'
         },
         appleMobileWebAppStatusBarStyle: 'default',

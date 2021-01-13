@@ -1,0 +1,1 @@
+export default (promise, delay = 200) => (() => new Promise(resolve => setTimeout(() => resolve(promise()), delay)))

@@ -119,7 +119,7 @@ export default function (Vue, { router, head, isClient }) {
     },
   }
 
-  head.htmlAttrs = { lang: process.env.GRIDSOME_LOCALE }
+  head.htmlAttrs = { lang: process.env.GRIDSOME_LOCALE.split('_')[0] }
 
   if (isClient && process.env.GRIDSOME_GTM) {
     Vue.use(VueGtm, {
