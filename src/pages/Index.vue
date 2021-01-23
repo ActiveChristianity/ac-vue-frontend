@@ -16,7 +16,6 @@ query Frontpage {
     title
     about
     url
-    featured_posts
   }
   ql {
     posts (featured: true) {
@@ -60,6 +59,11 @@ export default {
     LatestGrid,
     ArticleGrid: () => import('~/components/ArticleGrid'),
   },
+  data () {
+    return {
+      bannerIndex: 0,
+    }
+  },
   mounted() {
     setTimeout(() => {
       this.$store.fadeIn = true
@@ -67,16 +71,10 @@ export default {
   },
   computed: {
     featured () {
-      const [banner_id] = JSON.parse(this.$page.metadata.featured_posts)
       const posts = this.$page.ql.posts.data
-      let banner = posts.find(p => p.id === banner_id)
-      let list;
-      if (! banner) {
-        banner = posts[0]
-        list = posts.slice(1)
-      } else {
-        list = posts.filter(p => p.id !== banner_id)
-      }
+      this.bannerIndex = Math.floor(Math.random() * posts.length)
+      const banner = posts[this.bannerIndex]
+      const list = posts.filter(p => p.id !== banner.id)
 
       return {
         banner,
