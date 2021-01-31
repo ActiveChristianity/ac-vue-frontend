@@ -13,7 +13,7 @@ interface ISDK {
 }
 
 interface Igql {
-  types: {
+  types: {
     image: string
     user: string
   }

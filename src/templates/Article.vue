@@ -45,13 +45,13 @@
 
       <div class="post_content py-8 content-md" v-html="content"></div>
 
-      <div class="flex flex-wrap content-md pb-8">
+      <div class="flex flex-wrap content-md mb-8">
         <template v-for="topic in post.topics">
           <g-link :key="topic.id" v-if="! topic.group.is_abstract" :to="`${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
         </template>
       </div>
 
-      <div class="content-md">
+      <div class="content-md my-8" v-if="credits">
         <p class="text-sm text-gray-600" v-html="credits"></p>
       </div>
 

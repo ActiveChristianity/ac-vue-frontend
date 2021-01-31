@@ -26,7 +26,7 @@
       <div v-if="! $store.showSearch" class="flex flex-1 justify-center">
         <g-link to="/topics" :title="$t.topics" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
         <g-link :to="`/${$t.slug_glossary}`" :title="$t.glossary" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
-        <g-link :to="`/${$t.slug_about}`" title="About Us" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">About</g-link>
+        <g-link :to="`/${$t.slug_about}`" title="About Us" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.about }}</g-link>
       </div>
 
       <search v-if="$store.showSearch !== null" :show="$store.showSearch" @close="$store.showSearch = false" />

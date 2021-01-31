@@ -149,11 +149,7 @@ export default {
           $nextTick(() => {
             fadeInElements.splice(fadeInElements.indexOf(el), 1)
             setTimeout(() => {
-              el.style.opacity = 1
-              el.style.transform = 'scale(1)'
-              setTimeout(() => {
-                el.classList.remove('fade-in')
-              }, 500)
+              el.classList.remove('fade-in')
             }, ++i * t)
           })
           t -= 20
@@ -168,13 +164,13 @@ export default {
   mounted () {
     if (typeof window !== 'undefined') {
       this.$store.bookmarks = JSON.parse(localStorage.getItem('ac-bookmarks-'+process.env.GRIDSOME_LOCALE) || "{}");
+      window.document.body.classList.add('ready')
       this.$nextTick(() => {
         if (typeof this.$store.bookmarks !== 'object') {
             this.$store.bookmarks = {}
         }
         loadElements()
         this.ready = true
-        window.document.body.classList.add('ready')
         this.onScroll()
 
         if (this.$store.showTopBar) {
