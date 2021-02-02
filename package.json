@@ -4,7 +4,8 @@
   "scripts": {
     "start": "gridsome develop",
     "build": "gridsome build",
-    "explore": "gridsome explore"
+    "explore": "gridsome explore",
+    "postinstall": "cp -R module_hotfix/ node_modules/"
   },
   "dependencies": {
     "@allanchain/gridsome-plugin-pwa": "^0.3.0",
