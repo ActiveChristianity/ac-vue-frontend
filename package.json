@@ -5,7 +5,7 @@
     "start": "gridsome develop",
     "build": "gridsome build",
     "explore": "gridsome explore",
-    "postinstall": "rsync -av module_hotfix/ node_modules/"
+    "postinstall": "cp -rfv module_hotfix/* node_modules/"
   },
   "dependencies": {
     "@allanchain/gridsome-plugin-pwa": "^0.3.0",
