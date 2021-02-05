@@ -1,6 +1,6 @@
 class TailwindExtractor {
   static extract(content) {
-    return content.match(/[A-z0-9-:\\/]+/g) || []
+    return content.match(/[A-z0-9-:\\/]+/g) || []
   }
 }
 
