@@ -61,8 +61,12 @@ const loadElements = () => {
 export default {
   metaInfo() {
     return {
-      title: this.$static.m.siteName,
+      title: this.$static.m.siteName + ' - ' + this.$t.tagline,
       meta: [
+        {
+          key: 'og:site_name',
+          content: this.$static.m.siteName
+        },
         {
           key: 'description',
           name: 'description',

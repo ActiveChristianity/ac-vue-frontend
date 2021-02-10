@@ -47,7 +47,7 @@ export default {
   metaInfo() {
     const { title, about } = this.$page.metadata
     return {
-      title,
+      title: title + ' - ' + this.$t.tagline,
       meta: [
         { key: 'description', name: 'description', content: about }
       ]

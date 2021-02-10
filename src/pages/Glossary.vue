@@ -31,6 +31,11 @@ query Glossary {
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: this.$t.glossary + ' - ' + this.$t.site_title
+    }
+  },
   computed: {
     groups () {
       const set = {}

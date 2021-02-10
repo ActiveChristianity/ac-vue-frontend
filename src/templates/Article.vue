@@ -16,7 +16,7 @@
               </p>
 
               <p v-if="post.meta.as_ac">
-                By ActiveChristianity
+                {{ $t.by }} {{ $t.site_title}}
               </p>
               <template v-else-if="authorsAs">
                 <p v-for="(x, k) in authorsAs" :key="x.key">
@@ -35,7 +35,7 @@
         <div class="post_content py-2 content-md">
           <p>{{ post.excerpt }}</p>
         </div>
-        <g-image class="w-full max-w-screen-md mx-auto md:rounded-2xl" :src="post.image" />
+        <g-image class="w-full max-w-screen-md mx-auto md:rounded-2xl" :src="post.image" :alt="post.title"/>
       </div>
 
       <div v-if="post.track || postVideo" class="flex items-center justify-center my-2">
@@ -129,6 +129,7 @@ export default {
     const meta = [
       { key: 'description', name: 'description', content: seo.desc || this.post.excerpt },
       { key: 'og:title', name: 'og:title', content: seo.title || this.post.title },
+      { key: 'article:published_time', name: 'article:published_time', content: this.post.published },
       { key: 'og:type', name: 'og:type', content: 'article' },
       { key: 'og:url', name: 'og:url', content: this.post.slug },
     ]

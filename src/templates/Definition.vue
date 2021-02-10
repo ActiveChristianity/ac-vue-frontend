@@ -19,7 +19,7 @@
 export default {
   metaInfo() {
     return {
-      title: this.$context.word
+      title: this.$context.word + ' - ' + this.$t.site_title
     }
   }
 }

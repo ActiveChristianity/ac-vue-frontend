@@ -43,7 +43,7 @@ export default {
     if (!this.$page) return null
     const { title, seo } = this.$page.ql.page
     return {
-      title: seo.title || title,
+      title: seo.title || title + ' - ' + this.$t.site_title,
       meta: [
         { key: 'description', name: 'description', content: (seo.desc || title) }
       ]

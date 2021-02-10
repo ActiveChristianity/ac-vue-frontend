@@ -147,7 +147,7 @@ if (process.env.NODE_ENV === 'production') {
 const config = {
   siteName: 'ActiveChristianity',
   siteUrl: process.env.GRIDSOME_SITE_URL,
-  siteDescription: '',
+  titleTemplate: '%s',
 
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')

@@ -13,7 +13,7 @@ export default {
   metaInfo() {
     const { title } = this.$context
     return {
-      title
+      title: title  + ' - ' + this.$t.site_title
     }
   },
   mounted() {
