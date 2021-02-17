@@ -33,8 +33,8 @@
 <static-query>
 query {
   m: metadata {
-    siteName
-    siteDescription
+    title
+    about
     top_text
     top_link
   }
@@ -61,16 +61,16 @@ const loadElements = () => {
 export default {
   metaInfo() {
     return {
-      title: this.$static.m.siteName + ' - ' + this.$t.tagline,
+      title: this.$static.title + ' - ' + this.$t.tagline,
       meta: [
         {
           key: 'og:site_name',
-          content: this.$static.m.siteName
+          content: this.$static.title
         },
         {
           key: 'description',
           name: 'description',
-          content: this.$static.m.siteDescription
+          content: this.$static.m.about
         },
       ],
     }
