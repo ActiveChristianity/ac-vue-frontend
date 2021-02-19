@@ -13,6 +13,7 @@
 
 query Frontpage {
   metadata {
+    title
     about
     url
   }
