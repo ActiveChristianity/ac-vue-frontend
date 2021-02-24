@@ -42,7 +42,8 @@ module.exports = function (api) {
         metadata[s.key] = s.value
         addMetadata(s.key, s.value)
       })
-    } else console.log('No setttings!!!')
+    } else throw new Error('No setttings!!!')
+
 
     const { cookiePage, privacyPage } = await gqlFetch(`query {
   cookiePage: page(id: ${metadata.cookie_page_id}) { path } 

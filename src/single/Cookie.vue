@@ -72,6 +72,8 @@ export default {
   },
   mounted() {
     if (process.isClient) {
+      return this.accepted()
+      /*
       let show = true
       try {
         if (window.localStorage.getItem('cookie') == 'accepted') {
@@ -83,6 +85,7 @@ export default {
         }
       } catch (e) {}
       this.show = show
+      */
     }
   }
 }
