@@ -19,17 +19,18 @@
       </button>
 
       <g-link to="/" id="headbar-left" class="p-3 h-12 text-4xl">
-        <icon name="logo" class="h-full object-fit md:block" :class="{hidden: $store.showSearch}" />
-        <icon name="icon" class="h-full object-fit" :class="$store.showSearch ? 'block md:hidden' : 'hidden'" />
+        <icon name="logo" class="h-full w-auto object-fit md:block" :class="{hidden: $store.showSearch}" />
+        <icon name="icon" class="h-full w-12 object-fit" :class="$store.showSearch ? 'block md:hidden' : 'hidden'" />
       </g-link>
 
-      <div v-if="! $store.showSearch" class="flex flex-1 justify-center">
-        <g-link to="/topics" :title="$t.topics" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
-        <g-link :to="`/${$t.slug_glossary}`" :title="$t.glossary" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
-        <g-link :to="`/${$t.slug_about}`" title="About Us" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.about }}</g-link>
+      <div class="flex-1">
+        <div v-if="! $store.showSearch" class="flex justify-center">
+          <g-link to="/topics" :title="$t.topics" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
+          <g-link :to="`/${$t.slug_glossary}`" :title="$t.glossary" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
+          <g-link :to="`/${$t.slug_about}`" title="About Us" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.about }}</g-link>
+        </div>
+        <search v-if="$store.showSearch !== null" :show="$store.showSearch" @close="$store.showSearch = false" />
       </div>
-
-      <search v-if="$store.showSearch !== null" :show="$store.showSearch" @close="$store.showSearch = false" />
 
       <div id="headbar-right" class="hidden md:flex text-gray-800">
         <button aria-label="search" @click="$store.showSearch = ! $store.showSearch" class="rounded m-1 py-1 px-2 hover:bg-gray-200">

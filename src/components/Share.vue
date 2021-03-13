@@ -1,5 +1,5 @@
 <template>
-  <div class="center gap-x-2 mb-8 py-2 px-4 bg-gray-100">
+  <div class="center mb-8 py-2 px-4 bg-gray-100">
     <p class="font-serif tracking-wider text-secondary pr-4">Share <span class="hidden md:inline-block">it with someone</span></p>
     <button @click="facebook" class="share-button" title="Share to Facebook" style="background: #1877f2"><icon name="share_facebook" /></button>
     <button @click="twitter" class="share-button" title="Tweet to Twitter" style="background: #1da1f2"><icon name="share_twitter" /></button>
@@ -72,7 +72,7 @@ export default {
 
 <style lang="scss">
 .share-button {
-  @apply p-2 text-white rounded bg-secondary leading-none;
+  @apply mx-2 p-2 text-white rounded bg-secondary leading-none;
 
   .d4-icon {
     @apply w-5 h-5;

@@ -145,7 +145,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const config = {
-  siteName: 'ActiveChristianity',
+  siteName: process.env.GRIDSOME_SITE_TITLE,
   siteUrl: process.env.GRIDSOME_SITE_URL,
   titleTemplate: '%s',
 

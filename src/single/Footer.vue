@@ -1,5 +1,5 @@
 <template>
-  <footer class="relative border-t border-gray-200 py-4">
+  <footer class="relative border-t border-gray-200 md:py-4">
     <div class="md:content center flex-col">
       <div class="w-full p-4 center">
         <template v-for="ln in socialLinks">
@@ -8,7 +8,10 @@
           </a>
         </template>
       </div>
-      <div class="md:flex items-center justify-between">
+      <div class="md:hidden bg-secondary text-secondary-alt w-full flex-1 text-center -mb-8 pt-4 pb-8">
+        <p class="font-bold text-sm">Copyright © bcc.media foundation</p>
+      </div>
+      <div class="hidden md:flex items-center justify-between">
         <g-link to="/" class="w-full md:w-1/2 p-6 flex items-center">
           <Icon name="icon" class="text-primary w-32 h-full object-center object-contain"></Icon>
           <p class="text-sm mx-4 text-gray-600">{{ $static.m.copyright }}</p>
