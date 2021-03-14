@@ -3,7 +3,7 @@
     <div @click="close" class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
       <header class="px-4 py-2 md:py-4 flex justify-between items-center shadow">
         <h2 class="text-lg leading-7 font-medium text-gray-900">
-          Bookmarks
+          {{ $t.bookmarks }}
         </h2>
         <button class="rounded py-1 px-2 hover:bg-gray-200 hover:text-secondary">
           <icon name="fad-chevron-double-right" fa />
@@ -17,7 +17,7 @@
       </div>
       <div v-else class="relative flex-1 center flex-col">
         <icon name="loader" v-if="loading" class="w-1/3 my-4 block mx-auto text-secondary rotate-90" />
-        <p class="px-4 text-center text-gray-600">Bookmarked posts will show here so you can find and read them later</p>
+        <p class="px-4 text-center text-gray-600">{{ $t.bookmark_info }}</p>
       </div>
     </div>
   </div>

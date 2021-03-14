@@ -34,7 +34,9 @@ module.exports = function (api) {
       'title','slogan','contact_email','contact_tel','social',
       'featured_posts',
       'header_links','top_text','top_link',
+      'copyright', 'attribution',
       'cookie','cookie_page_id','privacy_page_id',
+      'social_facebook','social_instagram','social_youtube','social_itunes','social_spotify','social_rss','social_podcast',
     ).forEach(k => addMetadata(k, ''))
 
     if (settings) {
@@ -93,6 +95,13 @@ module.exports = function (api) {
         }
       }
     }`)
+
+    if (topics.length) {
+      createPage({
+        path: `/${strings.slug_topic}`,
+        component: './src/templates/Topics.vue'
+      })
+    }
 
     topics.forEach(topic => {
       createPage({
@@ -178,6 +187,13 @@ module.exports = function (api) {
         }
       }
     }`)
+
+    if (glossary.length > 5) {
+      createPage({
+        path: `/${strings.slug_glossary}`,
+        component: './src/templates/Glossary.vue'
+      })
+    }
 
     glossary.forEach(def => {
       createPage({

@@ -40,6 +40,7 @@ export default function (Vue, { router, head, isClient }) {
   Vue.use(Scroll)
   Vue.use(ScreenStore)
 
+  const $t = require(`./strings/${process.env.GRIDSOME_LOCALE}.json`)
   Vue.prototype.$t = require(`./strings/${process.env.GRIDSOME_LOCALE}.json`)
   Vue.prototype.$m2h = Markdown2Html
   Vue.prototype.$j2o = (json) => JSON.parse(json)
@@ -83,7 +84,7 @@ export default function (Vue, { router, head, isClient }) {
   Vue.prototype.$authorString = (article) => {
     if (article) {
       if (article.meta && article.meta.as_ac) {
-        return 'ActiveChristianity'
+        return $t.site_title
       }
       if (article.authors) {
         return article.authors.map(a => a.name).join(', ')
@@ -103,9 +104,9 @@ export default function (Vue, { router, head, isClient }) {
   Vue.prototype.$typePrefix = (type) => {
     if (! type) return ''
     switch (String(type).toLowerCase()) {
-      case 'playlist': return '/playlists/'
-      case 'series': return '/series/'
-      case 'track': return '/tracks/'
+      case 'playlist': return `/${$t.slug_playlists}/`
+      case 'series': return `/${$t.slug_series}/`
+      case 'track': return `/${$t.slug_tracks}/`
       default: return '/'
     }
   }

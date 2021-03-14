@@ -1,5 +1,5 @@
 <template>
-  <article-grid :articles="$static.ql.posts.data" title="Latest"/>
+  <article-grid :articles="$static.ql.posts.data" :title="$t.latest"/>
 </template>
 
 <static-query>

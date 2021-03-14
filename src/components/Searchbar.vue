@@ -4,13 +4,13 @@
     <Icon name="search" class="w-4"/>
     <button v-if="byType" class="rounded p-1 text-xs ml-2 text-white truncate" :class="byType.color ?  byType.color : 'bg-gray-500'" @click="$emit('clearFilter')">✗ {{ byType.title }}</button>
 
-    <input class="pl-2 w-1/2 flex-grow" ref="searchInput" :value="value" @input="onInput" @change="onInput" type="text" placeholder="Search">
+    <input class="pl-2 w-1/2 flex-grow" ref="searchInput" :value="value" @input="onInput" @change="onInput" type="text" :placeholder="$t.search">
 
     <button @click="$emit('input', '')" >
       <Icon v-if="value != ''" name="cross" />
     </button>
   </div>
-  <button @click="$emit('cancelSearch')" class="pl-2 block text-sm" v-if="isSmall" >Cancel</button>
+  <button @click="$emit('cancelSearch')" class="pl-2 block text-sm" v-if="isSmall" >{{ $t.cancel }}</button>
   <button @click="$emit('onActionToggle')" class="ml-2 bg-white rounded-lg flex-shrink-0 " :class="isSmall ? 'h-8 w-8' : 'w-12 h-12'">
     <Icon name="bible-small" class="w-6" />
   </button>

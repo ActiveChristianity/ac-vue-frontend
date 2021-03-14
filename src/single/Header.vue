@@ -7,7 +7,7 @@
       <div id="topbar-right" class="flex text-gray-500 text-sm px-2">
         <!--button aria-label="login" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Login</button>
         <button aria-label="register" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Register</button-->
-        <g-link to="/contact-us" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Contact</g-link>
+        <g-link :to="`/${$t.slug_contact}`" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">{{ $t.contact }}</g-link>
       </div>
     </div>
 
@@ -25,7 +25,7 @@
 
       <div class="flex-1">
         <div v-if="! $store.showSearch" class="flex justify-center">
-          <g-link to="/topics" :title="$t.topics" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
+          <g-link :to="`/${$t.slug_topic}`" :title="$t.topics" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.topics }}</g-link>
           <g-link :to="`/${$t.slug_glossary}`" :title="$t.glossary" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.glossary }}</g-link>
           <g-link :to="`/${$t.slug_about}`" title="About Us" class="hidden md:block text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200">{{ $t.about }}</g-link>
         </div>
@@ -36,7 +36,7 @@
         <button aria-label="search" @click="$store.showSearch = ! $store.showSearch" class="rounded m-1 py-1 px-2 hover:bg-gray-200">
           <icon name="fal-search" fa />
         </button>
-        <button aria-label="bookmarks" @click="$store.showBookmarks = ! $store.showBookmarks" class="rounded m-1 py-1 px-2 hover:bg-gray-200 hover:text-secondary">
+        <button :aria-label="$t.bookmarks" @click="$store.showBookmarks = ! $store.showBookmarks" class="rounded m-1 py-1 px-2 hover:bg-gray-200 hover:text-secondary">
           <icon :name="`${Object.keys($store.bookmarks).length ? 'fad' : 'fal'}-bookmark`" fa />
         </button>
       </div>
@@ -74,6 +74,18 @@ export default {
   methods: {
     vibrate() {
       window.navigator && window.navigator.vibrate && window.navigator.vibrate(20);
+    }
+  },
+  watch: {
+    '$store.showBookmarks' (show) {
+      if (show) {
+        this.$store.showSearch = false
+      }
+    },
+    '$store.showSearch' (show) {
+      if (show) {
+        this.$store.showBookmarks = false
+      }
     }
   }
 }

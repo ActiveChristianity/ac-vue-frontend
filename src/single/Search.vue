@@ -9,10 +9,10 @@
              @keydown.up="up"
              @keydown.esc="close"
              ref="input"
-             :placeholder="loading ? 'Loading…' : 'Search'"
+             :placeholder="loading ? $t.loading + '…' : $t.search"
       />
       <ul class="absolute max-h-screen overflow-y-auto bg-white rounded shadow z-50 border-t-2 border-secondary" style="width:100%" v-if="searchTerm.length > 2">
-        <li v-if="! searchResults || ! searchResults.length" class="block text-gray-600 text-center text-sm p-2">No results found</li>
+        <li v-if="! searchResults || ! searchResults.length" class="block text-gray-600 text-center text-sm p-2">{{ $t.no_search_results }}</li>
         <template v-else>
           <li v-for="(result, i) in searchResults"
               @click="close"

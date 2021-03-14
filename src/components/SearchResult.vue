@@ -2,7 +2,7 @@
   <ais-hits class="bg-white">
     <template slot-scope="{ items }">
       <template v-if="items.length == 0">
-        <p class="text-sm text-gray-800 p-4"><i>No results...</i></p>
+        <p class="text-sm text-gray-800 p-4"><i>{{ $t.no_search_results }}</i></p>
         <RecentSearch @selected="(q) => $emit('recentQuery', q)" />
       </template>
       <div v-else class="flex flex-wrap justify-around">

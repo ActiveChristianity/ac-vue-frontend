@@ -63,7 +63,7 @@ export default {
       const groups = this.$page.ql.topicGroups.filter(g => g.topics.length)
       groups.sort((a, b) => a.name > b.name ? 1 : -1)
       groups.forEach(g => g.topics.sort((a, b) => a.name > b.name ? 1 : -1))
-      return groups
+      return groups.filter(g => g.topics.length)
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <heading>Featured</heading>
+    <heading>{{ $t.featured }}</heading>
     <div class="md:content w-full overflow-x-scroll flex items-stretch md:flex-wrap scroll-snap-x p-4">
       <template v-for="article in coverArticles">
         <article-cover-card :key="article.id" :article="article"

@@ -1,6 +1,6 @@
 <template>
   <div class="center mb-8 py-2 px-4 bg-gray-100">
-    <p class="font-serif tracking-wider text-secondary pr-4">Share <span class="hidden md:inline-block">it with someone</span></p>
+    <p class="font-serif tracking-wider text-secondary pr-4">{{ $t.share }} <span class="hidden md:inline-block">it with someone</span></p>
     <button @click="facebook" class="share-button" title="Share to Facebook" style="background: #1877f2"><icon name="share_facebook" /></button>
     <button @click="twitter" class="share-button" title="Tweet to Twitter" style="background: #1da1f2"><icon name="share_twitter" /></button>
     <button @click="whatsapp" class="share-button" title="Share via WhatsApp" style="background: #03e676"><icon name="share_whatsapp" /></button>
