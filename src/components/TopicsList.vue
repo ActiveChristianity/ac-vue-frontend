@@ -1,6 +1,6 @@
 <template>
   <div class="sm:bg-primary sm:p-10 sm:text-white sm:rounded-lg">
-    <h1 class="text-lg sm:text-3xl pb-3 sm:pb-6 font-bold">Topics For You</h1>
+    <h1 class="text-lg sm:text-3xl pb-3 sm:pb-6 font-bold">{{ $t.topics_for_you }}</h1>
     <p class="msm:hidden pb-8 text-xl">{{ subtitle }}</p>
     <div class="tags flex">
       <template v-for="(topic, i) in topics">

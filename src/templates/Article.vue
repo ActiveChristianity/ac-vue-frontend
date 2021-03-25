@@ -1,9 +1,10 @@
 <template>
-  <main class="bg-gradient-to-t md:p-2" :style="`--gradient-color-stops: ${post.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')}`">
-    <article class="md:content post my-12 bg-white text-black md:rounded-2xl">
-      <div class="fade-in content-lg md:pt-12">
-        <h1 v-html="$m2h(post.title)" class="text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
-        <p class="text-xl my-2">{{ post.sub }}</p>
+  <main class="bg-gradient-to-t md:p-2 mmd:pt-d30" :style="`--gradient-color-stops: ${post.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')}`">
+    <g-image class="md:hidden w-full top-0 fixed" :style="{transform: `translateY(${$store.headerTop+48}px)`}" :src="post.image" :alt="post.title"/>
+    <article class="md:content post my-12 bg-white text-black md:rounded-2xl rounded-t-3xl relative z-10">
+      <div class="fade-in content-lg pt-8 md:pt-12">
+        <h1 v-html="$m2h(post.title)" class="text-2xl sm:text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
+        <p class="center text-xl my-2">{{ post.sub || post.excerpt }}</p>
 
         <div class="center">
           <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 w-full px-12 md:w-auto md:px-24">
@@ -31,27 +32,24 @@
         </div>
       </div>
 
-      <div class="py-4 md:rounded-2xl">
-        <div class="post_content py-2 content-md">
-          <p>{{ post.excerpt }}</p>
-        </div>
+      <div class="mmd:hidden py-4 md:rounded-2xl">
         <g-image class="w-full max-w-screen-md mx-auto md:rounded-2xl" :src="post.image" :alt="post.title"/>
       </div>
 
       <div v-if="post.track || postVideo" class="flex items-center justify-center my-2">
         <playable :track="post.track" :video="postVideo" class="text-2xl mr-2"></playable>
-        <p class="text-slate" v-if="post.track">{{ Math.round(post.track.duration / 60) }} mins</p>
+        <p class="text-slate" v-if="post.track">{{ Math.round(post.track.duration / 60) }} {{ $t.mins }}</p>
       </div>
 
-      <div class="post_content py-8 content-md" v-html="content"></div>
+      <div class="post_content content-md my-4 md:my-8" v-html="content"></div>
 
-      <div class="flex flex-wrap content-md mb-8">
+      <div class="flex flex-wrap content-md my-4 md:my-8">
         <template v-for="topic in post.topics">
           <g-link :key="topic.id" v-if="! topic.group.is_abstract" :to="`${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
         </template>
       </div>
 
-      <div class="content-md my-8" v-if="credits">
+      <div class="content-md my-4 md:my-8" v-if="credits">
         <p class="text-sm text-gray-600" v-html="credits"></p>
       </div>
 
@@ -59,6 +57,7 @@
     </article>
 
     <TopicArticles v-if="topic"
+       class="relative z-10"
       :title="topic.name"
       :topicSlug="topic.slug"
       :exclude="post.slug"
@@ -217,6 +216,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.fadeIn = false
     setTimeout(() => {
       this.$store.fadeIn = true
       if (process.isClient) {

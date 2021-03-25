@@ -88,13 +88,20 @@ export default {
     },
     bookmarks () {
       return this.$store.bookmarks
-    }
+    },
+    fixedHeader: {
+      get () {
+        return this.$store.headerTop
+      },
+      set (value) {
+        this.$store.headerTop = value
+      }
+    },
   },
   data() {
     return {
       path: '',
       scrollY: 0,
-      fixedHeader: 0,
       theme: "theme-default"
     }
   },

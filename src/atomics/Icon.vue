@@ -30,10 +30,11 @@ export default {
     -webkit-font-smoothing: antialiased;
 
     &.fa {
-      width: 1em;
-      height: 1em;
+      width: 1.25em;
+      height: 1.25em;
       color: inherit;
       display: inline-block;
+      vertical-align: text-top;
     }
   }
 </style>

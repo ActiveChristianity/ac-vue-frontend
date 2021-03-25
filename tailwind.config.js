@@ -74,7 +74,7 @@ module.exports = {
           '@apply w-full max-w-screen-lg mx-auto px-8': {},
         },
         '.content-md': {
-          '@apply w-full max-w-screen-md mx-auto px-8': {},
+          '@apply w-full max-w-screen-md mx-auto px-4': {},
         },
       }
 

@@ -23,27 +23,48 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: Source Sans Pro,-apple-system,BlinkMacSystemFont,sans-serif;
-    @apply py-4 mt-4 font-semibold leading-normal;
+    @apply py-4 mt-4 font-semibold text-slate-dark leading-tight;
   }
 
-  h2 {
-    font-size: 2rem;
-  }
-  h3 {
-    font-size: 1.8rem;
-  }
-  h4 {
+  h1 {
     font-size: 1.6rem;
   }
-  h5 {
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
     font-size: 1.4rem;
   }
-  h6 {
+  h4 {
+    font-size: 1.3rem;
+  }
+  h5 {
     font-size: 1.2rem;
   }
-
+  h6 {
+    font-size: 1.1rem;
+  }
 
   @screen md {
+    h1 {
+      font-size: 2.2rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.8rem;
+    }
+    h4 {
+      font-size: 1.6rem;
+    }
+    h5 {
+      font-size: 1.4rem;
+    }
+    h6 {
+      font-size: 1.2rem;
+    }
+
     div, ol, p, ul {
       font-size: 1.125rem;
       line-height: 2rem;
