@@ -126,12 +126,16 @@ import LazyLoad from '~/helpers/LazyLoad';
 export default {
   metaInfo() {
     const seo = this.post.seo || {}
+    const url = `${process.env.GRIDSOME_SITE_URL}/${this.post.slug}`
+    const link = [
+      { rel: 'canonical', href: url }
+    ]
     const meta = [
       { key: 'description', name: 'description', content: seo.desc || this.post.excerpt },
       { key: 'og:title', name: 'og:title', content: seo.title || this.post.title },
       { key: 'article:published_time', name: 'article:published_time', content: this.post.published },
       { key: 'og:type', name: 'og:type', content: 'article' },
-      { key: 'og:url', name: 'og:url', content: this.post.slug },
+      { key: 'og:url', name: 'og:url', content: url },
     ]
     if (this.post.image) {
       meta.push({ key: 'og:image', name: 'og:image', content: typeof this.post.image == 'object' ? this.post.image.src : this.post.image })
@@ -143,7 +147,8 @@ export default {
     }
     return {
       title: seo.title || this.post.title,
-      meta
+      meta,
+      link,
     }
   },
   components: {
