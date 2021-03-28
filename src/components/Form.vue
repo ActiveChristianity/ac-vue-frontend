@@ -1,10 +1,10 @@
 <template>
-  <div class="relative my-8">
+  <div class="relative my-8 content-md">
     <div class="fade-in container text-center px-d6">
       <h1 class="text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight">{{ theForm.title }}</h1>
       <p class="p-8 text-gray-800">{{ theForm.excerpt }}</p>
     </div>
-    <div class="content-md my-d6 center">
+    <div class="my-d6 center">
       <transition name="fade" mode="out-in">
         <div key="loading" v-if="sending" class="py-16">
           <icon name="loader" class="w-1/3 block mx-auto text-secondary rotate-90" />
@@ -12,11 +12,11 @@
         <div key="msg" v-else-if="msg" class="p-10 text-center">
           <p class="whitespace-pre-line">{{ msg }}</p>
           <button v-if="success" @click="$router.replace('/')" class="block mt-4 p-1 px-4 text-secondary hover:bg-gray-200 center">HOME <icon name="fad-chevron-right" class="ml-1" fa/></button>
-          <button v-else @click.prevent="msg = ''" class="border border-gray-200 mt-4 py-2 px-4">OK</button>
+          <button v-else @click.prevent="msg = ''" class="border border-gray-200 mt-4 py-2 px-4">{{ $t.open_form }}</button>
         </div>
 
         <form key="form" v-else class="w-full rounded shadow p-6 bg-gray-100 bg-opacity-50" @submit.stop.prevent="send">
-          <input type="text" name="name" v-model="gotcha" placeholder="name" class="hidden">
+          <input type="text" name="name" autocomplete="off" v-model="gotcha" placeholder="name" class="hidden">
 
           <template v-for="field in fields">
             <div v-if="field.layout === 'textarea'" class="input-group" :key="field.key">
@@ -82,7 +82,7 @@ export default {
       showTerms: false,
       sending: false,
       success: false,
-      msg: this.$t.open_form,
+      msg: false,
       gotcha: '',
       form: {}
     }

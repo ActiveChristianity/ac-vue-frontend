@@ -1,11 +1,11 @@
 <template>
-  <div id="Bookmarks" class="fixed z-30 w-64 inset-y-0 right-0 transition-all duration-300" :class="show ? 'mr-0' : ' -mr-64'">
+  <div id="Bookmarks" class="fixed z-40 w-64 inset-y-0 right-0 transition-all duration-300" :class="show ? 'mr-0' : ' -mr-64'">
     <div @click="close" class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
-      <header class="px-4 py-2 md:py-4 flex justify-between items-center shadow">
-        <h2 class="text-lg leading-7 font-medium text-gray-900">
+      <header class="h-16 flex justify-between items-center border-b">
+        <h2 class="px-4 text-lg leading-7 font-medium text-gray-900">
           {{ $t.bookmarks }}
         </h2>
-        <button class="rounded py-1 px-2 hover:bg-gray-200 hover:text-secondary">
+        <button class="rounded text-sm p-4 hover:bg-gray-200 hover:text-secondary">
           <icon name="fad-chevron-double-right" fa />
         </button>
       </header>
