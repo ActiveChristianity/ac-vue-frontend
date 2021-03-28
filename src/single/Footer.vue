@@ -127,7 +127,7 @@ export default {
   @apply mx-2 w-1 h-1 inline-block rounded-full bg-gray-600;
 }
 .social-link {
-  @apply text-gray-600 text-3xl p-2 mr-2 cursor-pointer;
+  @apply text-gray-600 text-2xl p-2 mr-2 cursor-pointer;
   &:hover {
     @apply text-gray-800;
   }

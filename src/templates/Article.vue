@@ -2,7 +2,7 @@
   <main class="bg-gradient-to-t md:p-2 mmd:pt-d30" :style="`--gradient-color-stops: ${post.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')}`">
     <g-image class="md:hidden w-full top-0 fixed" :style="{transform: `translateY(${$store.headerTop+48}px)`}" :src="post.image" :alt="post.title"/>
     <article class="md:content post my-12 bg-white text-black md:rounded-2xl rounded-t-3xl relative z-10">
-      <div class="fade-in content-lg pt-8 md:pt-12">
+      <div class="fade-in content-md pt-8 md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-2xl sm:text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
         <p class="center text-xl my-2">{{ post.sub || post.excerpt }}</p>
 

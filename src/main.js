@@ -54,8 +54,18 @@ export default function (Vue, { router, head, isClient }) {
     }, 2000)
   }
 
-  if (isClient && process.env.NODE_ENV === 'production') {
-    require('./registerServiceWorker')
+  if (process.env.NODE_ENV === 'production') {
+    head.script.push({
+      src: 'https://static.cloudflareinsights.com/beacon.min.js',
+      defer: true,
+      async: true,
+      'data-cf-beacon': `{"token": "${process.env.CLOUDFLARE_TOKEN}"}`,
+      body: true
+    })
+
+    if (isClient) {
+      require('./registerServiceWorker')
+    }
   }
 
   router.options.scrollBehavior = function(to, from, savedPosition) {

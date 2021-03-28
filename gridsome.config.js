@@ -1,9 +1,4 @@
 const path = require('path')
-const tailwind = require('tailwindcss')
-
-const postcssPlugins = [
-	tailwind(),
-]
 
 function addStyleResource (rule) {
   rule.use('style-resource')
@@ -18,6 +13,9 @@ function addStyleResource (rule) {
 console.log(`BUILDING ${process.env.GRIDSOME_LOCALE}`)
 
 const plugins = [
+  {
+    use: 'gridsome-plugin-tailwindcss',
+  },
   {
     use: '@gridsome/source-graphql',
     options: {
@@ -168,13 +166,6 @@ const config = {
     })
   },
   plugins,
-  css: {
-    loaderOptions: {
-      postcss: {
-        plugins: postcssPlugins,
-      },
-    },
-  },
 }
 
 module.exports = config
