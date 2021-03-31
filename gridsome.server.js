@@ -66,10 +66,10 @@ module.exports = function (api) {
     const strings = require(`./src/strings/${process.env.GRIDSOME_LOCALE}.json`)
 
     const { data: {
-      ql: { allPosts }
+      ql: { posts }
     }} = await graphql(`{
       ql {
-        allPosts {
+        posts: thePosts {
           id
           slug
         }
@@ -77,7 +77,7 @@ module.exports = function (api) {
     }`)
 
     /* Build all blog posts and blog topics */
-    allPosts.forEach(post => {
+    posts.forEach(post => {
       createPage({
         path: `/${post.slug}`,
         component: './src/templates/Article.vue',
@@ -89,7 +89,7 @@ module.exports = function (api) {
       ql: { topics }
     }} = await graphql(`{
       ql {
-        topics(hasPosts: true) {
+        topics: theTopics(hasPosts: true) {
           id
           slug
         }
