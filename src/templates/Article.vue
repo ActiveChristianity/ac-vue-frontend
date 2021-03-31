@@ -151,8 +151,8 @@ export default {
     }
   },
   components: {
-    Share: LazyLoad(() => import('~/components/Share.vue'), 3000),
-    TopicArticles: LazyLoad(() => import('~/components/TopicArticles.vue'), 3000)
+    Share: LazyLoad(() => import('~/components/Share.vue'), 1000),
+    TopicArticles: LazyLoad(() => import('~/components/TopicArticles.vue'), 2000)
   },
   data () {
     return {
