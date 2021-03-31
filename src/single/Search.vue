@@ -54,7 +54,7 @@ export default {
   computed: {
     searchResults () {
       const searchTerm = this.searchTerm
-      if (searchTerm.length < 3) return []
+      if (searchTerm.length <= 2) return []
       return this.$search.search({ query: searchTerm, limit: 12 })
     },
     current () {
@@ -62,7 +62,8 @@ export default {
     }
   },
   watch: {
-    $route () {
+    $route (to) {
+      this.track('navigate', to.path)
       this.searchTerm = ''
     },
     searchTerm (n, o) {
@@ -95,6 +96,7 @@ export default {
       return index === this.active;
     },
     close() {
+      this.track('close', this.$route.path)
       this.active = 0
       this.searchTerm = ''
       this.$emit('close')
@@ -104,6 +106,17 @@ export default {
         return `/${node.slug}`
       }
       return `/${this.$t.slug_glossary}/${node.slug}`
+    },
+    track(action, path) {
+      if (this.searchTerm?.length > 2) {
+        this.$gtm?.trackEvent({
+          event: 'interaction',
+          category: "Search",
+          action: action,
+          label: path,
+          value: this.searchTerm
+        });
+      }
     }
   },
   async mounted () {

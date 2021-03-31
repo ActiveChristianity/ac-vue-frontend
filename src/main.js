@@ -68,6 +68,16 @@ export default function (Vue, { router, head, isClient }) {
     }
   }
 
+  if (isClient && process.env.GRIDSOME_GTM) {
+    Vue.use(VueGtm, {
+      vueRouter: router,
+      id: process.env.GRIDSOME_GTM,
+      enabled: true,
+      defer: true,
+      debug: false
+    })
+  }
+
   router.options.scrollBehavior = function(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
@@ -131,13 +141,4 @@ export default function (Vue, { router, head, isClient }) {
   }
 
   head.htmlAttrs = { lang: process.env.GRIDSOME_LOCALE.split('_')[0] }
-
-  if (isClient && process.env.GRIDSOME_GTM) {
-    Vue.use(VueGtm, {
-      vueRouter: router,
-      id: process.env.GRIDSOME_GTM,
-      enabled: true,
-      debug: false
-    })
-  }
 }
