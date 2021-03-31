@@ -54,7 +54,7 @@ export default function (Vue, { router, head, isClient }) {
     }, 2000)
   }
 
-  if (process.env.NODE_ENV === 'production') {
+  if (isClient) {
     head.script.push({
       src: 'https://static.cloudflareinsights.com/beacon.min.js',
       defer: true,
@@ -63,19 +63,17 @@ export default function (Vue, { router, head, isClient }) {
       body: true
     })
 
-    if (isClient) {
-      require('./registerServiceWorker')
+    if (process.env.GRIDSOME_GTM) {
+      Vue.use(VueGtm, {
+        vueRouter: router,
+        id: process.env.GRIDSOME_GTM,
+        enabled: true,
+        defer: true,
+        debug: false
+      })
     }
-  }
 
-  if (isClient && process.env.GRIDSOME_GTM) {
-    Vue.use(VueGtm, {
-      vueRouter: router,
-      id: process.env.GRIDSOME_GTM,
-      enabled: true,
-      defer: true,
-      debug: false
-    })
+    require('./registerServiceWorker')
   }
 
   router.options.scrollBehavior = function(to, from, savedPosition) {
