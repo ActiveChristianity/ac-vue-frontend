@@ -55,13 +55,15 @@ export default function (Vue, { router, head, isClient }) {
   }
 
   if (isClient) {
-    head.script.push({
-      src: 'https://static.cloudflareinsights.com/beacon.min.js',
-      defer: true,
-      async: true,
-      'data-cf-beacon': `{"token": "${process.env.CLOUDFLARE_TOKEN}"}`,
-      body: true
-    })
+    if (process.env.GRIDSOME_CLOUDFLARE_TOKEN) {
+      head.script.push({
+        src: 'https://static.cloudflareinsights.com/beacon.min.js',
+        defer: true,
+        async: true,
+        'data-cf-beacon': `{"token": "${process.env.GRIDSOME_CLOUDFLARE_TOKEN}"}`,
+        body: true
+      })
+    }
 
     if (process.env.GRIDSOME_GTM) {
       Vue.use(VueGtm, {
