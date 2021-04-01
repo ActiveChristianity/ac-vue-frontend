@@ -43,9 +43,9 @@
 
       <div class="post_content content-md my-4 md:my-8" v-html="content"></div>
 
-      <div class="flex flex-wrap content-md my-4 md:my-8">
+      <div v-if="post.topics" class="flex flex-wrap content-md my-4 md:my-8">
         <template v-for="topic in post.topics">
-          <g-link :key="topic.id" v-if="! topic.group.is_abstract" :to="`${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
+          <g-link :key="topic.id" v-if="! topic.group.is_abstract" :to="`/${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
         </template>
       </div>
 
@@ -53,17 +53,21 @@
         <p class="text-sm text-gray-600" v-html="credits"></p>
       </div>
 
-      <Share />
+      <ClientOnly>
+        <share />
+      </ClientOnly>
     </article>
 
-    <TopicArticles v-if="topic"
-       class="relative z-10"
-      :title="topic.name"
-      :topicSlug="topic.slug"
-      :exclude="post.slug"
-      :limit="4"
-      @empty="topicIndex = topicIndex + 1"
-    />
+    <ClientOnly>
+      <topic-articles v-if="topic"
+         class="relative z-10"
+        :title="topic.name"
+        :topicSlug="topic.slug"
+        :exclude="post.slug"
+        :limit="4"
+        @empty="topicIndex = topicIndex + 1"
+      />
+    </ClientOnly>
   </main>
 </template>
 
@@ -120,39 +124,37 @@ query Post ($id: ID!) {
 </page-query>
 
 <script>
-import LazyLoad from '~/helpers/LazyLoad';
-
 export default {
   metaInfo() {
-    const seo = this.post.seo || {}
-    const url = `${process.env.GRIDSOME_SITE_URL}/${this.post.slug}`
+    const post = this.post
+    if (! post) {
+      throw 'Post not found: ' + JSON.stringify(this.$context)
+    }
+    const seo = post.seo ?? {}
+    const url = `${process.env.GRIDSOME_SITE_URL}/${post.slug}`
     const link = [
       { rel: 'canonical', href: url }
     ]
     const meta = [
-      { key: 'description', name: 'description', content: seo.desc || this.post.excerpt },
-      { key: 'og:title', name: 'og:title', content: seo.title || this.post.title },
-      { key: 'article:published_time', name: 'article:published_time', content: this.post.published },
+      { key: 'description', name: 'description', content: seo.desc || post.excerpt },
+      { key: 'og:title', name: 'og:title', content: seo.title || post.title },
+      { key: 'article:published_time', name: 'article:published_time', content: post.published },
       { key: 'og:type', name: 'og:type', content: 'article' },
       { key: 'og:url', name: 'og:url', content: url },
     ]
-    if (this.post.image) {
-      meta.push({ key: 'og:image', name: 'og:image', content: typeof this.post.image == 'object' ? this.post.image.src : this.post.image })
+    if (post.image) {
+      meta.push({ key: 'og:image', name: 'og:image', content: post.image?.src || post.image })
     }
-    if (this.post.authors) {
-      this.post.authors.forEach(({ name, slug }) => {
+    if (post.authors) {
+      post.authors.forEach(({ name, slug }) => {
         meta.push({ key: slug, name: 'author', content: name })
       })
     }
     return {
-      title: seo.title || this.post.title,
+      title: seo.title || post.title,
       meta,
       link,
     }
-  },
-  components: {
-    Share: LazyLoad(() => import('~/components/Share.vue'), 1000),
-    TopicArticles: LazyLoad(() => import('~/components/TopicArticles.vue'), 2000)
   },
   data () {
     return {
@@ -179,6 +181,7 @@ export default {
     },
     topic () {
       if (process.isClient && this.post.topics?.length > this.topicIndex) {
+        this.post.topics.sort((a,b) => ! a.is_abstract && b.is_abstract ? -1 : 1)
         return this.post.topics[this.topicIndex]
       }
     },
@@ -198,17 +201,13 @@ export default {
       return this.post?.meta?.credits || '</p>'
     },
     postVideo () {
-      if (! this.post
-          || ! this.post.meta
-          || ! this.post.meta.url
-      ) return false
-      return  {
+      return this.post?.meta?.url ? {
         title: this.post.title,
         url: this.post.meta.url,
         duration: this.post.readtime,
         poster: this.post.image.dataUri,
         isVideo: true,
-      }
+      } : false
     },
     authorsAs () {
       if (! this.post.authors) return null

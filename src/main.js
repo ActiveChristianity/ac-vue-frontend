@@ -7,13 +7,15 @@ import Link from './atomics/Link.vue'
 import Bookmark from './atomics/Bookmark.vue'
 import Playable from './atomics/Playable.vue'
 import FocalImage from './atomics/FocalImage.js'
+import Share from './components/Share.vue'
+import TopicArticles from './components/TopicArticles.vue'
+
 import Scroll from './helpers/ScrollDirective'
 import ScreenStore from './helpers/ScreenStore'
 import Store from './helpers/Store'
 import Api from './helpers/Api'
 // import Vue2TouchEvents from 'vue2-touch-events'
 import Markdown2Html from './helpers/Markdown2Html'
-import VueGtm from 'vue-gtm'
 
 import './main.scss'
 
@@ -27,6 +29,7 @@ if (! Array.prototype.groupBy) {
   };
 }
 
+
 export default function (Vue, { router, head, isClient }) {
   Vue.component('Icon', Icon)
   Vue.component('ALink', ALink)
@@ -34,6 +37,8 @@ export default function (Vue, { router, head, isClient }) {
   Vue.component('bookmark', Bookmark)
   Vue.component('playable', Playable)
   Vue.component('FImage', FocalImage)
+  Vue.component('Share', Share)
+  Vue.component('TopicArticles', TopicArticles)
   //Vue.use(Vue2TouchEvents)
   Vue.use(Store)
   Vue.use(Api)
