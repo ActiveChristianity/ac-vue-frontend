@@ -8,7 +8,7 @@
       <template v-for="group in groups">
         <template v-for="topic in group.topics">
           <div v-if="topic.image" :key="topic.id" class="h-32 w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2">
-            <g-link :to="`${$t.slug_topic}/${topic.slug}`"
+            <g-link :to="`/${$t.slug_topic}/${topic.slug}`"
                     class="avoid-inside w-full h-full rounded-lg overflow-hidden flex items-center justify-center relative hover:shadow-outline p-2">
               <f-image :src="topic.image" class="absolute w-full h-full object-center object-cover" />
               <div class="absolute inset-0 bg-black opacity-50"></div>
@@ -27,7 +27,7 @@
           <h3 class="avoid-after font-medium text-secondary text-xl p-2 uppercase">{{ group.name }}</h3>
           <template v-for="topic in group.topics">
             <div :key="topic.id" class="my-1">
-              <g-link :to="`${$t.slug_topic}/${topic.slug}`" class="p-2 rounded hover:bg-gray-200">
+              <g-link :to="`/${$t.slug_topic}/${topic.slug}`" class="p-2 rounded hover:bg-gray-200">
                 {{ topic.name }} <span class="mr-2 text-sm rounded bg-gray-100 text-gray-600 px-1">{{ topic.noOfPosts }}</span>
               </g-link>
             </div>
