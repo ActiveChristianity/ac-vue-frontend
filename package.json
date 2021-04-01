@@ -18,6 +18,7 @@
     "googleapis": "^57.0.0",
     "gridsome": "^0.7.23",
     "gridsome-plugin-flexsearch": "^1.0.5",
+    "gridsome-plugin-gtm": "^0.1.1",
     "gridsome-plugin-pwa": "0.0.18",
     "gridsome-plugin-robots-txt": "^1.0.2",
     "gridsome-plugin-tailwindcss": "^4.1.1",

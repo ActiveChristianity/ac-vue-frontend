@@ -18,10 +18,6 @@
       "continue": true
     },
     {
-      "src": "/topic",
-      "dest": "/topics"
-    },
-    {
       "src": "/(.*)",
       "dest": "/$1"
     },

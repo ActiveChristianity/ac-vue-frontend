@@ -65,16 +65,6 @@ export default function (Vue, { router, head, isClient }) {
       })
     }
 
-    if (process.env.GRIDSOME_GTM) {
-      Vue.use(VueGtm, {
-        vueRouter: router,
-        id: process.env.GRIDSOME_GTM,
-        enabled: true,
-        defer: true,
-        debug: false
-      })
-    }
-
     require('./registerServiceWorker')
   }
 

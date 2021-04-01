@@ -23,7 +23,7 @@
                 <p v-for="(x, k) in authorsAs" :key="x.key">
                   <strong>{{ asStr[k] || 'By' }} </strong>
                   <template v-for="(a, i) in x">
-                    <g-link :key="a.slug" :to="`/${$t.slug_author}/${a.slug}`" :class="{'preAnd': i > 0}">{{ a.name }}</g-link>
+                    <g-link :key="a.slug" :to="`/${$t.slug_ac_author}/${a.slug}`" :class="{'preAnd': i > 0}">{{ a.name }}</g-link>
                   </template>
                 </p>
               </template>

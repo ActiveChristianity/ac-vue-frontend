@@ -24,6 +24,10 @@ const loadTranslations = async function () {
     saveFile('./src/strings', locale, 'json', set)
 
     console.log(`Done translation loaded`);
+    return (key, value) => {
+      set[key] = value
+      saveFile('./src/strings', locale, 'json', set)
+    }
   } catch (e) {
     console.log('Loading Translations error:\n', e)
   }

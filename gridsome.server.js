@@ -24,9 +24,10 @@ function gqlFetch(query) {
 
 module.exports = function (api) {
   const metadata = {}
+  let updateTranslation;
 
   api.loadSource(async ({ addMetadata }) => {
-    await loadTranslations()
+    updateTranslation = await loadTranslations()
     const { settings } = await gqlFetch("query { settings { key value } }")
 
     // Fallback
@@ -111,8 +112,6 @@ module.exports = function (api) {
       })
     })
 
-
-
     const { data: {
       ql: { authors }
     }} = await graphql(`{
@@ -128,7 +127,7 @@ module.exports = function (api) {
 
     authors.data.forEach(author => {
       createPage({
-        path: `/${strings.slug_author}/${author.slug}`,
+        path: `/${strings.slug_ac_author}/${author.slug}`,
         component: './src/templates/Author.vue',
         context: {id: author.id}
       })
@@ -140,6 +139,7 @@ module.exports = function (api) {
       ql {
         allPages {
           id
+          label
           path
         }
       }
@@ -147,6 +147,10 @@ module.exports = function (api) {
 
     allPages.forEach(page => {
       if (page.path && page.path !== '/') {
+        switch (page.label) {
+          case 'about-us': updateTranslation('slug_about', page.path.replace(/^\/|\/$/g, ''))
+                break;
+        }
         createPage({
           path: page.path,
           component: './src/templates/Page.vue',
@@ -222,6 +226,10 @@ module.exports = function (api) {
     allForms && allForms.forEach(form => {
       form.fields = form.fields ? JSON.parse(form.fields) : [];
       form.terms = form.terms ? JSON.parse(form.terms) : [];
+
+      if (form.id == 5) {
+        updateTranslation('slug_contact', form.slug.replace(/^\/|\/$/g, ''))
+      }
       createPage({
         path: `/${form.slug}`,
         component: './src/templates/Form.vue',

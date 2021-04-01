@@ -83,6 +83,16 @@ const plugins = [
  */
 
 if (process.env.NODE_ENV === 'production') {
+  if (process.env.GRIDSOME_GTM) {
+    plugins.push({
+      use: 'gridsome-plugin-gtm',
+      options: {
+        id: process.env.GRIDSOME_GTM,
+        enabled: true,
+        debug: false
+      }
+    })
+  }
   plugins.push(
     {
       use: 'gridsome-plugin-robots-txt',

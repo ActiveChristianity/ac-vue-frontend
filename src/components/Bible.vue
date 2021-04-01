@@ -9,7 +9,10 @@
           class="flex w-full items-center justify-between pt-4 pb-2 text-lg border-b border-gray-300 mb-4 sticky top-0 bg-white"
         >
           <h2>Old Testament</h2>
-          <button class="rounded bg-gray-300 p-2" aria-label="close" @click="$emit('toggleBible')">
+          <button title="Close"
+              @click="$emit('toggleBible')"
+              class="rounded bg-gray-300 p-2"
+          >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6M11 11L6 6M6 6L11 1M6 6L1 11" stroke="#4F4F4F" stroke-linecap="round"></path></svg>
           </button>
         </div>
@@ -20,7 +23,7 @@
           class="w-1/2 sm:1/4 md:1/6 py-2 inline-block"
           :style="{order: book.id}"
         >
-          <button
+          <button title="Toggle old testament book"
             @click="(e) => toggleActive(e, book)"
             :class="activeBook == book ? 'bg-d4slate-dark text-white' : 'text-d4slate-dark bg-white'"
             class="border border-gray-600 hover:border-d4slate-dark rounded-lg py-1 px-2 font-semibold"
@@ -43,7 +46,7 @@
           class="w-1/2 sm:1/4 md:1/6 py-2 inline-block"
           :style="{order: book.id}"
         >
-          <button
+          <button title="Toggle new testament book"
             @click="(e) => toggleActive(e, book)"
             :class="activeBook == book ? 'bg-d4slate-dark text-white' : 'text-d4slate-dark bg-white'"
             class="border border-gray-300 hover:border-d4slate-dark rounded-lg py-1 px-2 font-semibold"
