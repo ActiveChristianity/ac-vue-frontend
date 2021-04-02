@@ -4,7 +4,7 @@
     <p class="msm:hidden pb-8 text-xl">{{ subtitle }}</p>
     <div class="tags flex">
       <template v-for="(topic, i) in topics">
-        <g-link :key="topic.id" :to="`${$t.slug_topic}/${topic.slug}` ">{{ topic.name }}</g-link>
+        <g-link :key="topic.id" :to="`/${$t.slug_topic}/${topic.slug}`">{{ topic.name }}</g-link>
       </template>
     </div>
   </div>

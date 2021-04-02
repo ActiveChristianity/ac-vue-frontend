@@ -3,7 +3,7 @@
     <div class="md:content center flex-col">
       <div class="w-full p-4 center">
         <template v-for="ln in socialLinks">
-          <a :href="ln.url" :key="ln.key" :title="ln.key" target="_blank" class="social-link">
+          <a :href="ln.url" :key="ln.key" :title="ln.key" rel="noopener" target="_blank" class="social-link">
             <icon fa :name="ln.icon" />
           </a>
         </template>

@@ -5,11 +5,11 @@
          :style="`transform: translateY(${translateY}px)`"
          :class="scrollY > 64 ? 'z-40 top-0' : 'top- z-30'"
       >
-        <button v-if="$route.path !== '/'" @click="$router.back()" class="p-3 h-12 md:hidden">
+        <button v-if="$route.path !== '/'" title="back" @click="$router.back()" class="p-3 h-12 md:hidden">
           <icon name="fad-chevron-left" fa />
         </button>
 
-        <g-link to="/" id="headbar-left" class="flex-1 p-3 h-12 text-4xl">
+        <g-link to="/" :title="$t.site_title" id="headbar-left" class="flex-1 p-3 h-12 text-4xl">
           <icon name="logo" class="h-full w-auto object-fit md:block" :class="{hidden: $store.showSearch}" />
           <icon name="icon" class="h-full w-12 object-fit" :class="$store.showSearch ? 'block md:hidden' : 'hidden'" />
         </g-link>

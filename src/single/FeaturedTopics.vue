@@ -1,6 +1,6 @@
 <template>
   <div class="my-8">
-    <heading :to="`/${$t.slug_topic}`" text="all_topics">{{ $t.topics }}</heading>
+    <heading :to="`/${$t.slug_topic}`" text="see_all">{{ $t.topics }}</heading>
     <div class="content flex flex-wrap px-4">
       <template v-for="topic in topics">
         <div class="h-32 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 p-2">

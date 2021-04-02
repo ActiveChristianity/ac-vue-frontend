@@ -41,7 +41,7 @@ export default {
       }
 
       if (this.active) {
-        event.value = 0
+        event.value = -1
         this.$delete(this.$store.bookmarks, this.key)
       } else {
         this.$set(this.$store.bookmarks, this.key, {

@@ -3,9 +3,9 @@
     <article-banner :article="featured.banner" />
     <article-grid :articles="featured.list" :title="$t.featured"/>
     <br />
-    <featured-topics />
-    <br />
     <latest-grid />
+    <br />
+    <featured-topics />
   </main>
 </template>
 
