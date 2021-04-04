@@ -46,7 +46,7 @@
 
     <div id="topbar" class="items-center justify-between border-b border-gray-200 hidden px-4 h-10 md:flex">
       <div id="topbar-left" class="text-gray-500 text-sm tracking-wide">
-        <a class="p-2 inline-block hover:text-gray-900" rel="nofollow" :href="$t.bcc_link">{{ $t.bcc_text}} <icon name="fal-external-link-alt" fa class="ml-1 " /></a>
+        <a class="p-2 inline-block hover:text-gray-900" rel="nofollow" :href="$t.bcc_link">{{ $t.bcc_text}} <icon name="fal-external-link-alt" fa class="ml-1" /></a>
       </div>
       <div id="topbar-right" class="flex text-gray-500 text-sm px-2">
         <!--button aria-label="login" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Login</button>

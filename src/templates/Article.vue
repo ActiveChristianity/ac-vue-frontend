@@ -1,14 +1,15 @@
 <template>
   <main class="bg-gradient-to-t md:p-2 mmd:pt-d30" :style="`--gradient-color-stops: ${post.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')}`">
-    <g-image class="md:hidden w-full top-0 fixed" :style="{transform: `translateY(${$store.headerTop+48}px)`}" :src="post.image" :alt="post.title"/>
+    <g-image class="md:hidden w-full h-d30 object-cover object-center top-0 fixed" :style="{transform: `translateY(${$store.headerTop+48}px)`}" :src="post.image" :alt="post.title"/>
     <article class="md:content post my-12 bg-white text-black md:rounded-2xl rounded-t-3xl relative z-10">
       <div class="fade-in content-md pt-8 md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-2xl sm:text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
-        <p class="center text-xl my-2">{{ post.sub || post.excerpt }}</p>
+        <p class="text-center md:text-xl my-2">{{ post.sub || post.excerpt }}</p>
 
         <div class="center">
           <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 w-full px-12 md:w-auto md:px-24">
-            <bookmark class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600 -ml-10 mr-2" type="post" :id="post.id" :slug="post.slug"></bookmark>
+            <bookmark class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600 mr-4" type="post" :id="post.id" :slug="post.slug"></bookmark>
+
             <div class="text-center font-detail tracking-wide text-sm text-gray-600">
               <p class="inline-block">
                   <span>{{ (new Date(post.published)).toLocaleDateString() }}</span>
@@ -28,6 +29,11 @@
                 </p>
               </template>
             </div>
+
+            <button class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600 ml-4"
+               @click="scrollToShare"
+               aria-label="share"
+            ><icon prefix="fal" name="share" fa/></button>
           </div>
         </div>
       </div>
@@ -212,6 +218,11 @@ export default {
     authorsAs () {
       if (! this.post.authors) return null
       return this.post.authors.groupBy('pivot.as')
+    }
+  },
+  methods: {
+    scrollToShare () {
+      document.getElementById('share-this')?.scrollIntoView({block: 'center', behavior: 'smooth'});
     }
   },
   mounted () {

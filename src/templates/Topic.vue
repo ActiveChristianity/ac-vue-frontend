@@ -67,7 +67,7 @@ export default {
   metaInfo() {
     const { name } = this.$page.ql.topic
     return {
-      title: name + ' - ' + this.$t.site_title
+      title: name + ' | ' + this.$t.topics + ' - ' + this.$t.site_title
     }
   },
   components: {

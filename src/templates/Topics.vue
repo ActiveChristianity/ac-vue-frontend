@@ -58,6 +58,11 @@ query Topics {
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: this.$t.topics + ' - ' + this.$t.site_title
+    }
+  },
   computed: {
     groups () {
       const groups = this.$page.ql.topicGroups.filter(g => g.topics.length)

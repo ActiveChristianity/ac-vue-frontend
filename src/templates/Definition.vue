@@ -8,7 +8,7 @@
       <div class="flex-1 overflow-hidden flex items-stretch rounded-t-3xl bg-white">
         <div class="content-lg h-full max-h-full overflow-y-auto pt-4 pb-32">
           <div class="post_content py-4" v-html="$context.content"></div>
-          <button @click="$router.back()" class="block mx-auto text-blue-600 my-4 py-1 px-2 rounded hover:bg-gray-200"><icon fa name="fad-chevron-left" class="mr-2"/> Return</button>
+          <button @click="$router.back()" class="block mx-auto text-blue-600 my-4 py-1 px-2 rounded hover:bg-gray-200"><icon fa name="fad-chevron-left" class="mr-2"/> {{ $t.back }}</button>
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
 export default {
   metaInfo() {
     return {
-      title: this.$context.word + ' - ' + this.$t.site_title
+      title: this.$context.word + ' | ' + this.$t.glossary + ' - ' + this.$t.site_title
     }
   }
 }
