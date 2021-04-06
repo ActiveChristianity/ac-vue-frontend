@@ -51,7 +51,9 @@
 
       <div v-if="post.topics" class="flex flex-wrap content-md my-4 md:my-8">
         <template v-for="topic in post.topics">
-          <g-link :key="topic.id" v-if="topic.group.noOfPosts > 1" :to="`/${$t.slug_topic}/${topic.slug}`" class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300">{{ topic.name }}</g-link>
+          <g-link :key="topic.id" v-if="topic.noOfPosts > 1" :to="`/${$t.slug_topic}/${topic.slug}`"
+                  class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300"
+          >{{ topic.name }}</g-link>
         </template>
       </div>
 
