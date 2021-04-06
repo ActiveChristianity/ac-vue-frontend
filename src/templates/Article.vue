@@ -49,9 +49,9 @@
 
       <div class="post_content content-md my-4 md:my-8" v-html="content"></div>
 
-      <div v-if="post.topics" class="flex flex-wrap content-md my-4 md:my-8">
-        <template v-for="topic in post.topics">
-          <g-link :key="topic.id" v-if="topic.noOfPosts > 1" :to="`/${$t.slug_topic}/${topic.slug}`"
+      <div v-if="topicsWithPosts.length" class="flex flex-wrap content-md my-4 md:my-8">
+        <template v-for="topic in topicsWithPosts">
+          <g-link :key="topic.id" :to="`/${$t.slug_topic}/${topic.slug}`"
                   class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300"
           >{{ topic.name }}</g-link>
         </template>
@@ -188,10 +188,16 @@ export default {
     post () {
       return this.preview || this.$page.ql?.post
     },
+    topicsWithPosts () {
+      const topics = this.post.topics?.filter(t => t.noOfPosts > 1) || []
+      topics.sort((a,b) => a.noOfPosts > b.noOfPosts ? -1 : 1)
+      topics.sort((a,b) => ! a.is_abstract && b.is_abstract ? -1 : 1)
+      return topics
+    },
     topic () {
-      if (process.isClient && this.post.topics?.length > this.topicIndex) {
-        this.post.topics.sort((a,b) => ! a.is_abstract && b.is_abstract ? -1 : 1)
-        return this.post.topics[this.topicIndex]
+      if (process.isClient && this.topicsWithPosts?.length > this.topicIndex) {
+        this.topicsWithPosts.sort((a,b) => ! a.is_abstract && b.is_abstract ? -1 : 1)
+        return this.topicsWithPosts[this.topicIndex]
       }
     },
     content () {
