@@ -18,7 +18,7 @@
         <div v-if="authors" class="flex-1 pb-2 text-slate-light text-sm">{{ authors }}</div>
         <div class="flex items-center justify-between text-gray-600 text-sm pb-1">
           <span aria-label="time2read">
-            <icon class="mr-1" fa name="fal-file-alt" /> {{ Math.ceil(article.readtime / 60) }} {{ $t.mins }}
+            <icon class="mr-1" fa name="fal-file-alt" /> {{ Math.ceil(article.readtime / 60) }} {{ $t.min }}
           </span>
           <bookmark class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600" type="post" :id="article.id" :slug="article.slug" />
         </div>

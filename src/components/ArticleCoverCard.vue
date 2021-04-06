@@ -19,7 +19,7 @@
         <h2 class="flex-1 text-white text-xl text-center leading-tight tracking-wide font-medium my-2">{{ article.title }}</h2>
         <div class="text-gray-100 text-sm md:text-base border-t border-gray-400 py-2">{{ authors }}</div>
         <div class="flex items-center justify-between text-gray-100 text-sm pb-1">
-          <span v-if="article.readtime" aria-label="time2read"><icon class="mr-1" name="fal-file-alt" fa /> {{ Math.ceil(article.readtime / 60) }} mins</span>
+          <span v-if="article.readtime" aria-label="time2read"><icon class="mr-1" name="fal-file-alt" fa /> {{ Math.ceil(article.readtime / 60) }} {{ $t.min }}</span>
           <bookmark class="rounded w-8 h-8 hover:bg-gray-800 hover:text-blue-400 ml-auto" :id="article.id" :slug="article.slug" />
         </div>
       </div>

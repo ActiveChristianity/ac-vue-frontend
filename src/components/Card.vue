@@ -19,7 +19,7 @@
     </div>
     <span class="flex justify-between items-center mt-4 sm:px-4 sm:pb-4">
       <p class="sm:hidden text-sm text-blue-500">{{ $t.read_more }}</p>
-      <p class="hidden sm:block text-sm text-gray-600-dark">{{card.readtime / 60 > 60 ? '60' : Math.round(card.readtime / 60) }} {{ $t.mins }} ・ {{ card.authors.map(a => a.name).join(', ') }}</p>
+      <p class="hidden sm:block text-sm text-gray-600-dark">{{card.readtime / 60 > 60 ? '60' : Math.round(card.readtime / 60) }} {{ $t.min }} ・ {{ card.authors.map(a => a.name).join(', ') }}</p>
       <Icon name="heart" class="w-5 h-5 text-blue-500" />
     </span>
   </g-link>

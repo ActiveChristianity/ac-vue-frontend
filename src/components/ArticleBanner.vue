@@ -12,7 +12,7 @@
         <p class="text-slate lg:text-lg my-4">{{ article.excerpt }}</p>
         <div class="flex items-center">
           <bookmark class="text-blue-500 rounded w-8 h-8 hover:bg-gray-200" :id="article.id" :slug="article.slug" />
-          <div class="p-2 text-slate-light text-sm">{{ Math.ceil(article.readtime / 60) }} {{ $t.mins }} - {{ authors }}</div>
+          <div class="p-2 text-slate-light text-sm">{{ Math.ceil(article.readtime / 60) }} {{ $t.min }} - {{ authors }}</div>
         </div>
       </div>
     </div>
