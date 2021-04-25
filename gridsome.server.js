@@ -7,6 +7,9 @@
 
 const loadTranslations = require('./load-translations')
 const fetch = require('node-fetch')
+const fs = require('fs')
+
+fs.copyFileSync(`./logos/${process.env.GRIDSOME_LOCALE}.svg`, './src/assets/icons/logo.svg')
 
 function gqlFetch(query) {
   return fetch(process.env.GRIDSOME_GQL_URL, {
