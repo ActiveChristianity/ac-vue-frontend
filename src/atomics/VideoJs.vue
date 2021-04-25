@@ -13,6 +13,7 @@
     :controls="controls && 'controls'"
     :poster="poster"
   >
+    <source v-if="youtube" :src="youtube" type="video/youtube" />
     <source v-if="m3u8" :src="m3u8" type="application/x-mpegURL" />
     <source v-if="mp4" :src="mp4" type="video/mp4" />
     <source v-if="webm" :src="webm" type="video/webm" />
@@ -26,7 +27,7 @@
 
 <script>
 export default {
-  props: ['m3u8', 'mp4', 'webm', 'controls', 'poster', 'loop', 'autoplay', 'muted'],
+  props: ['youtube', 'm3u8', 'mp4', 'webm', 'controls', 'poster', 'loop', 'autoplay', 'muted'],
   data() {
     return {
       id: 'vjs-' + Date.now() + Math.ceil(Math.random()*100),

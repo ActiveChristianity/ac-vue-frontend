@@ -1,12 +1,12 @@
 <template>
-  <div class="fixed mb-20 md:mb-0 bottom-0 inset-x-0">
-    <div class="w-full flex flex-col bg-gray-300 pb-4">
+  <div class="fixed z-20 mb-16 md:mb-0 bottom-0 inset-x-0">
+    <div class="w-full flex flex-col bg-gray-300 py-4">
       <div class="content-md md:py-4 relative">
-        <vue-plyr ref="plyr">
+        <vue-plyr ref="plyr" class="rounded-2xl shadow-xl border-4 border-black overflow-hidden">
           <audio src="/ping.mp3"></audio>
         </vue-plyr>
-        <p v-if="$store.playing" class="-mt-1 text-center pb-1">{{ $store.playing.title }}</p>
-        <button class="absolute inset-y-0 right-0 h-full px-1" @click="close"><icon name="fad-times" fa/></button>
+        <p v-if="$store.playing" class="mt-1 text-center pb-1">{{ $store.playing.title }}</p>
+        <button class="absolute top-0 md:bottom-0 right-0 mmd:-mt-4 md:-mr-4 px-1" @click="close"><icon name="fad-times" fa/></button>
       </div>
     </div>
   </div>
@@ -79,7 +79,7 @@ export default {
 
               setTimeout(() => {
                 this.player.play()
-              }, 500)
+              }, 1000)
             } else {
               this.player.source = {
                 type: 'audio',

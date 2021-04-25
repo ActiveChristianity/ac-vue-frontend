@@ -73,7 +73,8 @@ button:focus, a:focus, input:focus {
   height: 6em;
 }
 .lines-2 {
-  height: 3em;
+  max-height: 3em;
+  height: auto;
 }
 .rtTooltip {
   opacity: 0.99;

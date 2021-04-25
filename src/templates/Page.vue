@@ -5,6 +5,17 @@
       <template v-for="({ type, data }) in content">
         <h2 v-if="type === 'section'" class="sticky top-0\.5" :id="data.slug">{{ data.title }}</h2>
         <div v-else-if="type === 'text'" v-html="data.content" class="post_content py-8"></div>
+        <template v-else-if="type === 'embed'">
+          <div v-if="data.type === 'youtube'" class="relative overflow-hidden rounded-3xl text-black">
+            <f-image v-if="data.poster" :src="data.poster" class="w-full" />
+            <div v-else class="w-full h-56 bg-slate-light"></div>
+            <div class="absolute bg-white opacity-50 inset-0"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="text-xl md:text-3xl font-bold font-serif pt-24">{{ data.title }}</span>
+            </div>
+            <playable :video="data" class="absolute inset-0 w-full h-full"/>
+          </div>
+        </template>
       </template>
     </div>
   </sectioned>

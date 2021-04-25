@@ -3,7 +3,7 @@
     <heading v-if="title" class="fade-in" :to="to">{{ title }}</heading>
     <slot></slot>
     <transition-group name="transform" tag="div" class="pl-2 md:pl-0 md:content w-full overflow-x-scroll md:overflow-hidden flex items-stretch md:flex-wrap scroll-snap-x py-4">
-      <template v-for="(article, i) in articles">
+      <template v-for="(article, i) in sortedArticles">
         <article-card :key="article.id"
                       :article="article"
                       :large="large[i % 9]"
@@ -38,6 +38,16 @@ export default {
     baseWidth () {
       return this.articles?.length === 1 ? 'w-full' : 'w-3/4'
     },
+    sortedArticles () {
+      if (this.articles.length <= 4) {
+        return this.articles
+      }
+      const articles = this.articles.map(a => a)
+      this.swap(articles, 1,2)
+      this.swap(articles, 4,3)
+
+      return articles
+    },
     large () {
       if (this.articles.length <= 2) {
         return [ true, true ]
@@ -57,6 +67,15 @@ export default {
         true,
         false,
       ];
+    }
+  },
+  methods: {
+    swap(articles, smallIndex, largeIndex) {
+      if (articles[smallIndex].excerpt?.length > articles[largeIndex].excerpt?.length) {
+        let tmp = articles[smallIndex]
+        articles[smallIndex] = articles[largeIndex]
+        articles[largeIndex] = tmp
+      }
     }
   },
   mounted () {

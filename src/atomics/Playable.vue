@@ -36,7 +36,11 @@ export default {
   },
   methods: {
     toggle () {
-      let src = this.track || this.video
+      let src = this.track
+      if (this.video) {
+        src = this.video
+        src.isVideo = true
+      }
       if (src) {
         if (! this.isCurrent) {
           this.$store.playlist = {
