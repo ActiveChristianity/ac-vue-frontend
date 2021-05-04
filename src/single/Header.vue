@@ -49,12 +49,12 @@
         <a class="p-2 inline-block hover:text-gray-900" rel="nofollow" :href="$t.bcc_link">{{ $t.bcc_text}} <icon name="fal-external-link-alt" fa class="ml-1" /></a>
       </div>
       <div id="topbar-right" class="flex text-gray-500 text-sm px-2">
-        <dropdown :label="currentSite ? currentSite.lang : 'Language'">
-          <template v-for="site in localSites">
+        <dropdown v-if="$store.currentSite" :label="$store.currentSite ? $store.currentSite.lang : 'Language'">
+          <template v-for="site in $store.regionSites">
             <dropdown-item :key="site.locale" :href="site.url" :title="site.title">{{ site.lang }}</dropdown-item>
           </template>
           <hr>
-          <dropdown-item :key="fallbackSite.locale" :href="fallbackSite.url" :title="fallbackSite.title">Global</dropdown-item>
+          <dropdown-item v-if="$store.fallbackSite" :key="$store.fallbackSite.locale" :href="$store.fallbackSite.url" :title="$store.fallbackSite.title">Global</dropdown-item>
         </dropdown>
         <!--button aria-label="login" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Login</button>
         <button aria-label="register" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Register</button-->
@@ -68,20 +68,6 @@
     <bookmarks v-if="$store.showBookmarks !== null" :show="$store.showBookmarks" @close="$store.showBookmarks = false" />
   </header>
 </template>
-
-<static-query>
-query HeaderInfo {
-  ql {
-    sites {
-      locale
-      region
-      lang
-      title
-      url
-    }
-  }
-}
-</static-query>
 
 <script>
 import Dropdown from "../atomics/Dropdown";
@@ -106,15 +92,6 @@ export default {
   computed: {
     translateY () {
       return this.$store.showSearch ? 0 : this.top
-    },
-    currentSite () {
-      return this.$static.ql.sites.find(({ locale }) => locale === process.env.GRIDSOME_LOCALE)
-    },
-    fallbackSite () {
-      return this.$static.ql.sites.find(({ locale }) => locale === process.env.GRIDSOME_LOCALE_FALLBACK)
-    },
-    localSites () {
-      return this.$static.ql.sites.filter(({ region }) => region === 'africa')
     },
   },
   methods: {

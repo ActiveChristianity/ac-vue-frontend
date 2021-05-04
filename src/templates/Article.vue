@@ -57,8 +57,12 @@
         </template>
       </div>
 
-      <div class="content-md my-4 md:my-8" v-if="credits">
+      <div v-if="credits" class="content-md my-4 md:my-8">
         <p class="font-sans" v-html="credits"></p>
+      </div>
+
+      <div v-if="translations" class="">
+
       </div>
 
       <ClientOnly>
@@ -126,6 +130,10 @@ query Post ($id: ID!) {
         as_ac
         ebook_id
         credits
+      }
+      langs {
+        lang
+        slug
       }
     }
   }
@@ -227,6 +235,20 @@ export default {
     authorsAs () {
       if (! this.post.authors) return null
       return this.post.authors.groupBy('pivot.as')
+    },
+    translations () {
+      const links = []
+      let site;
+      this.post.langs.forEach(({ lang, slug}) => {
+        if (site = this.$store.sites[lang] && lang !== this.$store.locale) {
+          links.push({
+            locale: lang,
+            title: site.lang,
+            url: [site.url, slug].join('/')
+          })
+        }
+      })
+      return links
     }
   },
   methods: {

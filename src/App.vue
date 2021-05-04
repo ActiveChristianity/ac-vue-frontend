@@ -39,6 +39,15 @@ query {
     top_text
     top_link
   }
+  ql {
+    sites {
+      locale
+      region
+      lang
+      title
+      url
+    }
+  }
 }
 </static-query>
 
@@ -80,6 +89,13 @@ export default {
     SvgSprite: () => import('~/single/SvgSprite.vue'),
     GlobalPlayer: () => import('~/single/GlobalPlayer.vue'),
   },
+  data () {
+    return {
+      path: '',
+      scrollY: 0,
+      theme: "theme-default"
+    }
+  },
   computed: {
     showHeader () {
       return !this.page || !this.page.hidden
@@ -98,13 +114,6 @@ export default {
         this.$store.headerTop = value
       }
     },
-  },
-  data() {
-    return {
-      path: '',
-      scrollY: 0,
-      theme: "theme-default"
-    }
   },
   watch: {
     '$route.path': {
@@ -192,6 +201,12 @@ export default {
           }, 10000)
         }
       })
+
+      const sites = this.$static.ql.sites
+      this.$store.sites = sites.keyBy('locale')
+      this.$store.currentSite = this.$store.sites[this.$store.locale]
+      this.$store.fallbackSite = this.$store.sites[this.$store.fallbackLocale]
+      this.$store.regionSites = sites.filter(({ region, locale }) => locale !== this.$store.locale && region === this.$store.currentSite.region)
     }
   }
 }

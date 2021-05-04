@@ -22,10 +22,19 @@ import './main.scss'
 if (! Array.prototype.groupBy) {
   Array.prototype.groupBy = function(key) {
     return this.reduce(function(rv, x) {
-      const k = String(key).split('.').reduce((o,i)=>o[i], x);
-      (rv[k] = rv[k] || []).push(x);
-      return rv;
-    }, {});
+      const k = String(key).split('.').reduce((o,i)=> o[i], x);
+      (rv[k] = rv[k] || []).push(x)
+      return rv
+    }, {})
+  };
+}
+if (! Array.prototype.keyBy) {
+  Array.prototype.keyBy = function(key) {
+    return this.reduce(function(rv, x) {
+      const k = String(key).split('.').reduce((o,i)=> o[i], x);
+      rv[k] = x
+      return rv
+    }, {})
   };
 }
 

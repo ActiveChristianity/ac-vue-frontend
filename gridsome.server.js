@@ -9,6 +9,7 @@ const loadTranslations = require('./load-translations')
 const fetch = require('node-fetch')
 const fs = require('fs')
 
+// Loads the correct svg logo for the current language
 fs.copyFileSync(`./logos/${process.env.GRIDSOME_LOCALE}.svg`, './src/assets/icons/logo.svg')
 
 function gqlFetch(query) {
