@@ -58,7 +58,7 @@
       </div>
 
       <div class="content-md my-4 md:my-8" v-if="credits">
-        <p class="text-sm text-gray-600" v-html="credits"></p>
+        <p class="font-sans" v-html="credits"></p>
       </div>
 
       <ClientOnly>

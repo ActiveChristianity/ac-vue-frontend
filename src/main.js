@@ -59,7 +59,7 @@ export default function (Vue, { router, head, isClient }) {
     }, 2000)
   }
 
-  if (isClient) {
+  if (isClient && ! process.env.GRIDSOME_DEVELOPMENT) {
     if (process.env.GRIDSOME_CLOUDFLARE_TOKEN) {
       head.script.push({
         src: 'https://static.cloudflareinsights.com/beacon.min.js',

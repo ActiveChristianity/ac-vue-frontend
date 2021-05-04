@@ -24,7 +24,7 @@
               exactActiveClass="text-primary"
               class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200"
             >{{ $t.glossary }}</g-link>
-            <g-link :to="`/${$t.slug_about}`" title="About Us"
+            <g-link :to="`/${$t.slug_about}`" :title="$t.about_us"
               exactActiveClass="text-primary"
               class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 hover:bg-gray-200"
             >{{ $t.about }}</g-link>
@@ -49,11 +49,18 @@
         <a class="p-2 inline-block hover:text-gray-900" rel="nofollow" :href="$t.bcc_link">{{ $t.bcc_text}} <icon name="fal-external-link-alt" fa class="ml-1" /></a>
       </div>
       <div id="topbar-right" class="flex text-gray-500 text-sm px-2">
+        <dropdown :label="currentSite ? currentSite.lang : 'Language'">
+          <template v-for="site in localSites">
+            <dropdown-item :key="site.locale" :href="site.url" :title="site.title">{{ site.lang }}</dropdown-item>
+          </template>
+          <hr>
+          <dropdown-item :key="fallbackSite.locale" :href="fallbackSite.url" :title="fallbackSite.title">Global</dropdown-item>
+        </dropdown>
         <!--button aria-label="login" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Login</button>
         <button aria-label="register" class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white">Register</button-->
         <g-link :to="`/${$t.slug_contact}`"
           exactActiveClass="text-primary"
-          class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-600 hover:text-white"
+          class="tracking-wide rounded my-1 py-1 px-2 hover:bg-gray-200 hover:text-gray-600"
         >{{ $t.contact }}</g-link>
       </div>
     </div>
@@ -63,15 +70,22 @@
 </template>
 
 <static-query>
-query FooterInfo {
-  m: metadata {
-    title
-    social
+query HeaderInfo {
+  ql {
+    sites {
+      locale
+      region
+      lang
+      title
+      url
+    }
   }
 }
 </static-query>
 
 <script>
+import Dropdown from "../atomics/Dropdown";
+import DropdownItem from "../atomics/DropdownItem";
 export default {
   name: "Header",
   props: {
@@ -79,6 +93,8 @@ export default {
     scrollY: Number,
   },
   components: {
+    DropdownItem,
+    Dropdown,
     search: () => import('./Search'),
     bookmarks: () => import('./Bookmarks'),
   },
@@ -90,6 +106,15 @@ export default {
   computed: {
     translateY () {
       return this.$store.showSearch ? 0 : this.top
+    },
+    currentSite () {
+      return this.$static.ql.sites.find(({ locale }) => locale === process.env.GRIDSOME_LOCALE)
+    },
+    fallbackSite () {
+      return this.$static.ql.sites.find(({ locale }) => locale === process.env.GRIDSOME_LOCALE_FALLBACK)
+    },
+    localSites () {
+      return this.$static.ql.sites.filter(({ region }) => region === 'africa')
     },
   },
   methods: {
