@@ -8,7 +8,7 @@
 
         <div class="center">
           <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 w-full px-12 md:w-auto md:px-24">
-            <bookmark class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600 mr-4" type="post" :id="post.id" :slug="post.slug"></bookmark>
+            <bookmark class="rounded w-8 h-8 focus:bg-gray-200 focus:text-blue-600 hover:bg-gray-200 hover:text-blue-600 mr-4" type="post" :id="post.id" :slug="post.slug"></bookmark>
 
             <div class="text-center font-detail tracking-wide text-sm text-gray-600">
               <p class="inline-block">
@@ -30,7 +30,7 @@
               </template>
             </div>
 
-            <button class="rounded w-8 h-8 hover:bg-gray-200 hover:text-blue-600 ml-4"
+            <button class="rounded w-8 h-8 focus:bg-gray-200 focus:text-blue-600 hover:bg-gray-200 hover:text-blue-600 ml-4"
                @click="scrollToShare"
                aria-label="share"
             ><icon prefix="fal" name="share" fa/></button>
@@ -49,20 +49,28 @@
 
       <div class="post_content content-md my-4 md:my-8" v-html="content"></div>
 
-      <div v-if="topicsWithPosts.length" class="flex flex-wrap content-md my-4 md:my-8">
-        <template v-for="topic in topicsWithPosts">
-          <g-link :key="topic.id" :to="`/${$t.slug_topic}/${topic.slug}`"
-                  class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded-full leading-tight font-semibold bg-gray-200 hover:bg-gray-300"
-          >{{ topic.name }}</g-link>
-        </template>
+      <div v-if="topicsWithPosts.length" class="content-md my-4 md:my-6">
+        <span class="block uppercase font-normal text-slate-light text-sm tracking-wider pb-2">{{ $t.categories }}</span>
+        <div class="flex flex-wrap">
+          <template v-for="topic in topicsWithPosts">
+            <g-link :key="topic.id" :to="`/${$t.slug_topic}/${topic.slug}`"
+                    class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded leading-tight bg-gray-200 hover:bg-gray-300 focus:bg-gray-300"
+            >{{ topic.name }}</g-link>
+          </template>
+        </div>
       </div>
 
       <div v-if="credits" class="content-md my-4 md:my-8">
-        <p class="font-sans" v-html="credits"></p>
+        <p class="text-sm font-sans" v-html="credits"></p>
       </div>
 
-      <div v-if="translations" class="">
-
+      <div v-if="translations" class="content-md my-4 md:my-8">
+        <span class="block uppercase font-normal text-slate-light text-sm tracking-wider pb-2">{{ $t.post_available }}</span>
+        <div class="flex flex-wrap text-sm font-sans">
+          <template v-for="translation in translations">
+            <a-link :key="translation.locale" :path="translation.url" class="w-1/2 sm:w-1/3 md:w-1/4 pb-2 focus:text-secondary hover:text-secondary">{{ translation.title }}</a-link>
+          </template>
+        </div>
       </div>
 
       <ClientOnly>
@@ -199,12 +207,11 @@ export default {
     topicsWithPosts () {
       const topics = this.post.topics?.filter(t => t.noOfPosts > 1) || []
       topics.sort((a,b) => a.noOfPosts > b.noOfPosts ? -1 : 1)
-      topics.sort((a,b) => ! a.is_abstract && b.is_abstract ? -1 : 1)
+      topics.sort((a,b) => ! a.group.is_abstract && b.group.is_abstract ? -1 : 1)
       return topics
     },
     topic () {
       if (process.isClient && this.topicsWithPosts?.length > this.topicIndex) {
-        this.topicsWithPosts.sort((a,b) => ! a.is_abstract && b.is_abstract ? -1 : 1)
         return this.topicsWithPosts[this.topicIndex]
       }
     },
@@ -240,7 +247,7 @@ export default {
       const links = []
       let site;
       this.post.langs.forEach(({ lang, slug}) => {
-        if (site = this.$store.sites[lang] && lang !== this.$store.locale) {
+        if ((site = this.$store.sites[lang]) && lang !== this.$store.locale) {
           links.push({
             locale: lang,
             title: site.lang,

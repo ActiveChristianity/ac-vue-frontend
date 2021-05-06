@@ -1,6 +1,6 @@
 <template>
   <div class="flex-none p-2">
-    <g-link :to="article.slug" class="flex flex-col h-full cursor-pointer rounded-2xl bg-white border border-gray-300 transition-shadow duration-300 hover:shadow-outline">
+    <g-link :to="article.slug" class="flex flex-col h-full cursor-pointer rounded-2xl bg-white border border-gray-300 transition-shadow duration-300 focus:shadow-outline hover:shadow-outline">
       <div class="relative w-full" :class="ratio">
         <f-image class="absolute inset-0 w-full h-full object-cover rounded-t-2xl" :src="article.image"></f-image>
         <div class="absolute top-0 right-0 m-3 flex items-center justify-center text-white text-xl">
