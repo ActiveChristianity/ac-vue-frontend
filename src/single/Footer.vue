@@ -102,7 +102,7 @@ export default {
       const links = []
       Object.keys(m).forEach(k => {
         let match = k.match(/^social_(.*)$/)
-        if (match) {
+        if (match && m[match[0]]) {
           const key = match[0].replace('social_', '')
           links.push({
             key,
