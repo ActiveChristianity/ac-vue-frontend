@@ -21,7 +21,7 @@
     </div>
 
     <transition name="slide">
-      <div v-if="showMenu" @click="showMenu = false" class="md:hidden flex flex-col items-stretch rounded-tl mb-16 p-2 pt-4 pb-8 bg-white fixed z-30 bottom-0 right-0 border-2 border-gray-200">
+      <div v-if="showMenu" @click="$vibrate(showMenu = false)" class="md:hidden flex flex-col items-stretch rounded-tl mb-16 p-2 pt-4 pb-8 bg-white fixed z-30 bottom-0 right-0 border-2 border-gray-200">
         <g-link to="/" :title="$t.home" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200"><icon fa name="fal-house" /></g-link>
         <g-link :to="`/${$t.slug_topic}`" :title="$t.topics" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ $t.topics }}</g-link>
         <g-link :to="`/${$t.slug_glossary}`" :title="$t.glossary" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ $t.glossary }}</g-link>
@@ -29,8 +29,8 @@
       </div>
     </transition>
 
-    <div class="md:hidden w-full flex justify-around mt-4 border border-t-2 border-t-gray-600 fixed z-30 bg-white bottom-0 inset-x-0">
-      <g-link to="/contact-us" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
+    <div @click="$vibrate" class="md:hidden w-full flex justify-around mt-4 border border-t-2 border-t-gray-600 fixed z-30 bg-white bottom-0 inset-x-0">
+      <g-link :to="`/${$t.slug_contact}`" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
         <icon fa name="fal-info-circle" />
         <span class="block mt-2 text-sm">{{ $t.contact }}</span>
       </g-link>

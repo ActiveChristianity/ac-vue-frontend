@@ -1,20 +1,20 @@
 <template>
-  <main class="bg-gradient-to-t md:p-2 mmd:pt-d30" :style="`--gradient-color-stops: ${post.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')}`">
-    <g-image class="md:hidden w-full h-d30 object-cover object-center top-0 fixed" :style="{transform: `translateY(${$store.headerTop+48}px)`}" :src="post.image" :alt="post.title"/>
-    <article class="md:content post my-12 bg-white text-black md:rounded-2xl rounded-t-3xl relative z-10">
+  <main class="bg-gradient-to-t md:p-2 mmd:pt-d30" :style="`--gradient-color-stops: ${gradient}`">
+    <g-image class="md:hidden w-full h-d30 object-cover object-center top-0 fixed transition-all duration-100" :style="{transform: `translateY(${$store.headerTop+65}px)`}" :src="post.image" :alt="post.title"/>
+    <article class="md:content post mt-12 md:my-12 bg-white text-black rounded-t-3xl md:rounded-2xl relative z-10 mmd:border-b-4 mmd:border-slate-lighter">
       <div class="fade-in content-md pt-8 md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-2xl sm:text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
         <p class="text-center md:text-xl my-2">{{ post.sub || post.excerpt }}</p>
 
         <div class="center">
-          <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 w-full px-12 md:w-auto md:px-24">
+          <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 w-full md:w-auto md:px-24">
             <bookmark class="rounded w-8 h-8 focus:bg-gray-200 focus:text-blue-600 hover:bg-gray-200 hover:text-blue-600 mr-4" type="post" :id="post.id" :slug="post.slug"></bookmark>
 
             <div class="text-center font-detail tracking-wide text-sm text-gray-600">
               <p class="inline-block">
                   <span>{{ (new Date(post.published)).toLocaleDateString() }}</span>
                   <b class="mx-1">—</b>
-                  <span v-if="post.readtime">{{ Math.ceil(post.readtime / 60) }} min read</span>
+                  <span v-if="post.readtime">{{ Math.ceil(post.readtime / 60) }} {{ $t.mins }}</span>
               </p>
 
               <p v-if="post.meta.as_ac">
@@ -60,17 +60,17 @@
         </div>
       </div>
 
-      <div v-if="credits" class="content-md my-4 md:my-8">
-        <p class="text-sm font-sans" v-html="credits"></p>
-      </div>
-
-      <div v-if="translations" class="content-md my-4 md:my-8">
+      <div v-if="translations" class="content-md my-4 md:my-6">
         <span class="block uppercase font-normal text-slate-light text-sm tracking-wider pb-2">{{ $t.post_available }}</span>
         <div class="flex flex-wrap text-sm font-sans">
           <template v-for="translation in translations">
             <a-link :key="translation.locale" :path="translation.url" class="w-1/2 sm:w-1/3 md:w-1/4 pb-2 focus:text-secondary hover:text-secondary">{{ translation.title }}</a-link>
           </template>
         </div>
+      </div>
+
+      <div v-if="credits" class="content-md my-4 md:my-6">
+        <p class="text-sm font-sans" v-html="credits"></p>
       </div>
 
       <ClientOnly>
@@ -80,7 +80,7 @@
 
     <ClientOnly>
       <topic-articles v-if="topic"
-         class="relative z-10"
+        class="relative z-10"
         :title="topic.name"
         :topicSlug="topic.slug"
         :exclude="post.slug"
@@ -256,6 +256,9 @@ export default {
         }
       })
       return links
+    },
+    gradient () {
+      return this.post?.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')
     }
   },
   methods: {

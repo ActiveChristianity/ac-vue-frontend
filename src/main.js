@@ -67,6 +67,9 @@ export default function (Vue, { router, head, isClient }) {
       Vue.prototype.$store.message = null
     }, 2000)
   }
+  Vue.prototype.$vibrate = () => {
+    window.navigator && window.navigator.vibrate && window.navigator.vibrate(20);
+  }
 
   if (isClient && ! process.env.GRIDSOME_DEVELOPMENT) {
     if (process.env.GRIDSOME_CLOUDFLARE_TOKEN) {

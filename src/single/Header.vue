@@ -5,7 +5,7 @@
          :style="`transform: translateY(${translateY}px)`"
          :class="scrollY > 64 ? 'z-40 top-0' : 'top- z-30'"
       >
-        <button v-if="$route.path !== '/'" title="back" @click="$router.back()" class="p-3 h-12 md:hidden">
+        <button v-if="$route.path !== '/'" title="back" @click="goBack" class="p-3 h-12 md:hidden">
           <icon name="fad-chevron-left" fa />
         </button>
 
@@ -95,8 +95,14 @@ export default {
     },
   },
   methods: {
-    vibrate() {
-      window.navigator && window.navigator.vibrate && window.navigator.vibrate(20);
+    goBack() {
+      this.$vibrate()
+
+      if (this.window.history.length) {
+        this.$router.back()
+      } else {
+        this.$router.replace('/')
+      }
     }
   },
   watch: {
