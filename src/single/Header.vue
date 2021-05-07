@@ -98,7 +98,7 @@ export default {
     goBack() {
       this.$vibrate()
 
-      if (this.window.history.length) {
+      if (window.history.length) {
         this.$router.back()
       } else {
         this.$router.replace('/')
