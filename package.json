@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "gridsome develop",
-    "build": "gridsome build",
+    "build": "NODE_ENV=production gridsome build",
     "explore": "gridsome explore",
     "postinstall": "false && cp -rfv module_hotfix/* node_modules/ ; true"
   },
@@ -19,8 +19,10 @@
     "gridsome": "^0.7.23",
     "gridsome-plugin-flexsearch": "^1.0.5",
     "gridsome-plugin-gtm": "^0.1.1",
+    "gridsome-plugin-manifest": "^0.3.5",
     "gridsome-plugin-pwa": "0.0.18",
     "gridsome-plugin-robots-txt": "^1.0.2",
+    "gridsome-plugin-service-worker": "^0.2.6",
     "gridsome-plugin-tailwindcss": "^4.1.1",
     "gridsome-plugin-transfer-file": "^0.1.0",
     "plyr": "^3.6.3",
@@ -37,8 +39,6 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@fullhuman/postcss-purgecss": "^4.0.3",
     "fs-extra": "^9.0.1",
-    "gridsome-plugin-manifest": "^0.3.5",
-    "gridsome-plugin-service-worker": "^0.2.6",
     "node-fetch": "^2.6.1",
     "postcss": "^8.2.8",
     "postcss-import": "^14.0.0",
