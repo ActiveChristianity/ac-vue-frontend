@@ -101,7 +101,7 @@ export default {
       if (window.history?.length) {
         this.$router.back()
       } else {
-        this.$router.replace('/')
+        this.$router.push('/')
       }
     }
   },
