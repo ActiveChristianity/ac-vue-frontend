@@ -25,21 +25,21 @@
         <g-link to="/" :title="$t.home" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200"><icon fa name="fal-house" /></g-link>
         <g-link :to="`/${$t.slug_topic}`" :title="$t.topics" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ $t.topics }}</g-link>
         <g-link :to="`/${$t.slug_glossary}`" :title="$t.glossary" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ $t.glossary }}</g-link>
-        <g-link :to="`/${$t.slug_about}`" title="About Us" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">About Us</g-link>
+        <g-link :to="`/${$t.slug_about}`" title="About Us" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ $t.about_us }}</g-link>
       </div>
     </transition>
 
     <div class="md:hidden w-full flex justify-around mt-4 border border-t-2 border-t-gray-600 fixed z-30 bg-white bottom-0 inset-x-0">
       <g-link to="/contact-us" active-class="font-bold" class="flex flex-col items-center justify-center text-gray-800">
         <icon fa name="fal-info-circle" />
-        <span class="block mt-2 text-sm">Contact Us</span>
+        <span class="block mt-2 text-sm">{{ $t.contact }}</span>
       </g-link>
       <button aria-label="bookmarks" @click="$store.showBookmarks = ! $store.showBookmarks"
               class="flex flex-col items-center justify-center text-gray-800"
               :class="{'font-bold': $store.showBookmarks}"
       >
         <icon :prefix="Object.keys($store.bookmarks).length ? 'fad' : 'fal'" name="bookmark" fa />
-        <span class="block mt-2 text-sm">Bookmarks</span>
+        <span class="block mt-2 text-sm">{{ $t.bookmarks }}</span>
       </button>
       <button aria-label="search" @click="$store.showSearch = ! $store.showSearch"
               class="w-16 h-16 flex flex-col items-center justify-center text-gray-800"
