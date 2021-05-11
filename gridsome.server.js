@@ -240,5 +240,30 @@ module.exports = function (api) {
         context: form
       })
     })
+
+    const { data: {
+      ql: { redirects }
+    }} = await graphql(`{
+      ql {
+        redirects {
+          from
+          to
+          status
+        }
+      }
+    }`)
+
+    const lines = redirects && redirects.map(({ from, to, status }) => [
+      from.replace(/^\/*(.*)$/g, '/$1'),
+      to.replace(/^\/*(.*)$/g, '/$1'),
+        status
+    ].join(' '))
+
+    if (lines) {
+      fs.appendFile('./static/_redirects',
+          lines.join('\n'),
+          (err) => err && console.log(err)
+      )
+    }
   })
 }

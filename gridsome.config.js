@@ -128,7 +128,7 @@ if (process.env.NODE_ENV === 'production') {
       options: {
         manifestOptions: {
           short_name: 'AC',
-          name: 'ActiveChristianity',
+          name: process.env.GRIDSOME_SITE_TITLE,
           description: 'Spreading the gospel in Africa',
           display: 'fullscreen',
           start_url: '/',
