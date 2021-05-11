@@ -1,0 +1,3 @@
+*/service-worker.js
+*/manifest.json
+    Cache-Control: max-age=0, must-revalidate
