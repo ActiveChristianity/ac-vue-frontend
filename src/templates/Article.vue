@@ -49,10 +49,10 @@
 
       <div class="post_content content-md my-4 md:my-8" v-html="content"></div>
 
-      <div v-if="topicsWithPosts.length" class="content-md my-4 md:my-6">
+      <div v-if="nonAbstractTopics.length" class="content-md my-4 md:my-6">
         <span class="block uppercase font-normal text-slate-light text-sm tracking-wider pb-2">{{ $t.categories }}</span>
         <div class="flex flex-wrap">
-          <template v-for="topic in topicsWithPosts">
+          <template v-for="topic in nonAbstractTopics">
             <g-link :key="topic.id" :to="`/${$t.slug_topic}/${topic.slug}`"
                     class="py-2 px-4 mb-2 mr-2 text-center text-sm rounded leading-tight bg-gray-200 hover:bg-gray-300 focus:bg-gray-300"
             >{{ topic.name }}</g-link>
@@ -203,6 +203,9 @@ export default {
   computed: {
     post () {
       return this.preview || this.$page.ql?.post
+    },
+    nonAbstractTopics () {
+      return this.topicsWithPosts.filter(t => ! t.group.is_abstract)
     },
     topicsWithPosts () {
       const topics = this.post.topics?.filter(t => t.noOfPosts > 1) || []
