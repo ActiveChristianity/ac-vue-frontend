@@ -22,8 +22,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: Source Sans Pro,-apple-system,BlinkMacSystemFont,sans-serif;
-    @apply py-4 mt-4 font-semibold text-slate-dark leading-tight;
+    @apply font-sans py-4 mt-4 font-semibold text-slate-dark leading-tight;
   }
 
   h1 {

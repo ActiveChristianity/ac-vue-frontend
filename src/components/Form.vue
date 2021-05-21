@@ -54,10 +54,13 @@
           <template v-for="term in terms">
             <div class="input-group flex items-start mt-4" :key="term.key">
               <input type="checkbox" class="w-8 h-8 flex-shrink-0" v-model="form[term.key]" :id="term.key" :required="term.attributes.req">
-              <label :for="term.key" class="check-label">
-                <div class="ml-4"><span>{{ term.attributes.text }}{{term.attributes.req ? '*' : ''}}</span>
-                  <a v-if="term.layout === 'file'" class="m-2 rounded px-2 border border-d4secondary inline-block" :href="`${$storage_url}/${term.attributes.file}`" target="_blank">📎 <b class="rp small ml-1 uppercase opacity-75">{{ term.attributes.file.replace(/.*\.(.*)$/, '$1') }}</b></a>
-                  <g-link v-else class="mx-2 px-2 py-1 text-secondary hover:bg-gray-200" :to="term.attributes.url"><icon name="fal-external-link-alt" fa /></g-link>
+              <label :for="term.key" class="check-label ml-4">
+                <div class="flex items-center">
+                  <p>{{ term.attributes.text }}{{term.attributes.req ? '*' : ''}}</p>
+                  <div>
+                    <a v-if="term.layout === 'file'" class="m-2 rounded px-2 border border-d4secondary inline-block" :href="`${$storage_url}/${term.attributes.file}`" target="_blank">📎 <b class="rp small ml-1 uppercase opacity-75">{{ term.attributes.file.replace(/.*\.(.*)$/, '$1') }}</b></a>
+                    <g-link v-else class="mx-2 px-2 py-1 text-secondary hover:bg-gray-200" :to="term.attributes.url"><icon name="fal-external-link-alt" fa /></g-link>
+                  </div>
                 </div>
               </label>
             </div>

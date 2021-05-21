@@ -4,7 +4,7 @@
     <article class="md:content post mt-12 md:my-12 bg-white text-black rounded-t-3xl md:rounded-2xl relative z-10 mmd:border-b-4 mmd:border-slate-lighter">
       <div class="fade-in content-md pt-8 md:pt-12">
         <h1 v-html="$m2h(post.title)" class="text-2xl sm:text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight"></h1>
-        <p class="text-center md:text-xl my-2">{{ post.sub || post.excerpt }}</p>
+        <p class="text-center md:text-xl my-2 text-slate">{{ post.sub || post.excerpt }}</p>
 
         <div class="center">
           <div class="flex items-center justify-center mx-auto my-6 border-t border-gray-200 pt-6 w-full md:w-auto md:px-24">

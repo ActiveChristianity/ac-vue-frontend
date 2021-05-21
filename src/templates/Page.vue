@@ -9,11 +9,10 @@
           <div v-if="data.type === 'youtube'" class="relative overflow-hidden rounded-3xl text-black">
             <f-image v-if="data.poster" :src="data.poster" class="w-full" />
             <div v-else class="w-full h-56 bg-slate-light"></div>
-            <div class="absolute bg-white opacity-50 inset-0"></div>
-            <div class="absolute inset-0 flex items-center justify-center">
-              <span class="text-xl md:text-3xl font-bold font-serif pt-24">{{ data.title }}</span>
-            </div>
-            <playable :video="data" class="absolute inset-0 w-full h-full"/>
+            <playable :video="data"
+              class="absolute inset-0 w-full h-full"
+              iconClass="text-xl md:text-4xl"
+            />
           </div>
         </template>
       </template>

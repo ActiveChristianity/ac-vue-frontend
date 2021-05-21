@@ -55,7 +55,12 @@ export default {
             controls: !!this.controls,
             loop: !!this.loop,
             autoplay: !!this.autoplay,
-            muted: !!this.muted || !!this.autoplay
+            muted: !!this.muted || !!this.autoplay,
+            youtube: {
+              hl: process.env.GRIDSOME_LOCALE,
+              cc_lang_pref: process.env.GRIDSOME_LOCALE,
+              cc: 1
+            }
           }
 
           window.videojs(this.$refs.videoPlayer, opts);
