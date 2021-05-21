@@ -5,9 +5,9 @@
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
-const loadTranslations = require('./load-translations')
 const fetch = require('node-fetch')
 const fs = require('fs')
+const translations = require('./translations')
 
 // Loads the correct svg logo for the current language
 fs.copyFileSync(`./logos/${process.env.GRIDSOME_LOCALE}.svg`, './src/assets/icons/logo.svg')
@@ -28,10 +28,10 @@ function gqlFetch(query) {
 
 module.exports = function (api) {
   const metadata = {}
-  let updateTranslation;
+  let updateTranslation
 
   api.loadSource(async ({ addMetadata }) => {
-    updateTranslation = await loadTranslations()
+    updateTranslation = await translations()
     const { settings } = await gqlFetch("query { settings { key value } }")
 
     // Fallback

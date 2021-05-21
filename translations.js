@@ -3,7 +3,7 @@ const path = require('path')
 const fetch = require('node-fetch')
 const stringify = require(`json-stringify-safe`)
 
-const loadTranslations = async function () {
+const translations = async function () {
   console.log('Loading AC Translations')
   try {
     const url = process.env.GRIDSOME_BACKEND_URL + '/day4/string_translations'
@@ -44,4 +44,4 @@ function saveFile(folder, name, extension, data) {
   console.log(`AC Translations: ${filename} – saved`)
 }
 
-module.exports = loadTranslations
+module.exports = translations
