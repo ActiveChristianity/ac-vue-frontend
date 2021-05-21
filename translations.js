@@ -24,10 +24,15 @@ const translations = async function () {
     saveFile('./src/strings', locale, 'json', set)
 
     console.log(`Done translation loaded`);
-    return (key, value) => {
-      set[key] = value
-      saveFile('./src/strings', locale, 'json', set)
-    }
+    return new Proxy(set, {
+      get (target, key, receiver) {
+        return target[key]
+      },
+      set (target, key, value) {
+        target[key] = value
+        saveFile('./src/strings', locale, 'json', target)
+      }
+    })
   } catch (e) {
     console.log('Loading Translations error:\n', e)
   }
@@ -37,11 +42,10 @@ function saveFile(folder, name, extension, data) {
   const filename = path.resolve(`${folder}/${name}.${extension}`)
   try {
     fs.writeFileSync(filename, stringify(data, null, 2))
+    console.log(`File saved: ${filename}`)
   } catch(err) {
-    console.error(`AC Translations could not save the file. Please make sure the folder structure is already in place.`, err)
+    console.error(`Could not save the file: ${filename} – make sure directory is writeable`, err)
   }
-
-  console.log(`AC Translations: ${filename} – saved`)
 }
 
 module.exports = translations

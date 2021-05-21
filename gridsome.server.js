@@ -28,10 +28,10 @@ function gqlFetch(query) {
 
 module.exports = function (api) {
   const metadata = {}
-  let updateTranslation
+  let strings
 
   api.loadSource(async ({ addMetadata }) => {
-    updateTranslation = await translations()
+    strings = await translations()
     const { settings } = await gqlFetch("query { settings { key value } }")
 
     // Fallback
@@ -68,8 +68,6 @@ module.exports = function (api) {
 
   api.createManagedPages(async ({ graphql, createPage }) => {
     // Use the Pages API here: https://gridsome.org/docs/pages-api
-    const strings = require(`./src/strings/${process.env.GRIDSOME_LOCALE}.json`)
-
     const { data: {
       ql: { posts }
     }} = await graphql(`{
@@ -152,7 +150,7 @@ module.exports = function (api) {
     allPages.forEach(page => {
       if (page.path && page.path !== '/') {
         switch (page.label) {
-          case 'about-us': updateTranslation('slug_about', page.path.replace(/^\/|\/$/g, ''))
+          case 'about-us': strings.slug_about = page.path.replace(/^\/|\/$/g, '')
                 break;
         }
         createPage({
@@ -232,7 +230,7 @@ module.exports = function (api) {
       form.terms = form.terms ? JSON.parse(form.terms) : [];
 
       if (form.id == 5) {
-        updateTranslation('slug_contact', form.slug.replace(/^\/|\/$/g, ''))
+        strings.slug_contact = form.slug.replace(/^\/|\/$/g, '')
       }
       createPage({
         path: `/${form.slug}`,
