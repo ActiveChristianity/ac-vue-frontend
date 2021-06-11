@@ -9,7 +9,7 @@
           <icon name="fad-chevron-left" fa />
         </button>
 
-        <g-link to="/" :title="$t.site_title" id="headbar-left" class="flex-1 p-3 h-12 text-4xl">
+        <g-link to="/" :title="$t.site_title" id="headbar-left" class="p-3 h-12 text-4xl">
           <icon name="logo" class="h-full w-auto object-fit md:block" :class="{hidden: $store.showSearch}" />
           <icon name="icon" class="h-full w-12 object-fit" :class="$store.showSearch ? 'block md:hidden' : 'hidden'" />
         </g-link>

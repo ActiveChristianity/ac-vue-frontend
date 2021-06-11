@@ -16,11 +16,11 @@ if (process.env.NODE_ENV === 'production') {
         },
         updated() {
             if (Vue.prototype.$setMessage) {
-                Vue.prototype.$setMessage('App updated. Reloading page')
+                Vue.prototype.$setMessage('App updated. Reloading page…')
             }
             setTimeout(() => {
                 window.location.reload(true)
-            }, 1000)
+            }, 500)
         },
         offline() {
             console.log('No internet connection found. App is running in offline mode.')

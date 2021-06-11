@@ -65,7 +65,7 @@ export default function (Vue, { router, head, isClient }) {
     }
     setTimeout(() => {
       Vue.prototype.$store.message = null
-    }, 2000)
+    }, 1000)
   }
   Vue.prototype.$vibrate = () => {
     window.navigator && window.navigator.vibrate && window.navigator.vibrate(20);
