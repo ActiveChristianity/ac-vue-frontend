@@ -76,14 +76,10 @@ export default {
         this.image = images[0]
         this.image.alt = quote.content
         const posts = [
-          ...author?.somePosts?.data
-        ]
-        if (topics) {
-          topics.forEach(t => posts.push(t.somePosts.data))
-        }
-        if (post) {
-          posts.push(post)
-        }
+          post,
+          ...author?.somePosts?.data,
+          ...(topics.map(t => t.somePosts.data?[0] ?? null))
+        ].filter(p => !! p)
         this.posts = posts && posts.length ? posts : null
       }
     }
