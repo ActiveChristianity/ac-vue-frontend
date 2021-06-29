@@ -12,7 +12,7 @@
           <div class="w-4/3 h-4/3 rounded bg-white p-2">
             <h3 class="text-xl font-light p-4">{{ $t.read_now }}</h3>
             <template v-for="post in posts">
-              <g-link @click="close" :to="post.slug" :key="post.id" class="block p-4 text-secondary">
+              <g-link @click.native="close" :to="post.slug" :key="post.id" class="block p-4 text-secondary">
                 {{ post.title }}
               </g-link>
             </template>
