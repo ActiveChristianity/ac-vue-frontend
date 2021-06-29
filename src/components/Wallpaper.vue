@@ -12,7 +12,7 @@
           <div class="w-4/3 h-4/3 rounded bg-white p-2">
             <h3 class="text-xl font-light p-4">{{ $t.read_now }}</h3>
             <template v-for="post in posts">
-              <g-link :to="post.slug" :key="post.id" class="block p-4 text-secondary">
+              <g-link @click="close" :to="post.slug" :key="post.id" class="block p-4 text-secondary">
                 {{ post.title }}
               </g-link>
             </template>
@@ -24,7 +24,7 @@
       <div class="absolute top-0 inset-x-0 bg-gradient-to-b to-transparent from-black text-white flex justify-between">
         <a :href="downloadUrl" target="_blank" class="p-4"><icon prefix="fad" name="download" class="w-6 h-6"></icon></a>
         <p class="py-2 font-semibold">Daily wallpaper</p>
-        <button class="p-4" @click.prevent="loaded = false"><icon prefix="fal" name="times" class="w-6 h-6"></icon></button>
+        <button class="p-4" @click.prevent="close"><icon prefix="fal" name="times" class="w-6 h-6"></icon></button>
       </div>
     </div>
   </transition>
@@ -66,10 +66,13 @@ export default {
   methods: {
     scrollDown () {
       this.$refs.details.scrollIntoView()
+    },
+    close () {
+      this.loaded = false
     }
   },
   async mounted () {
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (this.$route.path === '/' && window.matchMedia('(display-mode: standalone)').matches) {
       const {post, author, topics, images, ...quote} = await this.$api.other.randomQuote()
       if (this.loaded = quote && images?.length) {
         this.quote = quote
@@ -78,8 +81,8 @@ export default {
         const posts = [
           post,
           ...author?.somePosts?.data,
-          ...(topics.map(t => t.somePosts.data?[0] ?? null))
-        ].filter(p => !! p)
+          ...(topics.map(t => t.somePosts.data[0] ?? null))
+        ].filter(p => p?.slug)
         this.posts = posts && posts.length ? posts : null
       }
     }
