@@ -20,6 +20,8 @@
     <Cookie />
     <Footer />
 
+    <Wallpaper />
+
     <transition name="fade">
       <div v-if="$store.message" class="fixed bg-primary text-white inset-0 z-50 center flex-col p-8">
         <p class="font-medium">{{ $store.message.text }}</p>
@@ -55,6 +57,7 @@ query {
 import Header from '~/single/Header.vue'
 import Footer from '~/single/Footer.vue'
 import Cookie from '~/single/Cookie.vue'
+import Wallpaper from '~/components/Wallpaper.vue'
 
 let fadeInElements = [];
 let delay;
@@ -85,6 +88,7 @@ export default {
     }
   },
   components: {
+    Wallpaper,
     Header,Footer,Cookie,
     SvgSprite: () => import('~/single/SvgSprite.vue'),
     GlobalPlayer: () => import('~/single/GlobalPlayer.vue'),
@@ -93,7 +97,8 @@ export default {
     return {
       path: '',
       scrollY: 0,
-      theme: "theme-default"
+      theme: "theme-default",
+      quote: 0,
     }
   },
   computed: {

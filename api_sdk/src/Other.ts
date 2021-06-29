@@ -28,4 +28,15 @@ export default class Other {
     return biblePosts
   }
 
+
+  /**
+   * Fetch a random quote (refreshed every 5 minutes)
+   *
+   * @returns Promise with single quote
+   */
+  async randomQuote(): Promise<IQuote> {
+    const { randomQuote } = await this._fetch(gql.queries.randomQuote)
+    return randomQuote
+  }
+
 }

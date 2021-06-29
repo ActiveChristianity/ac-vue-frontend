@@ -246,7 +246,46 @@ query ($id: ID!, $ch: Int!) {
     ts
   }
 }
-`
+`,
+    randomQuote: `
+query {
+  randomQuote {
+    id
+    content
+    post {
+      id
+      title
+      slug
+    }
+    images {
+      id
+      src
+      size { width height }
+      dataUri
+      colors
+    }
+    author {
+      somePosts(first: 1) {
+        data {
+          id
+          title
+          slug
+        }
+      }
+    }
+    topics {
+      name
+      somePosts(first: 1) {
+        data {
+          id
+          title
+          slug
+        }
+      }
+    }
+  }
+}
+    `
   }
 }
 

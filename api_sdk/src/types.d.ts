@@ -38,6 +38,7 @@ interface Igql {
     // Other
     bible: string
     biblePosts: string
+    randomQuote: string
   }
   mutations: {
     // Auth
@@ -117,4 +118,12 @@ interface IBible {
   name: string
   total: number
   chapters: [number]
+}
+
+interface IQuote {
+  id: number
+  post: any
+  author: any
+  topics: [any]
+  images: [any]
 }

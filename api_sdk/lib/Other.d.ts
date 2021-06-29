@@ -13,4 +13,10 @@ export default class Other {
      * @returns Promise with the array or postRef results
      */
     biblePosts(id: string, ch: number): Promise<IBibleState>;
+    /**
+     * Fetch a random quote (refreshed every 5 minutes)
+     *
+     * @returns Promise with single quote
+     */
+    randomQuote(): Promise<IQuote>;
 }

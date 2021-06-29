@@ -33,4 +33,15 @@ export default class Other {
             return biblePosts;
         });
     }
+    /**
+     * Fetch a random quote (refreshed every 5 minutes)
+     *
+     * @returns Promise with single quote
+     */
+    randomQuote() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { randomQuote } = yield this._fetch(gql.queries.randomQuote);
+            return randomQuote;
+        });
+    }
 }
