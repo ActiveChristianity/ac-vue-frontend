@@ -57,7 +57,7 @@ query {
 import Header from '~/single/Header.vue'
 import Footer from '~/single/Footer.vue'
 import Cookie from '~/single/Cookie.vue'
-import Wallpaper from '~/components/Wallpaper.vue'
+import Wallpaper from '~/single/Wallpaper.vue'
 
 let fadeInElements = [];
 let delay;

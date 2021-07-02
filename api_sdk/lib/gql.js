@@ -248,8 +248,6 @@ query {
     id
     content
     post {
-      id
-      title
       slug
     }
     images {
@@ -260,20 +258,16 @@ query {
       colors
     }
     author {
-      somePosts(first: 1) {
+      somePosts(first: 1, randomize: true) {
         data {
-          id
-          title
           slug
         }
       }
     }
     topics {
       name
-      somePosts(first: 1) {
+      somePosts(first: 1, randomize: true) {
         data {
-          id
-          title
           slug
         }
       }

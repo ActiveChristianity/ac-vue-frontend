@@ -20,7 +20,7 @@
     "mocha": "^7.0.1",
     "shx": "^0.3.2",
     "ts-loader": "^6.2.1",
-    "typescript": "^2.7.2"
+    "typescript": "^2.9.2"
   },
   "dependencies": {
     "node-fetch": "^2.6.0"
