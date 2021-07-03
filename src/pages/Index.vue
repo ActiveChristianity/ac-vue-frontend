@@ -10,7 +10,6 @@
 </template>
 
 <page-query>
-
 query Frontpage {
   metadata {
     title
@@ -28,7 +27,7 @@ query Frontpage {
         readtime
         topics(group_id: 4) { name slug }
         track { title url }
-        image { src alt srcset dataUri sizes size { width height } focal }
+        image { src alt srcset dataUri sizes size { width height } focal colors }
         meta { as_ac }
         authors { name }
         views

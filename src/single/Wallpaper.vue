@@ -68,6 +68,12 @@ export default {
         }
       }
       return '';
+    },
+    isPwa () {
+      return window.matchMedia('(display-mode: standalone)').matches
+    },
+    isIndexPage () {
+      return this.$route.path === '/'
     }
   },
   methods: {
@@ -82,7 +88,7 @@ export default {
     }
   },
   async mounted () {
-    if (true || (this.$route.path === '/' && window.matchMedia('(display-mode: standalone)').matches)) {
+    if (this.isIndexPage && this.isPwa) {
       const {post, author, topics, images, ...quote} = await this.$api.other.randomQuote()
       if (this.loaded = quote && images?.length) {
         this.quote = quote
