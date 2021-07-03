@@ -1,7 +1,7 @@
 <template>
   <main class="relative pb-8">
-    <article-banner :article="featured.banner" />
-    <article-grid :articles="featured.list" :title="$t.featured"/>
+    <article-banner :article="featured.banner" key="banner" />
+    <article-grid :articles="featured.list" :title="$t.featured" key="grid" />
     <br />
     <latest-grid />
     <br />
