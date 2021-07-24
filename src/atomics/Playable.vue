@@ -3,7 +3,8 @@
           :class="isPlaying ? 'bg-gray-200 bg-opacity-50 text-gray-800': 'hover-play'"
           :title="isPlaying ? 'Pause' : 'Play'"
   >
-    <icon :class="iconClass" :prefix="iconStyle" :name="isPlaying ? 'pause' : icon" fa />
+    <icon v-if="isCurrent" :class="iconClass" prefix="fal" :name="isPlaying ? 'pause' : 'play'" fa />
+    <icon v-else :class="iconClass" :prefix="iconStyle" :name="icon" fa />
   </button>
   <icon v-else-if="icon" :class="iconClass" :prefix="iconStyle" :name="icon" fa></icon>
 </template>

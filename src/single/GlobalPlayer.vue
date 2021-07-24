@@ -1,12 +1,14 @@
 <template>
   <div class="fixed z-20 mb-16 md:mb-0 bottom-0 inset-x-0">
     <div class="w-full flex flex-col bg-gray-300 py-4">
-      <div class="content-md md:py-4 relative">
-        <vue-plyr ref="plyr" class="rounded-2xl shadow-xl border-4 border-black overflow-hidden">
+      <div class="content-md pb-4 md:pt-4 relative">
+        <div class="mx-auto text-center">
+          <p v-if="$store.playing" style="text-overflow: ellipsis" class="rounded-xl whitespace-no-wrap overflow-x-hidden max-w-xs inline-block pb-1 px-4 border-2 border-slate-dark bg-gray-300 shadow-2xl">{{ $store.playing.title }}</p>
+        </div>
+        <vue-plyr ref="plyr" class="rounded-2xl shadow-xl border-2 border-slate-dark -mt-4">
           <audio src="/ping.mp3"></audio>
         </vue-plyr>
-        <p v-if="$store.playing" class="mt-1 text-center pb-1">{{ $store.playing.title }}</p>
-        <button class="absolute top-0 md:bottom-0 right-0 mmd:-mt-4 md:-mr-4 px-1" @click="close"><icon name="fad-times" fa/></button>
+        <button class="absolute top-0 right-0 md:mt-4 mr-2 p-1 border-2 border-slate-dark rounded-full bg-gray-300 shadow-2xl" @click="close"><icon name="fad-times" fa/></button>
       </div>
     </div>
   </div>
@@ -52,6 +54,19 @@ export default {
       this.$store.playing = null
       this.$store.playlist = null
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      if (this.player) {
+        this.player.on('pause', () => {
+          this.$set(this.$store.playing, 'paused', true)
+        })
+        this.player.on('play', () => {
+          this.$set(this.$store.playing, 'paused', false)
+        })
+      }
+    })
+
   },
   watch: {
     playlist: {

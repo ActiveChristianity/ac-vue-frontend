@@ -3,14 +3,14 @@
     <div v-if="loaded" class="fixed w-screen h-screen z-50 inset-0 bg-black">
       <div class="w-full h-full overflow-y-scroll" style="scroll-behavior: smooth; scroll-snap-type: y mandatory;">
 
-        <div :class="slideClass" class="justify-center" :style="slideStyle">
+        <div :class="slideClass" ref="wallpaper" class="justify-center" :style="slideStyle">
           <f-image :src="image" style="max-width: 90%; max-height: 90%;" class="rounded-2xl shadow-2xl border-black object-center object-contain user-select-none pointer-events-none"></f-image>
           <button v-if="posts" @click="scrollDown" class="absolute bottom-0 mb-4"><icon prefix="fad" name="chevron-down" class="text-white w-8 h-8 hovering"></icon></button>
         </div>
 
         <div v-if="posts" ref="details" class="justify-start py-12" :class="slideClass" :style="slideStyle">
           <div class="w-11/12 max-w-lg p-4">
-            <div class="flex justify-center items-center flex-col my-2">
+            <div class="flex justify-center items-center flex-col my-2" @click="scrollUp">
               <div style="" class="w-6 h-1 bg-slate-lighter rounded-sm shadow"></div>
               <div style=" margin: 4px 0;" class="w-8 h-1 bg-slate-lighter opacity-50 rounded-sm shadow"></div>
               <div style="" class="w-6 h-1 bg-slate-lighter rounded-sm shadow"></div>
@@ -79,6 +79,9 @@ export default {
   methods: {
     scrollDown () {
       this.$refs.details.scrollIntoView()
+    },
+    scrollUp () {
+      this.$refs.wallpaper.scrollIntoView()
     },
     close (path = '') {
       if (path) {
