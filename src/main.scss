@@ -20,6 +20,10 @@
   --plyr-audio-control-color: var(--slate);
 }
 
+.plyr--video {
+  border-radius: 0.8rem;
+}
+
 .fade-in {
   opacity: 0;
   transition: 0.4s all ease-in;
