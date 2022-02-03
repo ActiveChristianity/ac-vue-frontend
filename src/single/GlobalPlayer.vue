@@ -120,8 +120,11 @@ export default {
 
             this.trackIndex = this.tracks.findIndex(t => t.url === pl.url)
           } else {
-            this.tracks = []
-            this.trackIndex = 0
+            this.trackIndex = this.tracks.findIndex(t => t.url === pl.url)
+            if (this.trackIndex < 0) {
+              this.tracks = []
+              this.trackIndex = 0
+            }
           }
           if (! this.current || this.current.url !== pl.url) {
             this.playing = pl
