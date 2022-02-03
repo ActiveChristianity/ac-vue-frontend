@@ -41,7 +41,7 @@
     "fs-extra": "^9.0.1",
     "node-fetch": "^2.6.1",
     "postcss": "^8.2.10",
-    "postcss-import": "^14.0.0",
+    "postcss-import": "^14.0.2",
     "postcss-preset-env": "^6.7.0",
     "sass": "^1.32.8",
     "sass-loader": "10.1.1",
