@@ -112,19 +112,13 @@ export default {
       deep: true,
       handler (pl) {
         this.$nextTick(() => {
-          console.log(pl)
-          if (pl.tracks) {
-            if (this.tracks !== pl.tracks) {
-              this.tracks = pl.tracks
-            }
-
+          this.trackIndex = this.tracks.findIndex(t => t.url === pl.url)
+          if (pl.tracks && this.tracks !== pl.tracks) {
+            this.tracks = pl.tracks
             this.trackIndex = this.tracks.findIndex(t => t.url === pl.url)
-          } else {
-            this.trackIndex = this.tracks.findIndex(t => t.url === pl.url)
-            if (this.trackIndex < 0) {
-              this.tracks = []
-              this.trackIndex = 0
-            }
+          } else if (this.trackIndex < 0) {
+            this.tracks = []
+            this.trackIndex = 0
           }
           if (! this.current || this.current.url !== pl.url) {
             this.playing = pl
