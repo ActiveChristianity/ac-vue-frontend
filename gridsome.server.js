@@ -64,6 +64,11 @@ module.exports = function (api) {
       addMetadata('privacy_page_path', privacyPage.path)
     }
 
+    const { allPages } = await gqlFetch("query { allPages { id title path meta { in_menu } } }")
+
+    const menu = []
+    addMetadata('menu', allPages.filter((page) => page.meta.in_menu))
+
   })
 
   api.createManagedPages(async ({ graphql, createPage }) => {
@@ -151,8 +156,9 @@ module.exports = function (api) {
       if (page.path && page.path !== '/') {
         switch (page.label) {
           case 'about-us': strings.slug_about = page.path.replace(/^\/|\/$/g, '')
-                break;
+            break;
         }
+
         createPage({
           path: page.path,
           component: './src/templates/Page.vue',
@@ -175,7 +181,7 @@ module.exports = function (api) {
     playlists.forEach(pl => {
       if (pl) {
         createPage({
-          path: `/playlists/${pl.slug}`,
+          path: `/${strings.slug_playlist}/${pl.slug}`,
           component: './src/templates/Playlist.vue',
           context: { id: pl.id }
         })

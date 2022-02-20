@@ -5,6 +5,7 @@
       <template v-for="({ type, data }) in content">
         <h2 v-if="type === 'section'" class="sticky top-0\.5" :id="data.slug">{{ data.title }}</h2>
         <div v-else-if="type === 'text'" v-html="data.content" class="post_content py-8"></div>
+        <article-grid v-else-if="type === 'featured_items'" :articles="data" />
         <template v-else-if="type === 'embed'">
           <div v-if="data.type === 'youtube'" class="relative overflow-hidden rounded-3xl text-black">
             <f-image v-if="data.poster" :src="data.poster" class="w-full" />
@@ -18,10 +19,11 @@
       </template>
     </div>
   </sectioned>
-  <main v-else class="content-lg my-12">
+  <main v-else class="my-12">
     <h1 class="fade-in text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight">{{ page.title }}</h1>
     <template v-for="({ type, data }) in content">
       <div v-if="type === 'text'" v-html="data.content" class="post_content py-8"></div>
+      <article-grid v-else-if="type === 'featured_items'" :articles="data" />
     </template>
   </main>
 </template>
@@ -48,7 +50,10 @@ query Page ($id: ID!) {
 <script>
 import Sectioned from "../layouts/Sectioned";
 export default {
-  components: {Sectioned},
+  components: {
+    Sectioned,
+    ArticleGrid: () => import('~/components/ArticleGrid'),
+  },
   metaInfo() {
     if (!this.$page) return null
     const { title, seo } = this.$page.ql.page
@@ -69,7 +74,17 @@ export default {
       return this.$page.ql.page
     },
     content () {
-      return this.page.flexibleContent ? JSON.parse(this.page.flexibleContent) : null
+      const content = this.page.flexibleContent ? JSON.parse(this.page.flexibleContent) : null
+      content.forEach(({ type, data }) => {
+        if (type === 'featured_items') {
+          data.forEach((item) => {
+            if (item.type === 'playlist') {
+              item.slug = `/${this.$t.slug_playlist}/${item.slug}`
+            }
+          })
+        }
+      })
+      return content
     },
     withSections () {
       if (this.page.meta?.layout?.indexOf('with-sections') > -1) {

@@ -25,19 +25,23 @@ export default {
       case 'object': {
         const { src, srcset, size, dataUri, focal, alt } = props.src
 
-        const sizes = attrs.sizes || props.src.sizes
+        attrs.src = src
+        attrs.alt = alt
+
 
         const isLazy = !! dataUri
-        attrs.src = src
         if (isLazy) {
           attrs.src = dataUri
           attrs['data-src'] = src
           directives.push({ name: 'g-image' })
         }
-        attrs.width = size.width
-        attrs.alt = alt
 
-        classNames.push(focal ? `object-${focal}` : 'object-center')
+        if (size) {
+          attrs.width = size.width
+        }
+        if (focal) {
+          classNames.push(focal ? `object-${focal}` : 'object-center')
+        }
 
         if (srcset && srcset.length) {
           attrs[`${isLazy ? 'data-' : ''}srcset`] = Array.isArray(srcset) ? srcset.join(', ') : srcset
@@ -45,7 +49,10 @@ export default {
           attrs[`${isLazy ? 'data-' : ''}srcset`] = src + ' 600w'
         }
 
-        attrs[`${isLazy ? 'data-' : ''}sizes`] = sizes ? sizes : '600vw'
+        const sizes = attrs.sizes || props.src.sizes
+        if (sizes) {
+          attrs[`${isLazy ? 'data-' : ''}sizes`] = sizes ? sizes : '600vw'
+        }
 
         break
       }
@@ -93,4 +100,3 @@ export default {
     return res
   }
 }
-

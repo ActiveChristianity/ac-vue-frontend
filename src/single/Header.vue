@@ -16,6 +16,13 @@
 
         <transition name="fade" mode="out-in">
           <div v-if="! $store.showSearch" class="hidden md:flex flex-1">
+            <template v-for="link in $static.m.menu">
+              <g-link :key="link.id" :to="link.path" :title="link.title"
+                      exactActiveClass="text-primary"
+                      class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 focus:bg-gray-200 hover:bg-gray-200"
+              >{{ link.title }}</g-link>
+            </template>
+
             <g-link :to="`/${$t.slug_topic}`" :title="$t.topics"
               exactActiveClass="text-primary"
               class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 focus:bg-gray-200 hover:bg-gray-200"
@@ -68,6 +75,18 @@
     <bookmarks v-if="$store.showBookmarks !== null" :show="$store.showBookmarks" @close="$store.showBookmarks = false" />
   </header>
 </template>
+
+<static-query>
+query {
+  m: metadata {
+    menu {
+      id
+      title
+      path
+    }
+  }
+}
+</static-query>
 
 <script>
 import Dropdown from "../atomics/Dropdown";
