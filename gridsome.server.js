@@ -35,13 +35,13 @@ module.exports = function (api) {
     const { settings } = await gqlFetch("query { settings { key value } }")
 
     // Fallback
-    ['title','slogan','contact_email','contact_tel','social',
+    new Array('title','slogan','contact_email','contact_tel','social',
       'featured_posts',
       'header_links','top_text','top_link',
       'copyright', 'attribution',
       'cookie','cookie_page_id','privacy_page_id',
       'social_facebook','social_instagram','social_youtube','social_itunes','social_spotify','social_rss','social_podcast'
-    ].forEach(k => addMetadata(k, ''))
+    ).forEach(k => addMetadata(k, ''))
 
     if (settings) {
       settings.forEach(s => {
