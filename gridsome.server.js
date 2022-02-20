@@ -35,14 +35,13 @@ module.exports = function (api) {
     const { settings } = await gqlFetch("query { settings { key value } }")
 
     // Fallback
-    new Array(
-      'title','slogan','contact_email','contact_tel','social',
+    ['title','slogan','contact_email','contact_tel','social',
       'featured_posts',
       'header_links','top_text','top_link',
       'copyright', 'attribution',
       'cookie','cookie_page_id','privacy_page_id',
-      'social_facebook','social_instagram','social_youtube','social_itunes','social_spotify','social_rss','social_podcast',
-    ).forEach(k => addMetadata(k, ''))
+      'social_facebook','social_instagram','social_youtube','social_itunes','social_spotify','social_rss','social_podcast'
+    ].forEach(k => addMetadata(k, ''))
 
     if (settings) {
       settings.forEach(s => {
@@ -65,10 +64,7 @@ module.exports = function (api) {
     }
 
     const { allPages } = await gqlFetch("query { allPages { id title path meta { in_menu } } }")
-
-    const menu = []
     addMetadata('menu', allPages.filter((page) => page.meta.in_menu))
-
   })
 
   api.createManagedPages(async ({ graphql, createPage }) => {
