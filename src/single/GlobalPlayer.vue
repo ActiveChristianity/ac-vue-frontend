@@ -4,26 +4,28 @@
       <div class="content-md pb-4 md:pt-4 relative">
         <div v-if="$store.playing" class="mx-auto text-center z-10 relative">
           <g-link :to="$store.playing.playlist || ''"
-             class="rounded-xl whitespace-no-wrap overflow-x-hidden max-w-full w-64 md:w-auto inline-block pb-1 px-2 border-2 border-slate-dark bg-gray-300 bg-opacity-75 shadow-2xl"
-             style="backdrop-filter: blur(3px); text-overflow: ellipsis">{{ $store.playing.title }}</g-link>
+             class="rounded-xl whitespace-no-wrap overflow-x-hidden max-w-full w-64 md:w-auto inline-block pb-1 px-2 border border-gray-300 bg-gray-100"
+             style="text-overflow: ellipsis">{{ $store.playing.title }}</g-link>
         </div>
-        <vue-plyr ref="plyr" class="rounded-2xl shadow-xl border-2 border-slate-dark bg-gray-300 bg-opacity-50 -mt-4"
-                  style="backdrop-filter: blur(3px);">
+        <vue-plyr ref="plyr" class="rounded-2xl shadow-xl border border-gray-300 bg-gray-100 bg-opacity-50 -mt-4"
+                  style="backdrop-filter: blur(3px);"
+                  :options="{ controls: ['play', 'progress', 'current-time'] }"
+        >
           <audio src="/ping.mp3"></audio>
         </vue-plyr>
         <div v-if="hasTracks" class="z-20 absolute top-0 left-0 ml-2 md:mt-4">
-          <button class="p-1 border-2 border-slate-dark rounded-full bg-gray-100 bg-opacity-75 shadow-2xl"
+          <button class="p-1 border border-gray-300 rounded-full bg-gray-100 bg-opacity-75 shadow-2xl"
                   @click="previous"
                   style="backdrop-filter: blur(3px);">
             <icon name="fad-chevron-left" fa/>
           </button>
-          <button class="p-1 border-2 border-slate-dark rounded-full bg-gray-100 bg-opacity-75 shadow-2xl"
+          <button class="p-1 border border-gray-300 rounded-full bg-gray-100 bg-opacity-75 shadow-2xl"
                   @click="next"
                   style="backdrop-filter: blur(3px);">
             <icon name="fad-chevron-right" fa/>
           </button>
         </div>
-        <button class="z-20 absolute top-0 right-0 md:mt-4 mr-2 p-1 border-2 border-slate-dark rounded-full bg-gray-100 bg-opacity-75 shadow-2xl"
+        <button class="z-20 absolute top-0 right-0 md:mt-4 mr-2 p-1 border border-gray-300 rounded-full bg-gray-100 bg-opacity-75 shadow-2xl"
                 @click="close"
                 style="backdrop-filter: blur(3px);">
           <icon name="fad-times" fa/>
