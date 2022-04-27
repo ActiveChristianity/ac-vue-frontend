@@ -9,15 +9,7 @@
         </div>
         <vue-plyr ref="plyr" class="rounded-2xl shadow-xl border border-gray-300 bg-gray-100 bg-opacity-50 -mt-4"
                   style="backdrop-filter: blur(3px);"
-                  :options="{
-                    controls: ['play', 'progress', 'current-time'],
-                    volume: 1,
-                    muted: false,
-                    speed: {
-                      selected: 1,
-                      options: [0.5, 1, 1.5],
-                    }
-                  }"
+                  :options="{ controls: ['play', 'progress', 'current-time'] }"
         >
           <audio src="/ping.mp3"></audio>
         </vue-plyr>
@@ -162,6 +154,12 @@ export default {
                 this.player.play()
               }, 100)
             }
+
+            // Force reset any volumn or speed changes
+            setTimeout(() => {
+              this.player.speed = 1
+              this.player.volume = 1
+            }, 200)
           }
 
           if (pl.pause) {
