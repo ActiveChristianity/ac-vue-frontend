@@ -9,7 +9,15 @@
         </div>
         <vue-plyr ref="plyr" class="rounded-2xl shadow-xl border border-gray-300 bg-gray-100 bg-opacity-50 -mt-4"
                   style="backdrop-filter: blur(3px);"
-                  :options="{ controls: ['play', 'progress', 'current-time'] }"
+                  :options="{
+                    controls: ['play', 'progress', 'current-time'],
+                    volume: 1,
+                    muted: false,
+                    speed: {
+                      selected: 1,
+                      options: [0.5, 1, 1.5],
+                    }
+                  }"
         >
           <audio src="/ping.mp3"></audio>
         </vue-plyr>
