@@ -31,9 +31,20 @@
             </div>
 
             <button class="rounded w-8 h-8 focus:bg-gray-200 focus:text-blue-600 hover:bg-gray-200 hover:text-blue-600 ml-4"
-               @click="scrollToShare"
-               aria-label="share"
-            ><icon prefix="fal" name="share" fa/></button>
+              @click="scrollToShare"
+              title="View Share Options"
+              aria-label="View Share Options"
+            >
+              <icon prefix="fal" name="share" fa/>
+            </button>
+
+            <button class="rounded w-8 h-8 focus:bg-gray-200 focus:text-blue-600 hover:bg-gray-200 hover:text-blue-600 ml-4"
+              @click="copyArticle"
+              title="Copy article"
+              aria-label="Copy Article"
+            >
+              <icon prefix="fal" fa name="copy" class="w-4 h-4 mx-2" /> 
+            </button>
           </div>
         </div>
       </div>
@@ -267,6 +278,15 @@ export default {
   methods: {
     scrollToShare () {
       document.getElementById('share-this')?.scrollIntoView({block: 'center', behavior: 'smooth'});
+    },
+    async copyArticle () {
+      const url = `${process.env.GRIDSOME_SITE_URL}/${this.post.slug}`
+      const cpElement = document.createElement('div');
+      cpElement.innerHTML = `<h1>${this.$m2h(this.post.title)}</h1>\n`;
+      cpElement.innerHTML += `<a href="${url}">${url}</a>\n`;
+      cpElement.innerHTML += this.post.content.replaceAll('<p>', '\n\n<p>') + '\n\n' + this.credits;
+      await navigator.clipboard.writeText(cpElement.innerText);
+      alert('Article copied');
     }
   },
   mounted () {
