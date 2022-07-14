@@ -16,7 +16,7 @@
 
         <transition name="fade" mode="out-in">
           <div v-if="! $store.showSearch" class="hidden md:flex flex-1">
-            <template v-for="link in $static.m.menu">
+            <template v-for="link in menuItems">
               <g-link :key="link.id" :to="link.path" :title="link.title"
                       exactActiveClass="text-primary"
                       class="text-gray-800 tracking-wide rounded m-1 py-1 px-2 focus:bg-gray-200 hover:bg-gray-200"
@@ -109,6 +109,9 @@ export default {
     }
   },
   computed: {
+    menuItems () {
+      return this.$static.m.menu.filter(item => item.id);
+    },
     translateY () {
       return this.$store.showSearch ? 0 : this.top
     },

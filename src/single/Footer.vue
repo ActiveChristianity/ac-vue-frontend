@@ -24,7 +24,7 @@
       <div v-if="showMenu" @click="$vibrate(showMenu = false)" class="md:hidden flex flex-col items-stretch rounded-tl mb-16 p-2 pt-4 pb-8 bg-white fixed z-30 bottom-0 right-0 border-2 border-gray-200">
         <g-link to="/" :title="$t.home" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200"><icon fa name="fal-house" /></g-link>
 
-        <template v-for="link in $static.m.menu">
+        <template v-for="link in menuItems">
           <g-link :to="link.path" :title="link.title" class="text-gray-800 tracking-wide rounded py-2 px-8 hover:bg-gray-200">{{ link.title }}</g-link>
         </template>
 
@@ -125,8 +125,11 @@ export default {
 
       return links
     },
-    language() {
+    language () {
       return this.langs.find(({locale}) => locale === this.$store.locale)
+    },
+    menuItems () {
+      return this.$static.m.menu.filter(item => item.id);
     }
   }
 }

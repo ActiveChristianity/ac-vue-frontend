@@ -64,7 +64,12 @@ module.exports = function (api) {
     }
 
     const { allPages } = await gqlFetch("query { allPages { id title path meta { in_menu } } }")
-    addMetadata('menu', allPages.filter((page) => page.meta.in_menu))
+    const menuItems = allPages.filter((page) => page.meta.in_menu)
+    addMetadata('menu', menuItems.length ? menuItems : [{
+      id: 0,
+      title: 'Home',
+      path: '/'
+    }])
   })
 
   api.createManagedPages(async ({ graphql, createPage }) => {
