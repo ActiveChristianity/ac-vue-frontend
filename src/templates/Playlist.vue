@@ -71,7 +71,12 @@ export default {
 
       const tracks = []
       // Since most components are made to handle posts instead of tracks we just switch them.
-      this.playlist._tracks = this.playlist.tracks.map(track => {
+      this.playlist._tracks = []
+      this.playlist.tracks.forEach(track => {
+        if (! track.post) {
+          console.warn(`Missing post for track "${track.title}"`)
+          return
+        }
         track.post.track = {
           title: track.title,
           url: track.url,
@@ -81,7 +86,7 @@ export default {
         }
         track.post.title = track.title
         tracks.push(track.post.track)
-        return track.post
+        this.playlist._tracks.push(track.post)
       })
 
       return this.playlist._tracks
