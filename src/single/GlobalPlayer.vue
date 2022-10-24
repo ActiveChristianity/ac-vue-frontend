@@ -37,7 +37,6 @@
 
 <script>
 import VuePlyr from 'vue-plyr/dist/vue-plyr.ssr'
-import 'plyr/dist/plyr.css'
 
 export default {
   data () {
@@ -186,3 +185,7 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+@import 'plyr/src/sass/plyr';
+</style>
