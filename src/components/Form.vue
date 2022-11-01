@@ -120,7 +120,9 @@ ${reqTerms.map(T => T.attributes.lbl).join(', ')}
       this.msg = this.$t.form_fail
 
       window.scrollTo(0, 0);
-      const { country_code, ip } = await fetch('https://freegeoip.app/json/').then(res => res.json())
+      
+      const { country: { iso_code }, ip } = await fetch('https://api.geoapify.com/v1/ipinfo?&apiKey=b7bbd935d24041bfba5e0672938d8452').then(res => res.json())
+
       try {
         const form = Object.keys(this.form).map(K => ({
           n: K,
@@ -133,7 +135,7 @@ ${reqTerms.map(T => T.attributes.lbl).join(', ')}
         })
         form.push({
           n: 'uid',
-          v: `${country_code}:${ip}`
+          v: `${iso_code}:${ip}`
         })
 
         const { success, msg, errors } = await this.$api.forms.submit(
