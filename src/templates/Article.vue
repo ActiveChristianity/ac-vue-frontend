@@ -87,6 +87,10 @@
       <ClientOnly>
         <share />
       </ClientOnly>
+
+      <div class="bg-secondary text-secondary-alt p-4">
+        <Subscribe />
+      </div>
     </article>
 
     <ClientOnly>
@@ -160,145 +164,149 @@ query Post ($id: ID!) {
 </page-query>
 
 <script>
+import Subscribe from '../components/Subscribe.vue'
+
 export default {
-  metaInfo() {
-    const post = this.post
-    if (! post) {
-      throw 'Post not found: ' + JSON.stringify(this.$context)
-    }
-    const seo = post.seo ?? {}
-    const url = `${process.env.GRIDSOME_SITE_URL}/${post.slug}`
-    const link = [
-      { rel: 'canonical', href: url }
-    ]
-    const meta = [
-      { key: 'description', name: 'description', content: seo.desc || post.excerpt },
-      { key: 'og:title', name: 'og:title', content: seo.title || post.title },
-      { key: 'article:published_time', name: 'article:published_time', content: post.published },
-      { key: 'og:type', name: 'og:type', content: 'article' },
-      { key: 'og:url', name: 'og:url', content: url },
-    ]
-    if (post.image) {
-      meta.push({ key: 'og:image', name: 'og:image', content: post.image?.src || post.image })
-    }
-    if (post.authors) {
-      post.authors.forEach(({ name, slug }) => {
-        meta.push({ key: slug, name: 'author', content: name })
-      })
-    }
-    return {
-      title: seo.title || post.title,
-      meta,
-      link,
-    }
-  },
-  data () {
-    return {
-      asStr: {
-        ar: 'Featuring',
-        co: 'Contributed',
-        gu: 'Guest',
-        ho: 'Hosted by',
-        ly: 'Lyrics by',
-        me: 'Melody by',
-        pr: 'Produced by',
-        sp: 'Speaker',
-        vo: 'Sung by',
-        wr: 'Written by',
-      },
-      topicIndex: 0,
-      glossary: null,
-      showShare: false
-    }
-  },
-  computed: {
-    post () {
-      return this.preview || this.$page.ql?.post
-    },
-    nonAbstractTopics () {
-      return this.topicsWithPosts.filter(t => ! t.group.is_abstract)
-    },
-    topicsWithPosts () {
-      const topics = this.post.topics?.filter(t => t.noOfPosts > 1) || []
-      topics.sort((a,b) => a.noOfPosts > b.noOfPosts ? -1 : 1)
-      topics.sort((a,b) => ! a.group.is_abstract && b.group.is_abstract ? -1 : 1)
-      return topics
-    },
-    topic () {
-      if (process.isClient && this.topicsWithPosts?.length > this.topicIndex) {
-        return this.topicsWithPosts[this.topicIndex]
-      }
-    },
-    content () {
-      const { content, meta: { no_dict } } = this.post
-      if (no_dict || ! this.glossary) {
-        return content
-      }
-      let html = content
-      this.glossary.forEach(def => {
-        const regx = new RegExp(`(\\s|^)(${def.word}s?)(\\s|,|\\.)`, 'i')
-        html = html.replace(regx, `$1<a href="/${this.$t.slug_glossary}/${def.slug}">$2</a>$3`)
-      })
-      return html
-    },
-    credits () {
-      return this.post?.meta?.credits || '</p>'
-    },
-    postVideo () {
-      return this.post?.meta?.url ? {
-        title: this.post.title,
-        url: this.post.meta.url,
-        duration: this.post.readtime,
-        poster: this.post.image.dataUri,
-        isVideo: true,
-      } : false
-    },
-    authorsAs () {
-      if (! this.post.authors) return null
-      return this.post.authors.groupBy('pivot.as')
-    },
-    translations () {
-      const links = []
-      let site;
-      this.post.langs.forEach(({ lang, slug}) => {
-        if ((site = this.$store.sites[lang]) && lang !== this.$store.locale) {
-          links.push({
-            locale: lang,
-            title: site.lang,
-            url: [site.url, slug].join('/')
-          })
+    metaInfo() {
+        const post = this.post;
+        if (!post) {
+            throw "Post not found: " + JSON.stringify(this.$context);
         }
-      })
-      return links
+        const seo = post.seo ?? {};
+        const url = `${process.env.GRIDSOME_SITE_URL}/${post.slug}`;
+        const link = [
+            { rel: "canonical", href: url }
+        ];
+        const meta = [
+            { key: "description", name: "description", content: seo.desc || post.excerpt },
+            { key: "og:title", name: "og:title", content: seo.title || post.title },
+            { key: "article:published_time", name: "article:published_time", content: post.published },
+            { key: "og:type", name: "og:type", content: "article" },
+            { key: "og:url", name: "og:url", content: url },
+        ];
+        if (post.image) {
+            meta.push({ key: "og:image", name: "og:image", content: post.image?.src || post.image });
+        }
+        if (post.authors) {
+            post.authors.forEach(({ name, slug }) => {
+                meta.push({ key: slug, name: "author", content: name });
+            });
+        }
+        return {
+            title: seo.title || post.title,
+            meta,
+            link,
+        };
     },
-    gradient () {
-      return this.post?.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(', ')
-    }
-  },
-  methods: {
-    scrollToShare () {
-      document.getElementById('share-this')?.scrollIntoView({block: 'center', behavior: 'smooth'});
+    data() {
+        return {
+            asStr: {
+                ar: "Featuring",
+                co: "Contributed",
+                gu: "Guest",
+                ho: "Hosted by",
+                ly: "Lyrics by",
+                me: "Melody by",
+                pr: "Produced by",
+                sp: "Speaker",
+                vo: "Sung by",
+                wr: "Written by",
+            },
+            topicIndex: 0,
+            glossary: null,
+            showShare: false
+        };
     },
-    async copyArticle () {
-      const url = `${process.env.GRIDSOME_SITE_URL}/${this.post.slug}`
-      const cpElement = document.createElement('div');
-      cpElement.innerHTML = `<h1>${this.$m2h(this.post.title)}</h1>\n`;
-      cpElement.innerHTML += `<a href="${url}">${url}</a>\n`;
-      cpElement.innerHTML += this.post.content.replaceAll('<p>', '\n\n<p>') + '\n\n' + this.credits;
-      await navigator.clipboard.writeText(cpElement.innerText);
-      alert('Article copied');
-    }
-  },
-  mounted () {
-    this.$store.fadeIn = false
-    setTimeout(() => {
-      this.$store.fadeIn = true
-      if (process.isClient) {
-        this.$fetch('/' + this.$t.slug_glossary).then(({data}) => {
-          this.glossary = data.ql.glossary
-        })
-      }
-    }, 100)
-  },
+    computed: {
+        post() {
+            return this.preview || this.$page.ql?.post;
+        },
+        nonAbstractTopics() {
+            return this.topicsWithPosts.filter(t => !t.group.is_abstract);
+        },
+        topicsWithPosts() {
+            const topics = this.post.topics?.filter(t => t.noOfPosts > 1) || [];
+            topics.sort((a, b) => a.noOfPosts > b.noOfPosts ? -1 : 1);
+            topics.sort((a, b) => !a.group.is_abstract && b.group.is_abstract ? -1 : 1);
+            return topics;
+        },
+        topic() {
+            if (process.isClient && this.topicsWithPosts?.length > this.topicIndex) {
+                return this.topicsWithPosts[this.topicIndex];
+            }
+        },
+        content() {
+            const { content, meta: { no_dict } } = this.post;
+            if (no_dict || !this.glossary) {
+                return content;
+            }
+            let html = content;
+            this.glossary.forEach(def => {
+                const regx = new RegExp(`(\\s|^)(${def.word}s?)(\\s|,|\\.)`, "i");
+                html = html.replace(regx, `$1<a href="/${this.$t.slug_glossary}/${def.slug}">$2</a>$3`);
+            });
+            return html;
+        },
+        credits() {
+            return this.post?.meta?.credits || "</p>";
+        },
+        postVideo() {
+            return this.post?.meta?.url ? {
+                title: this.post.title,
+                url: this.post.meta.url,
+                duration: this.post.readtime,
+                poster: this.post.image.dataUri,
+                isVideo: true,
+            } : false;
+        },
+        authorsAs() {
+            if (!this.post.authors)
+                return null;
+            return this.post.authors.groupBy("pivot.as");
+        },
+        translations() {
+            const links = [];
+            let site;
+            this.post.langs.forEach(({ lang, slug }) => {
+                if ((site = this.$store.sites[lang]) && lang !== this.$store.locale) {
+                    links.push({
+                        locale: lang,
+                        title: site.lang,
+                        url: [site.url, slug].join("/")
+                    });
+                }
+            });
+            return links;
+        },
+        gradient() {
+            return this.post?.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(", ");
+        }
+    },
+    methods: {
+        scrollToShare() {
+            document.getElementById("share-this")?.scrollIntoView({ block: "center", behavior: "smooth" });
+        },
+        async copyArticle() {
+            const url = `${process.env.GRIDSOME_SITE_URL}/${this.post.slug}`;
+            const cpElement = document.createElement("div");
+            cpElement.innerHTML = `<h1>${this.$m2h(this.post.title)}</h1>\n`;
+            cpElement.innerHTML += `<a href="${url}">${url}</a>\n`;
+            cpElement.innerHTML += this.post.content.replaceAll("<p>", "\n\n<p>") + "\n\n" + this.credits;
+            await navigator.clipboard.writeText(cpElement.innerText);
+            alert("Article copied");
+        }
+    },
+    mounted() {
+        this.$store.fadeIn = false;
+        setTimeout(() => {
+            this.$store.fadeIn = true;
+            if (process.isClient) {
+                this.$fetch("/" + this.$t.slug_glossary).then(({ data }) => {
+                    this.glossary = data.ql.glossary;
+                });
+            }
+        }, 100);
+    },
+    components: { Subscribe }
 }
 </script>

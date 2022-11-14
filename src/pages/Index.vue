@@ -7,6 +7,12 @@
       <latest-grid />
       <br />
       <featured-topics />
+
+      <div class="container mx-auto sm:px-2 md:px-6">
+        <div class="bg-slate-lighter text-slate p-4 rounded-lg">
+          <Subscribe />
+        </div>
+      </div>
     </client-only>
   </main>
 </template>
@@ -42,6 +48,7 @@ query Frontpage {
 <script>
 import ArticleBanner from '~/components/ArticleBanner'
 import LatestGrid from '~/single/LatestGrid'
+import Subscribe from '../components/Subscribe.vue'
 import FeaturedTopics from "../single/FeaturedTopics"
 
 export default {
@@ -58,8 +65,9 @@ export default {
     FeaturedTopics,
     ArticleBanner,
     LatestGrid,
-    ArticleGrid: () => import('~/components/ArticleGrid'),
-  },
+    ArticleGrid: () => import("~/components/ArticleGrid"),
+    Subscribe
+},
   data () {
     return {
       bannerIndex: 0,
