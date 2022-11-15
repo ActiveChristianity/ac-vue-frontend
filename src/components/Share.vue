@@ -1,7 +1,7 @@
 <template>
   <div id="share-this" class="center py-2 px-4 bg-gray-100 w-full md:rounded-b-2xl mmd:overflow-x-auto">
     <p class="font-serif tracking-wider text-secondary md:pr-4">
-      {{ $t.share }} <span class="hidden md:inline-block" v-if="$store.fallbackLocale === 'en'">it with someone</span>
+      {{ $t.share }} <span class="hidden md:inline-block" v-if="$store.locale.includes('en')">it with someone</span>
     </p>
 
     <button @click="facebook"
