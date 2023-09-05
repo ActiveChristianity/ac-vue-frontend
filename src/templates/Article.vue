@@ -12,7 +12,7 @@
 
             <div class="text-center font-detail tracking-wide text-sm text-gray-600">
               <p class="inline-block">
-                  <span>{{ (new Date(post.published)).toLocaleDateString() }}</span>
+                  <span>{{ publishedDate }}</span>
                   <b class="mx-1">—</b>
                   <span v-if="post.readtime">{{ Math.ceil(post.readtime / 60) }} {{ $t.mins }}</span>
               </p>
@@ -280,7 +280,12 @@ export default {
         },
         gradient() {
             return this.post?.image.colors.map((c, i) => `rgba(${c}, 0.${i}5)`).join(", ");
-        }
+        },
+        publishedDate() {
+          const locale = this.$store.locale.replace('_', '-');
+
+          return (new Date(this.post.published)).toLocaleDateString(locale);
+        },
     },
     methods: {
         scrollToShare() {
