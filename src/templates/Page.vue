@@ -22,7 +22,8 @@
   <main v-else class="my-12">
     <h1 class="fade-in text-3xl text-center text-blue-900 md:text-4xl font-medium leading-tight">{{ page.title }}</h1>
     <template v-for="({ type, data }) in content">
-      <div v-if="type === 'text'" v-html="data.content" class="post_content py-8"></div>
+      <h2 v-if="type === 'section'" class="md:content md:px-2 text-xl" :id="data.slug">{{ data.title }}</h2>
+      <div v-else-if="type === 'text'" v-html="data.content" class="post_content py-8"></div>
       <article-grid v-else-if="type === 'featured_items'" :articles="data" />
     </template>
   </main>
